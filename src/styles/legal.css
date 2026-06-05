@@ -1,0 +1,68 @@
+/* ════════════════ STATIC PROSE PAGES · PRIVACY / LEGAL ════════════════ */
+.legalDoc {
+  position: relative; z-index: 20;
+  padding: 140px 56px 96px; /* clear the absolute nav (76px) + breathing room */
+}
+.legalInner {
+  max-width: 720px; margin: 0 auto;
+}
+
+.legalInner h1 {
+  font-family: var(--font-display); font-weight: 800; font-size: 44px;
+  line-height: 1.05; letter-spacing: -1.4px; color: var(--ink-950); margin: 0 0 12px;
+}
+.legalMeta {
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.2px;
+  color: var(--text-tertiary); margin: 0 0 40px;
+}
+.legalLead {
+  font-family: var(--font-body); font-size: 17px; line-height: 1.7;
+  color: var(--text-secondary); margin: 0 0 28px; text-wrap: pretty;
+}
+
+.legalInner h2 {
+  font-family: var(--font-display); font-weight: 700; font-size: 22px;
+  line-height: 1.2; letter-spacing: -0.5px; color: var(--ink-950); margin: 40px 0 12px;
+}
+.legalInner p {
+  font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text-secondary); margin: 0 0 16px; text-wrap: pretty;
+}
+.legalInner ul {
+  margin: 0 0 16px; padding-left: 22px;
+}
+.legalInner li {
+  font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text-secondary); margin-bottom: 6px; text-wrap: pretty;
+}
+.legalInner a {
+  color: var(--ink-950); text-decoration: underline; text-underline-offset: 2px;
+  transition: color 150ms var(--ease-default);
+}
+.legalInner a:hover { color: var(--ink-700); }
+
+/* Definition-style block for the /legal company details */
+.legalFacts {
+  margin: 0 0 24px; padding: 0; list-style: none;
+}
+.legalFacts li {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;
+}
+.legalFacts .k {
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.2px;
+  text-transform: uppercase; color: var(--text-tertiary); min-width: 190px;
+}
+.legalFacts .v { color: var(--ink-900); }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .legalDoc { padding: 124px 40px 72px; }
+}
+
+@media (max-width: 767px) {
+  .legalDoc { padding: 96px 20px 56px; }
+  .legalInner h1 { font-size: 32px; letter-spacing: -1px; }
+  .legalInner h2 { font-size: 19px; }
+  .legalLead { font-size: 16px; }
+  .legalInner p, .legalInner li { font-size: 15px; }
+  .legalFacts .k { min-width: 0; }
+}

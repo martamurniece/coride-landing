@@ -1,11 +1,11 @@
 /* ── Route overlay (spine + car) ──────────────────── */
 .routeLayer {
   position: absolute; top: 0; left: 0;
-  width: 1440px; height: 100%;
+  width: 100%; height: 100%;
   z-index: 25; pointer-events: none;
 }
 .routeLayer svg {
-  position: absolute; top: 0; left: 0; width: 1440px; height: 100%; overflow: visible;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible;
 }
 .routeTrack { fill: none; stroke: var(--ink-200); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .routeDrawn { fill: none; stroke: var(--ink-950); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; will-change: stroke-dashoffset; }
@@ -35,6 +35,24 @@
   z-index: 40; will-change: transform; pointer-events: none;
 }
 .routeCar img { width: 100%; height: auto; display: block; }
+
+/* ── Mobile route ── */
+.routeLayerMobile {
+  width: 100%; height: 100%;
+}
+.routeLayerMobile svg {
+  width: 100%; height: 100%;
+}
+.routeLayerMobile .routeCar { width: 28px; }
+.routeLayerMobile .routeNode { width: 16px; height: 16px; border-width: 2.5px; }
+.routeLayerMobile .routeStart { width: 12px; height: 12px; border-width: 2px; }
+
+.routeMobileLabel {
+  position: absolute; pointer-events: none;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--text-tertiary); white-space: nowrap;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .play .a1Car, .play .a2Seat, .play .a4Cell .ccar { animation: none !important; }

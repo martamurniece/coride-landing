@@ -30,16 +30,38 @@
 }
 .s3Row.right p { margin-left: auto; }
 
-@media (max-width: 1200px) {
+@media (min-width: 770px) and (max-width: 1023px) {
   .how { padding: 40px 40px 60px; }
-  .how .secHead { margin-left: 0; }
-  .howSubhead { margin-left: 0; }
-  .s3Row { height: auto; padding: 40px 0; }
-  .s3Row.left .s3Text, .s3Row.right .s3Text { margin: 0; text-align: left; }
-  .s3Row h3 { font-size: 26px; }
+  .how .secHead { margin-left: 40px; }
+  .howSubhead { margin-left: 40px; }
+  .s3Row { height: 280px; padding-top: 72px; }
+  .s3Row.left .s3Text { margin-left: 30%; }
+  .s3Row.right .s3Text { margin-right: 30%; }
+  .s3Row h3 { font-size: 26px; letter-spacing: -0.7px; }
+  .s3Row p { font-size: 15px; }
 }
 
-@media (max-width: 768px) {
-  .how { padding: 32px 20px 48px; }
-  .s3Row h3 { font-size: 22px; letter-spacing: -0.5px; }
+/* Mobile (< 770px) — platformed spine. The outer line runs at the section's
+   left gutter; at each station the line insets to a platform spanning the
+   station's content block. All five stations stack in one column with their
+   content sitting just to the right of the platform indent.
+   Geometry is drawn by RouteOverlayMobile; the indent values here must stay in
+   sync with SPINE_X / PLATFORM_INSET there. */
+@media (max-width: 769px) {
+  .how { padding: 32px 20px 52px 36px; }
+  .how .secHead { margin: 0 0 22px 0; }
+  .howSubhead { margin: 12px 0 0 0; font-size: 16px; max-width: 460px; }
+  .s3Track { margin-top: 36px; }
+  .s3Row { height: auto; padding: 30px 0; }
+  /* No alternation on mobile — every station's content sits beside its platform. */
+  .s3Row.left .s3Text,
+  .s3Row.right .s3Text {
+    margin: 0 0 0 44px; text-align: left; max-width: none;
+  }
+  .s3Row.left .s3Label,
+  .s3Row.right .s3Label { justify-content: flex-start; }
+  .s3Row.right p { margin-left: 0; }
+  .s3Label { font-size: 11px; margin-bottom: 10px; }
+  .s3Row h3 { font-size: 21px; letter-spacing: -0.5px; }
+  .s3Row p { font-size: 14.5px; line-height: 1.55; max-width: none; }
 }

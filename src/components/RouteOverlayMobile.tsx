@@ -3,27 +3,30 @@
 import { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 
-const HERO_Y = 38;
-const CORNER = 30;
+const SPINE_X = 28;
+const START_Y = 38;
+const CORNER = 12;
+// How far the spine insets inward to form a station platform in section 3.
+// Must stay in sync with the .s3Text indent in how.css (mobile block).
+const PLATFORM_INSET = 24;
 
-const NODE_COLORS = [
-  { c: '#1B4FCF', s: 'rgba(27,79,207,0.14)' },
-  { c: '#F26B1F', s: 'rgba(242,107,31,0.16)' },
-  { c: '#B5279E', s: 'rgba(181,39,158,0.16)' },
-  { c: '#0CA64A', s: 'rgba(12,166,74,0.16)' },
+const SECTIONS = [
+  { selector: '.problem', label: '02 · The problem', color: '#1B4FCF', soft: 'rgba(27,79,207,0.14)' },
+  { selector: '.how', label: '03 · How it works', color: '#F26B1F', soft: 'rgba(242,107,31,0.16)' },
+  { selector: '.signup', label: '04 · Get on board', color: '#0CA64A', soft: 'rgba(12,166,74,0.16)' },
+];
+
+// Per-station node colours, matching the .line-* tokens on each .s3Row.
+const STATION_COLORS = [
   { c: '#1B4FCF', s: 'rgba(27,79,207,0.14)' },
   { c: '#F26B1F', s: 'rgba(242,107,31,0.16)' },
   { c: '#0CA64A', s: 'rgba(12,166,74,0.16)' },
   { c: '#B5279E', s: 'rgba(181,39,158,0.16)' },
   { c: '#7EC242', s: 'rgba(126,194,66,0.18)' },
-  { c: '#1f1f1f', s: 'rgba(31,31,31,0.12)' },
 ];
 
-interface Point {
-  x: number;
-  y: number;
-  node?: number;
-}
+interface Point { x: number; y: number }
+interface NodeDef { x: number; y: number; color: string; soft: string; label: string }
 
 function roundedPath(pts: Point[], R: number): string {
   if (pts.length < 2) return '';
@@ -44,7 +47,7 @@ function roundedPath(pts: Point[], R: number): string {
   return d;
 }
 
-export function RouteOverlay() {
+export function RouteOverlayMobile() {
   const layerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const trackRef = useRef<SVGPathElement>(null);
@@ -52,6 +55,7 @@ export function RouteOverlay() {
   const carRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<HTMLSpanElement>(null);
   const nodeEls = useRef<HTMLSpanElement[]>([]);
+  const labelEls = useRef<HTMLSpanElement[]>([]);
   const state = useRef({
     pathLen: 0,
     nodeLens: [] as number[],
@@ -63,30 +67,14 @@ export function RouteOverlay() {
     dir: 1,
   });
 
-  const ensureNodes = useCallback((n: number) => {
-    const layer = layerRef.current;
-    if (!layer) return;
-    while (nodeEls.current.length < n) {
-      const el = document.createElement('span');
-      el.className = 'routeNode';
-      layer.appendChild(el);
-      nodeEls.current.push(el);
-    }
-    nodeEls.current.forEach((el, i) => {
-      if (NODE_COLORS[i]) {
-        el.style.setProperty('--nc', NODE_COLORS[i].c);
-        el.style.setProperty('--nc-soft', NODE_COLORS[i].s);
-      }
-    });
-  }, []);
-
   const build = useCallback(() => {
     const page = layerRef.current?.closest('.page') as HTMLElement | null;
+    const layer = layerRef.current;
     const svg = svgRef.current;
     const track = trackRef.current;
     const drawn = drawnRef.current;
     const startEl = startRef.current;
-    if (!page || !svg || !track || !drawn || !startEl) return;
+    if (!page || !layer || !svg || !track || !drawn || !startEl) return;
 
     const W = page.offsetWidth;
     const H = page.offsetHeight;
@@ -94,84 +82,73 @@ export function RouteOverlay() {
     svg.setAttribute('width', String(W));
     svg.setAttribute('height', String(H));
 
+    const pageRect = page.getBoundingClientRect();
     const rel = (el: Element) => {
       const b = el.getBoundingClientRect();
-      const p = page.getBoundingClientRect();
-      return { l: b.left - p.left, t: b.top - p.top, r: b.right - p.left, btm: b.bottom - p.top };
+      return { l: b.left - pageRect.left, t: b.top - pageRect.top, r: b.right - pageRect.left, btm: b.bottom - pageRect.top };
     };
-    const cx = (r: ReturnType<typeof rel>) => (r.l + r.r) / 2;
-    const cy = (r: ReturnType<typeof rel>) => (r.t + r.btm) / 2;
-
-    const c1El = page.querySelector('#card1');
-    const c2El = page.querySelector('#card2');
-    const c3El = page.querySelector('#card3');
-    const c4El = page.querySelector('#card4');
-    const gridEl = page.querySelector('.pgrid');
     const problemEl = page.querySelector('.problem');
-    if (!c1El || !c2El || !c3El || !c4El || !gridEl || !problemEl) return;
+    const howEl = page.querySelector('.how');
+    const signupEl = page.querySelector('.signup');
 
-    // Derive rail & station X positions from actual section padding so the
-    // route scales correctly on tablet (768-1023) without hard-coded 1440 values
-    const pStyle = getComputedStyle(problemEl);
-    const padL = parseFloat(pStyle.paddingLeft) || 56;
-    const padR = parseFloat(pStyle.paddingRight) || 56;
-    const rl = padL;
-    const rr = W - padR;
-    const heroX = rl;
-    const cw = rr - rl;
-    const sxL = Math.round(rl + cw * 0.214);
-    const sxR = Math.round(rl + cw * 0.786);
-    const sx = [sxL, sxR, sxL, sxR, sxL];
+    const rows = howEl ? [...howEl.querySelectorAll('.s3Row')] : [];
+    const platformed = rows.length === 5;
 
-    const c1 = rel(c1El), c2 = rel(c2El), c3 = rel(c3El), c4 = rel(c4El);
-    const grid = rel(gridEl);
-    const problem = rel(problemEl);
-    const topY = problem.t - 30;
-    const botY = grid.btm + 52;
+    const pts: Point[] = [{ x: SPINE_X, y: START_Y }];
+    const nodes: NodeDef[] = [];
 
-    let endDocY = -1;
-    const pts: Point[] = [];
-    pts.push({ x: heroX, y: HERO_Y });
-    pts.push({ x: rl, y: topY });
-    pts.push({ x: cx(c1), y: topY, node: 0 });
-    pts.push({ x: rr, y: topY });
-    pts.push({ x: rr, y: cy(c2), node: 1 });
-    pts.push({ x: rr, y: cy(c4), node: 2 });
-    pts.push({ x: rr, y: botY });
-    pts.push({ x: cx(c3), y: botY, node: 3 });
-    pts.push({ x: rl, y: botY });
-
-    const rows = [...page.querySelectorAll('.s3Row')];
-    if (rows.length === 5) {
-      const lab = rows.map((r) => {
-        const lr = rel(r.querySelector('.s3Label')!);
-        return (lr.t + lr.btm) / 2;
-      });
-      const txt = rows.map((r) => rel(r.querySelector('.s3Text')!));
-      pts.push({ x: rl, y: lab[0] });
-      pts.push({ x: sx[0], y: lab[0], node: 4 });
-      for (let i = 1; i < 5; i++) {
-        const gapY = (txt[i - 1].btm + txt[i].t) / 2;
-        pts.push({ x: sx[i - 1], y: gapY });
-        pts.push({ x: sx[i], y: gapY });
-        pts.push({ x: sx[i], y: lab[i], node: 4 + i });
-      }
-
-      const signupEl = page.querySelector('.signup');
-      if (signupEl) {
-        const su = rel(signupEl);
-        const fx = (su.l + su.r) / 2;
-        const gapY = su.t - 30;
-        pts.push({ x: sx[4], y: gapY });
-        pts.push({ x: fx, y: gapY });
-        pts.push({ x: fx, y: su.t, node: 9 });
-        endDocY = signupEl.getBoundingClientRect().top + window.scrollY;
-      }
+    if (problemEl) {
+      nodes.push({ x: SPINE_X, y: rel(problemEl).t, color: SECTIONS[0].color, soft: SECTIONS[0].soft, label: SECTIONS[0].label });
     }
 
-    const nodePts: Point[] = [];
-    pts.forEach((p) => { if (p.node != null) nodePts[p.node] = p; });
-    ensureNodes(nodePts.length);
+    if (howEl && platformed) {
+      // Section-3 header marker sits on the outer spine line.
+      nodes.push({ x: SPINE_X, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
+
+      const txtRects = rows.map((r) => rel(r.querySelector('.s3Text')!));
+      const innerX = SPINE_X + PLATFORM_INSET;
+
+      // Platformed spine: the outer line runs straight, and at each station it
+      // insets to a platform spanning that station's content block, then
+      // returns to the outer line and continues to the next station.
+      for (let i = 0; i < 5; i++) {
+        const top = txtRects[i].t;
+        const btm = txtRects[i].btm;
+        pts.push({ x: SPINE_X, y: top });   // arrive at content top on the outer line
+        pts.push({ x: innerX, y: top });    // step inward to the platform
+        pts.push({ x: innerX, y: btm });    // run the platform down the content block
+        pts.push({ x: SPINE_X, y: btm });   // return to the outer line
+        // Station marker sits on the inner edge of the platform.
+        nodes.push({ x: innerX, y: (top + btm) / 2, color: STATION_COLORS[i].c, soft: STATION_COLORS[i].s, label: '' });
+      }
+
+      if (signupEl) {
+        const su = rel(signupEl);
+        pts.push({ x: SPINE_X, y: su.t });
+        nodes.push({ x: SPINE_X, y: su.t, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
+      }
+    } else {
+      // Fallback (stations not found): a plain straight spine through the page.
+      if (howEl) nodes.push({ x: SPINE_X, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
+      let endY = START_Y;
+      if (signupEl) {
+        endY = rel(signupEl).t;
+        nodes.push({ x: SPINE_X, y: endY, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
+      }
+      pts.push({ x: SPINE_X, y: endY });
+    }
+
+    // Ensure a DOM pool large enough for all nodes (+ paired labels).
+    while (nodeEls.current.length < nodes.length) {
+      const node = document.createElement('span');
+      node.className = 'routeNode';
+      layer.appendChild(node);
+      nodeEls.current.push(node);
+      const label = document.createElement('span');
+      label.className = 'routeMobileLabel';
+      layer.appendChild(label);
+      labelEls.current.push(label);
+    }
 
     const d = roundedPath(pts, CORNER);
     track.setAttribute('d', d);
@@ -180,10 +157,9 @@ export function RouteOverlay() {
     const s = state.current;
     s.pathLen = drawn.getTotalLength();
     const docMax = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    // Complete the animation when the road's end point is in view (~62% down
-    // the viewport), not at the document bottom — otherwise the car only
-    // "arrives" once the end has already scrolled off the top of the screen.
-    s.maxScroll = endDocY >= 0
+    const lastEl = signupEl ?? howEl ?? problemEl;
+    const endDocY = lastEl ? lastEl.getBoundingClientRect().top + window.scrollY : 0;
+    s.maxScroll = endDocY > 0
       ? Math.min(docMax, Math.max(1, endDocY - window.innerHeight * 0.62))
       : docMax;
     drawn.style.strokeDasharray = String(s.pathLen);
@@ -195,24 +171,44 @@ export function RouteOverlay() {
       s.samples.push({ len: l, x: pt.x, y: pt.y });
     }
 
-    startEl.style.left = `${heroX}px`;
-    startEl.style.top = `${HERO_Y}px`;
-
-    s.nodeLens = nodePts.map((np, i) => {
+    // Place every node at the nearest point on the drawn path, set colour + label.
+    s.nodeLens = nodes.map((nd, i) => {
       const el = nodeEls.current[i];
-      let best = 0, bd = Infinity, bx = np.x, by = np.y;
+      const lblEl = labelEls.current[i];
+      let best = 0, bd = Infinity, bx = nd.x, by = nd.y;
       for (const sample of s.samples) {
-        const dd = (sample.x - np.x) ** 2 + (sample.y - np.y) ** 2;
+        const dd = (sample.x - nd.x) ** 2 + (sample.y - nd.y) ** 2;
         if (dd < bd) { bd = dd; best = sample.len; bx = sample.x; by = sample.y; }
       }
       if (el) {
+        el.style.display = 'block';
         el.style.left = `${bx}px`;
         el.style.top = `${by}px`;
+        el.style.setProperty('--nc', nd.color);
+        el.style.setProperty('--nc-soft', nd.soft);
+      }
+      if (lblEl) {
+        if (nd.label) {
+          lblEl.style.display = 'block';
+          lblEl.style.left = `${SPINE_X + 18}px`;
+          lblEl.style.top = `${nd.y - 7}px`;
+          lblEl.textContent = nd.label;
+        } else {
+          lblEl.style.display = 'none';
+        }
       }
       return best;
     });
+    // Hide any leftover pooled elements (e.g. after a resize across the breakpoint).
+    for (let i = nodes.length; i < nodeEls.current.length; i++) {
+      nodeEls.current[i].style.display = 'none';
+      labelEls.current[i].style.display = 'none';
+    }
     s.lit = s.nodeLens.map(() => false);
-  }, [ensureNodes]);
+
+    startEl.style.left = `${SPINE_X}px`;
+    startEl.style.top = `${START_Y}px`;
+  }, []);
 
   useEffect(() => {
     const s = state.current;
@@ -225,16 +221,14 @@ export function RouteOverlay() {
       if (snap) s.shown = s.target;
     };
 
-    // Binary search the pre-computed samples for a given path length
     const sampleAt = (len: number) => {
       const arr = s.samples;
-      if (!arr.length) return { x: 0, y: 0 };
+      if (!arr.length) return { x: SPINE_X, y: START_Y };
       let lo = 0, hi = arr.length - 1;
       while (lo < hi) {
         const mid = (lo + hi) >> 1;
         if (arr[mid].len < len) lo = mid + 1; else hi = mid;
       }
-      // Interpolate between the two nearest samples
       const i = Math.max(0, Math.min(arr.length - 2, lo - 1));
       const a = arr[i], b = arr[i + 1];
       const range = b.len - a.len || 1;
@@ -242,18 +236,14 @@ export function RouteOverlay() {
       return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
     };
 
-    // Paint visuals at the current eased position (s.shown)
     const draw = () => {
       if (!s.pathLen || !drawn || !carEl) return;
-
       drawn.style.strokeDashoffset = String(s.pathLen - s.shown);
       const len = Math.max(0, Math.min(s.pathLen, s.shown));
       const p = sampleAt(len);
       const p2 = sampleAt(Math.min(s.pathLen, len + 4));
       let ang = (Math.atan2(p2.y - p.y, p2.x - p.x) * 180) / Math.PI;
       if (!isFinite(ang)) ang = 90;
-      // Flip the car 180° when travelling back up so it always drives
-      // nose-first instead of appearing to reverse.
       if (s.dir < 0) ang += 180;
       carEl.style.transform = `translate(${p.x}px, ${p.y}px) translate(-50%,-50%) rotate(${ang}deg)`;
 
@@ -265,25 +255,17 @@ export function RouteOverlay() {
       });
     };
 
-    // Self-terminating easing loop: glides s.shown toward s.target across
-    // frames so chunky wheel deltas don't make the car teleport, then idles.
-    // Frame-rate-independent: uses a time constant so the feel is identical
-    // whether running at 60/120fps or dropping frames. A max-lag clamp keeps
-    // the car from ever falling too far behind during fast scrolling.
     let raf = 0;
     let last = 0;
-    const TAU = 55;        // ms; lower = snappier, higher = floatier
-    const MAX_LAG = 260;   // px of path; car never trails further than this
+    const TAU = 55;
+    const MAX_LAG = 260;
     const tick = (now: number) => {
       const dt = last ? Math.min(64, now - last) : 16;
       last = now;
 
       let diff = s.target - s.shown;
-      // Remember travel direction; keep last direction while idle so the car
-      // doesn't spin when settling.
       if (diff > 0.5) s.dir = 1;
       else if (diff < -0.5) s.dir = -1;
-      // Clamp the lag so fast scrolls don't leave the car stranded behind.
       if (Math.abs(diff) > MAX_LAG) {
         s.shown = s.target - Math.sign(diff) * MAX_LAG;
         diff = Math.sign(diff) * MAX_LAG;
@@ -312,7 +294,6 @@ export function RouteOverlay() {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize);
 
-    // Re-build when page height changes (e.g. form branch switch), debounced
     const page = layerRef.current?.closest('.page') as HTMLElement | null;
     let roTimer: ReturnType<typeof setTimeout>;
     const ro = page ? new ResizeObserver(() => {
@@ -335,7 +316,7 @@ export function RouteOverlay() {
   }, [build]);
 
   return (
-    <div className="routeLayer" ref={layerRef} aria-hidden="true">
+    <div className="routeLayer routeLayerMobile" ref={layerRef} aria-hidden="true">
       <svg ref={svgRef} preserveAspectRatio="none">
         <path ref={trackRef} className="routeTrack" />
         <path ref={drawnRef} className="routeDrawn" />

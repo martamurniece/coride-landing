@@ -1,17 +1,18 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function Footer() {
   return (
     <footer className="footer" id="footer">
       <div className="footMain">
         <div className="footBrand">
-          <div className="footWord">Coride</div>
+          <Link className="footWord" href="/" aria-label="Coride home">Coride</Link>
           <a className="footEmail" href="mailto:info@coride.org">info@coride.org</a>
         </div>
         <nav className="footLegal" aria-label="Legal">
           <span className="footColLabel">Legal</span>
-          <a href="#">Privacy policy</a>
-          <a href="#">Legal info</a>
+          <a href="/privacy">Privacy policy</a>
+          <a href="/legal">Legal info</a>
         </nav>
       </div>
 
