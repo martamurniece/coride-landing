@@ -1,0 +1,48 @@
+/* ── Route overlay (spine + car) ──────────────────── */
+.routeLayer {
+  position: absolute; top: 0; left: 0;
+  width: 1440px; height: 100%;
+  z-index: 25; pointer-events: none;
+}
+.routeLayer svg {
+  position: absolute; top: 0; left: 0; width: 1440px; height: 100%; overflow: visible;
+}
+.routeTrack { fill: none; stroke: var(--ink-200); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.routeDrawn { fill: none; stroke: var(--ink-950); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; will-change: stroke-dashoffset; }
+
+.routeNode {
+  position: absolute; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--white); border: 3px solid var(--ink-300);
+  transform: translate(-50%, -50%);
+  transition: border-color 350ms var(--ease-default), box-shadow 350ms var(--ease-default), transform 350ms var(--ease-spring);
+}
+.routeNode.lit {
+  border-color: var(--nc, var(--ink-950));
+  box-shadow: 0 0 0 5px var(--nc-soft, rgba(31,31,31,0.10));
+}
+
+.routeStart {
+  position: absolute; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--ink-950); border: 3px solid var(--ink-50);
+  box-shadow: 0 0 0 2px var(--ink-950);
+  transform: translate(-50%, -50%); z-index: 26;
+}
+
+.routeCar {
+  position: absolute; top: 0; left: 0;
+  width: 44px; transform-origin: 50% 50%;
+  filter: drop-shadow(0 3px 7px rgba(31,31,31,0.32));
+  z-index: 40; will-change: transform; pointer-events: none;
+}
+.routeCar img { width: 100%; height: auto; display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .play .a1Car, .play .a2Seat, .play .a4Cell .ccar { animation: none !important; }
+  .a1Car { opacity: 1; transform: translateY(var(--stop)); }
+  .a2Seat { opacity: 1; transform: none; }
+  .a4Cell .ccar { opacity: 1; }
+  .a4Cell.leave .ccar { opacity: 0; }
+  .a3Line { stroke-dashoffset: 0; }
+  .a3Dest { opacity: 1; }
+  .formStage, .branch { transition: none !important; }
+}

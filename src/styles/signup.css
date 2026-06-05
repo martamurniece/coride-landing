@@ -1,0 +1,96 @@
+/* ════════════════ SECTION 4 · THE FORM ════════════════ */
+.signup { position: relative; padding: 48px 56px 150px; z-index: 20; text-align: center; }
+.signup .secHead { margin: 0 auto; max-width: 760px; }
+.signup .secKicker { justify-content: center; }
+.signup h2 {
+  font-family: var(--font-display); font-weight: 800; font-size: 52px; line-height: 1.04;
+  letter-spacing: -1.6px; color: var(--ink-950); margin: 0;
+}
+.signupSubhead {
+  font-family: var(--font-body); font-size: 19px; line-height: 1.55;
+  color: var(--text-secondary); margin: 18px auto 0; max-width: 600px; text-wrap: pretty;
+}
+
+.formCard {
+  position: relative; margin: 64px auto 0; max-width: 620px;
+  background: var(--surface-elevated); border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl); box-shadow: 0 1px 3px rgba(31,31,31,0.06), 0 24px 60px rgba(31,31,31,0.12);
+  padding: 38px 40px 40px; text-align: left;
+}
+
+.radioLabel {
+  display: block;
+  font-family: var(--font-body); font-weight: 600; font-size: 13px;
+  color: var(--ink-900); margin-bottom: 7px;
+}
+.radioOpts { display: flex; flex-direction: column; gap: 10px; }
+
+.ropt {
+  display: flex; align-items: flex-start; gap: 13px;
+  padding: 15px 17px; border: 1px solid var(--border-default); border-radius: var(--radius-md);
+  cursor: pointer; transition: border-color 150ms var(--ease-default), background 150ms var(--ease-default);
+}
+.ropt:hover { border-color: var(--ink-400); }
+.ropt.selected { border-color: var(--ink-950); background: var(--ink-50); box-shadow: inset 0 0 0 1px var(--ink-950); }
+
+.ropt input {
+  appearance: none; -webkit-appearance: none; margin: 2px 0 0; flex: 0 0 18px;
+  width: 18px; height: 18px; border: 2px solid var(--ink-400); border-radius: 50%; cursor: pointer;
+  transition: border-color 150ms var(--ease-default); position: relative;
+}
+.ropt input:checked { border-color: var(--ink-950); }
+.ropt input:checked::after {
+  content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--ink-950);
+}
+
+.rmeta { display: flex; flex-direction: column; gap: 3px; }
+.rtitle { font-family: var(--font-display); font-weight: 600; font-size: 15.5px; color: var(--ink-950); }
+.rdesc { font-family: var(--font-body); font-size: 14px; line-height: 1.45; color: var(--text-secondary); }
+
+.formStage { position: relative; margin-top: 26px; overflow: hidden; transition: height 360ms var(--ease-default); }
+.branch {
+  position: absolute; top: 0; left: 0; right: 0; opacity: 0; transform: translateY(10px);
+  transition: opacity 280ms var(--ease-default), transform 280ms var(--ease-default); pointer-events: none;
+}
+.branch.active { position: relative; opacity: 1; transform: none; pointer-events: auto; }
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block; font-family: var(--font-body); font-weight: 600; font-size: 13px;
+  color: var(--ink-900); margin-bottom: 7px;
+}
+.field input {
+  width: 100%; height: 46px; border: 1px solid var(--border-default); border-radius: var(--radius-md);
+  padding: 0 14px; font-family: var(--font-body); font-size: 15px; color: var(--ink-900); background: var(--white);
+  transition: border-color 150ms var(--ease-default), box-shadow 150ms var(--ease-default);
+}
+.field input::placeholder { color: var(--ink-400); }
+.field input:focus { outline: none; border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(31,31,31,0.10); }
+
+.branchMsg {
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text-secondary); margin: 4px 0 22px; text-wrap: pretty;
+}
+.formCta {
+  margin-top: 6px; background: var(--interactive-default); color: var(--text-on-accent);
+  border: none; border-radius: var(--radius-md); padding: 15px 26px;
+  font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: -0.1px;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 9px;
+  box-shadow: 0 1px 2px rgba(31,31,31,0.18), 0 10px 24px rgba(31,31,31,0.14);
+  transition: background 150ms var(--ease-default), transform 150ms var(--ease-default);
+}
+.formCta:hover { background: var(--interactive-hover); transform: translateY(-1px); }
+.formCta .arr { transition: transform 200ms var(--ease-spring); }
+.formCta:hover .arr { transform: translateX(3px); }
+
+.emailNote { margin-top: 15px; font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); }
+.emailNote a { color: var(--ink-950); text-decoration: none; border-bottom: 1px solid var(--ink-300); }
+
+.optionalHint { color: var(--text-tertiary); font-weight: 400; }
+
+@media (max-width: 768px) {
+  .signup { padding: 32px 20px 100px; }
+  .signup h2 { font-size: 32px; letter-spacing: -1px; }
+  .formCard { padding: 28px 24px 32px; margin-top: 40px; }
+  .formCta { width: 100%; justify-content: center; }
+}

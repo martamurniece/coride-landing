@@ -1,0 +1,45 @@
+/* ════════════════ SECTION 3 · HOW IT WORKS ════════════════ */
+.how { position: relative; padding: 40px 56px 96px; z-index: 20; }
+.how .secHead { margin: 0 0 28px 130px; }
+.howSubhead {
+  font-family: var(--font-body); font-size: 19px; line-height: 1.5;
+  color: var(--text-secondary); margin: 16px 0 0 130px; max-width: 520px;
+}
+
+.s3Track { position: relative; margin-top: 48px; }
+.s3Row { position: relative; height: 340px; display: flex; align-items: flex-start; padding-top: 96px; }
+.s3Text { max-width: 600px; }
+.s3Row.left .s3Text  { margin-left: 412px; }
+.s3Row.right .s3Text { margin-left: auto; margin-right: 412px; text-align: right; }
+
+.s3Label {
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--line-text-sub, var(--text-tertiary)); margin-bottom: 16px;
+}
+.s3Row.right .s3Label { justify-content: flex-end; }
+
+.s3Row h3 {
+  font-family: var(--font-display); font-weight: 800; font-size: 33px; line-height: 1.08;
+  letter-spacing: -0.9px; color: var(--ink-950); margin: 0 0 14px;
+}
+.s3Row p {
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text-secondary);
+  margin: 0; max-width: 560px; text-wrap: pretty;
+}
+.s3Row.right p { margin-left: auto; }
+
+@media (max-width: 1200px) {
+  .how { padding: 40px 40px 60px; }
+  .how .secHead { margin-left: 0; }
+  .howSubhead { margin-left: 0; }
+  .s3Row { height: auto; padding: 40px 0; }
+  .s3Row.left .s3Text, .s3Row.right .s3Text { margin: 0; text-align: left; }
+  .s3Row h3 { font-size: 26px; }
+}
+
+@media (max-width: 768px) {
+  .how { padding: 32px 20px 48px; }
+  .s3Row h3 { font-size: 22px; letter-spacing: -0.5px; }
+}
