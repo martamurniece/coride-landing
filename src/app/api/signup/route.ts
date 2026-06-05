@@ -106,7 +106,6 @@ export async function POST(request: NextRequest) {
     if (role === 'individual') {
       const name = clean(body.name, 100);
       const company = clean(body.company, 200);
-      const area = clean(body.area, 500);
 
       if (!name) {
         return Response.json({ error: 'Name is required.' }, { status: 400 });
@@ -120,7 +119,6 @@ export async function POST(request: NextRequest) {
         `**Name:** ${name}`,
         `**Email:** ${email}`,
         `**Workplace:** ${company}`,
-        area ? `**Commute area:** ${area}` : null,
       ]
         .filter(Boolean)
         .join('\n\n');

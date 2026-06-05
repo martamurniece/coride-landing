@@ -109,15 +109,16 @@
   100% { opacity: 0; transform: scale(0.7); }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .problem { padding: 60px 40px; }
-  .secHead { margin-left: 0; }
-  .secHead h2 { font-size: 38px; letter-spacing: -1px; }
-  .pgrid { margin: 0; gap: 24px; }
+  .secHead { margin: 0 0 40px 40px; }
+  .secHead h2 { font-size: 40px; letter-spacing: -1.2px; }
+  .pgrid { margin: 0 40px; gap: 20px; }
 }
 
-@media (max-width: 768px) {
-  .problem { padding: 48px 20px; }
-  .pgrid { grid-template-columns: 1fr; }
-  .secHead h2 { font-size: 30px; }
+@media (max-width: 767px) {
+  .problem { padding: 48px 20px 48px 48px; }
+  .secHead { margin: 0 0 32px 0; }
+  .secHead h2 { font-size: 28px; letter-spacing: -0.8px; }
+  .pgrid { margin: 0; gap: 20px; grid-template-columns: 1fr; }
 }

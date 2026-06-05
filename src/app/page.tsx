@@ -4,13 +4,13 @@ import { Problem } from '@/components/Problem';
 import { HowItWorks } from '@/components/HowItWorks';
 import { SignupForm } from '@/components/SignupForm';
 import { Footer } from '@/components/Footer';
-import { RouteOverlay } from '@/components/RouteOverlay';
+import { RouteSwitch } from '@/components/RouteSwitch';
 
 export default function Home() {
   return (
     <div className="page">
       <Nav />
-      <RouteOverlay />
+      <RouteSwitch />
       <Hero />
       <Problem />
       <HowItWorks />

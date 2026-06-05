@@ -47,7 +47,13 @@
 .rtitle { font-family: var(--font-display); font-weight: 600; font-size: 15.5px; color: var(--ink-950); }
 .rdesc { font-family: var(--font-body); font-size: 14px; line-height: 1.45; color: var(--text-secondary); }
 
-.formStage { position: relative; margin-top: 26px; overflow: hidden; transition: height 360ms var(--ease-default); }
+.formStage {
+  position: relative; margin-top: 26px;
+  /* Clip the stacked inactive branches during the height/fade transition, but
+     allow a margin so the CTA's drop shadow and text descenders aren't cut off. */
+  overflow: clip; overflow-clip-margin: 44px;
+  transition: height 360ms var(--ease-default);
+}
 .formStage.formStageSuccess { margin-top: 0; }
 .branch {
   position: absolute; top: 0; left: 0; right: 0; opacity: 0; transform: translateY(10px);
@@ -137,9 +143,17 @@
 }
 .formCta:disabled:hover { background: var(--interactive-disabled); transform: none; }
 
-@media (max-width: 768px) {
-  .signup { padding: 32px 20px 100px; }
-  .signup h2 { font-size: 32px; letter-spacing: -1px; }
-  .formCard { padding: 28px 24px 32px; margin-top: 40px; }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .signup { padding: 32px 40px 100px; }
+  .signup h2 { font-size: 42px; letter-spacing: -1.4px; }
+  .formCard { margin-top: 40px; }
+}
+
+@media (max-width: 767px) {
+  /* The road ends at section 3, so section 4 centres on the viewport
+     instead of leaving the spine-clearance gutter on the left. */
+  .signup { padding: 32px 20px 80px; }
+  .signup h2 { font-size: 30px; letter-spacing: -1px; }
+  .formCard { padding: 28px 24px 32px; }
   .formCta { width: 100%; justify-content: center; }
 }
