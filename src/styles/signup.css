@@ -48,6 +48,7 @@
 .rdesc { font-family: var(--font-body); font-size: 14px; line-height: 1.45; color: var(--text-secondary); }
 
 .formStage { position: relative; margin-top: 26px; overflow: hidden; transition: height 360ms var(--ease-default); }
+.formStage.formStageSuccess { margin-top: 0; }
 .branch {
   position: absolute; top: 0; left: 0; right: 0; opacity: 0; transform: translateY(10px);
   transition: opacity 280ms var(--ease-default), transform 280ms var(--ease-default); pointer-events: none;
@@ -87,6 +88,54 @@
 .emailNote a { color: var(--ink-950); text-decoration: none; border-bottom: 1px solid var(--ink-300); }
 
 .optionalHint { color: var(--text-tertiary); font-weight: 400; }
+
+/* Consent checkbox */
+.consentRow {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin: 20px 0 4px; cursor: pointer;
+}
+.consentRow input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none; flex: 0 0 18px;
+  width: 18px; height: 18px; margin-top: 1px;
+  border: 2px solid var(--ink-400); border-radius: var(--radius-xs);
+  cursor: pointer; position: relative;
+  transition: border-color 150ms var(--ease-default), background 150ms var(--ease-default);
+}
+.consentRow input[type="checkbox"]:checked {
+  border-color: var(--ink-950); background: var(--ink-950);
+}
+.consentRow input[type="checkbox"]:checked::after {
+  content: ''; position: absolute; left: 4px; top: 1px;
+  width: 6px; height: 10px;
+  border: solid var(--white); border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.consentText {
+  font-family: var(--font-body); font-size: 13px; line-height: 1.45;
+  color: var(--text-secondary);
+}
+.consentText a { color: var(--ink-950); text-decoration: underline; }
+
+/* Form states */
+.formError {
+  margin: 12px 0 4px; padding: 10px 14px;
+  background: var(--ink-50); border: 1px solid var(--line-red-300);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: 14px; line-height: 1.45;
+  color: var(--line-red-700);
+}
+.formSuccess {
+  padding: 28px 0 8px; text-align: center;
+}
+.formSuccess p {
+  font-family: var(--font-display); font-weight: 600; font-size: 18px;
+  line-height: 1.5; color: var(--ink-950);
+}
+.formCta:disabled {
+  background: var(--interactive-disabled); cursor: not-allowed;
+  transform: none; box-shadow: none;
+}
+.formCta:disabled:hover { background: var(--interactive-disabled); transform: none; }
 
 @media (max-width: 768px) {
   .signup { padding: 32px 20px 100px; }
