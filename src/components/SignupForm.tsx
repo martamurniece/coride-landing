@@ -144,11 +144,11 @@ export function SignupForm() {
   return (
     <section className="signup" id="signup">
       <div className="secHead">
-        <h2>Get on board early.</h2>
+        <h2>Start before the first ride.</h2>
       </div>
       <p className="signupSubhead">
-        First pilots launching later this year. Tell us who you are and we&apos;ll be in touch when
-        Coride goes live for you.
+        Coride pilots launch later this year. Tell us where you work, and we&apos;ll let you know when
+        your company can join.
       </p>
 
       <form className="formCard" ref={formRef} onSubmit={(e) => e.preventDefault()}>

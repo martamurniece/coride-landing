@@ -1,5 +1,5 @@
 /* ════════════════ HERO ════════════════ */
-.hero { position: relative; height: 920px; }
+.hero { position: relative; height: 1038px; }
 
 .heroNet {
   position: absolute; top: 0; right: 0; width: 1440px; height: 920px; z-index: 1;
@@ -111,7 +111,10 @@
   /* Fixed-size phone (the size it has at the 768px lower edge), held constant
      across the whole tablet range. Hero height fixed to fit the phone + hub. */
   .hero { height: 960px; }
-  .heroContent { left: 44px; top: 270px; width: 430px; }
+  /* Shift the copy right of the route line so the scrolling car has clearance,
+     and pin the right edge (instead of a fixed width) so the gap to the
+     right-anchored phone stays constant across the tablet range. */
+  .heroContent { left: 72px; right: 312px; top: 270px; width: auto; }
   .hero h1 { font-size: 52px; letter-spacing: -2.2px; }
   .heroSub { font-size: 16px; max-width: 380px; }
   .heroNet { display: none; }

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 
-const SPINE_X = 28;
+const SPINE_X = 28; // fallback when nav logo isn't measurable
 const START_Y = 38;
 const CORNER = 12;
 // How far the spine insets inward to form a station platform in section 3.
@@ -94,19 +94,30 @@ export function RouteOverlayMobile() {
     const rows = howEl ? [...howEl.querySelectorAll('.s3Row')] : [];
     const platformed = rows.length === 5;
 
-    const pts: Point[] = [{ x: SPINE_X, y: START_Y }];
+    // Match the nav logo position so the car + start dot sit on the wordmark
+    // (nav height/padding differ between mobile and the 768–769 tablet band).
+    const logoEl = page.querySelector('.nav .word');
+    let spineX = SPINE_X;
+    let startY = START_Y;
+    if (logoEl) {
+      const lr = rel(logoEl);
+      spineX = lr.l;
+      startY = (lr.t + lr.btm) / 2;
+    }
+
+    const pts: Point[] = [{ x: spineX, y: startY }];
     const nodes: NodeDef[] = [];
 
     if (problemEl) {
-      nodes.push({ x: SPINE_X, y: rel(problemEl).t, color: SECTIONS[0].color, soft: SECTIONS[0].soft, label: SECTIONS[0].label });
+      nodes.push({ x: spineX, y: rel(problemEl).t, color: SECTIONS[0].color, soft: SECTIONS[0].soft, label: SECTIONS[0].label });
     }
 
     if (howEl && platformed) {
       // Section-3 header marker sits on the outer spine line.
-      nodes.push({ x: SPINE_X, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
+      nodes.push({ x: spineX, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
 
       const txtRects = rows.map((r) => rel(r.querySelector('.s3Text')!));
-      const innerX = SPINE_X + PLATFORM_INSET;
+      const innerX = spineX + PLATFORM_INSET;
 
       // Platformed spine: the outer line runs straight, and at each station it
       // insets to a platform spanning that station's content block, then
@@ -114,28 +125,28 @@ export function RouteOverlayMobile() {
       for (let i = 0; i < 5; i++) {
         const top = txtRects[i].t;
         const btm = txtRects[i].btm;
-        pts.push({ x: SPINE_X, y: top });   // arrive at content top on the outer line
+        pts.push({ x: spineX, y: top });   // arrive at content top on the outer line
         pts.push({ x: innerX, y: top });    // step inward to the platform
         pts.push({ x: innerX, y: btm });    // run the platform down the content block
-        pts.push({ x: SPINE_X, y: btm });   // return to the outer line
+        pts.push({ x: spineX, y: btm });   // return to the outer line
         // Station marker sits on the inner edge of the platform.
         nodes.push({ x: innerX, y: (top + btm) / 2, color: STATION_COLORS[i].c, soft: STATION_COLORS[i].s, label: '' });
       }
 
       if (signupEl) {
         const su = rel(signupEl);
-        pts.push({ x: SPINE_X, y: su.t });
-        nodes.push({ x: SPINE_X, y: su.t, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
+        pts.push({ x: spineX, y: su.t });
+        nodes.push({ x: spineX, y: su.t, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
       }
     } else {
       // Fallback (stations not found): a plain straight spine through the page.
-      if (howEl) nodes.push({ x: SPINE_X, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
-      let endY = START_Y;
+      if (howEl) nodes.push({ x: spineX, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
+      let endY = startY;
       if (signupEl) {
         endY = rel(signupEl).t;
-        nodes.push({ x: SPINE_X, y: endY, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
+        nodes.push({ x: spineX, y: endY, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
       }
-      pts.push({ x: SPINE_X, y: endY });
+      pts.push({ x: spineX, y: endY });
     }
 
     // Ensure a DOM pool large enough for all nodes (+ paired labels).
@@ -190,7 +201,7 @@ export function RouteOverlayMobile() {
       if (lblEl) {
         if (nd.label) {
           lblEl.style.display = 'block';
-          lblEl.style.left = `${SPINE_X + 18}px`;
+          lblEl.style.left = `${spineX + 18}px`;
           lblEl.style.top = `${nd.y - 7}px`;
           lblEl.textContent = nd.label;
         } else {
@@ -206,8 +217,8 @@ export function RouteOverlayMobile() {
     }
     s.lit = s.nodeLens.map(() => false);
 
-    startEl.style.left = `${SPINE_X}px`;
-    startEl.style.top = `${START_Y}px`;
+    startEl.style.left = `${spineX}px`;
+    startEl.style.top = `${startY}px`;
   }, []);
 
   useEffect(() => {

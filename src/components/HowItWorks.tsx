@@ -5,39 +5,45 @@ const stations = [
     line: 'line-blue',
     side: 'left' as const,
     title: 'Your workplace joins Coride.',
-    desc: 'Coride partners with your employer to verify commuters and open the platform to your team. Not there yet? Tell us where you work and we\'ll reach out.',
+    desc: (
+      <>
+        We partner with your employer to verify commuters and open Coride to your team. Not live at
+        your workplace yet?{' '}
+        <a href="#signup">Tell us</a>{' '}where you work, and we&apos;ll reach out.
+      </>
+    ),
   },
   {
     number: '02',
     label: 'Match',
     line: 'line-orange',
     side: 'right' as const,
-    title: 'You match with colleagues going your way.',
-    desc: 'Add your home, your shift, your route. Coride finds verified colleagues on the same path.',
+    title: 'Match with colleagues going your way.',
+    desc: 'Add your home, shift, and route. Coride connects you with verified colleagues travelling on similar routes.',
   },
   {
     number: '03',
     label: 'Ride',
     line: 'line-green',
     side: 'left' as const,
-    title: 'You ride together.',
-    desc: 'One car instead of five. Drivers and riders alternate, costs are split through the app.',
+    title: 'Ride together.',
+    desc: 'One car instead of five. Choose to drive or ride as a passenger, with commute costs fairly split through the app.',
   },
   {
     number: '04',
     label: 'Earn',
     line: 'line-magenta',
     side: 'right' as const,
-    title: 'You earn perks every ride.',
-    desc: 'Each verified commute adds perks to your account, funded by local partners across Rīga.',
+    title: 'Earn perks with every ride.',
+    desc: 'Each commute with Coride adds perks to your account, funded by local partners across your country.',
   },
   {
     number: '05',
     label: 'Spend',
     line: 'line-lime',
     side: 'left' as const,
-    title: 'You spend them where you already go.',
-    desc: 'Cafés, gyms, shops, services. Local partners you\'d visit anyway, now part of your commute.',
+    title: 'Spend your rewards where you already go.',
+    desc: 'Cafés, gyms, shops, services in your area, get discounts on things you would be buying anyway.',
   },
 ];
 
@@ -47,7 +53,7 @@ export function HowItWorks() {
       <div className="secHead">
         <h2>How Coride works.</h2>
       </div>
-      <p className="howSubhead">Five steps, the same every commute.</p>
+      <p className="howSubhead">Simple to start easy to use.</p>
 
       <div className="s3Track">
         {stations.map((s) => (

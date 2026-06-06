@@ -26,8 +26,8 @@ export function Hero() {
       <div className="heroContent">
         <h1>Earn perks for the commute you already make.</h1>
         <p className="heroSub">
-          Join your workplace community on Coride. Share your daily commute with colleagues, spend
-          less getting to work and earn rewards from local partners along the way.
+          Join your workplace community on Coride. Share your daily commute with colleagues, save
+          on your journey to work and earn rewards from local partners along the way.
         </p>
         <div className="ctaRow">
           <button className="btnPrimary">
@@ -38,7 +38,7 @@ export function Hero() {
           </button>
         </div>
         <p className="traction">
-          <strong>First pilots with several employers launching later this year.</strong> Get your early access.
+          <strong>First pilots with select employers launch later this year.</strong> Get early access today.
         </p>
       </div>
 

@@ -28,7 +28,17 @@
   font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text-secondary);
   margin: 0; max-width: 560px; text-wrap: pretty;
 }
+.s3Text a {
+  color: var(--ink-950); text-decoration: underline; text-underline-offset: 2px;
+}
+.s3Text a:hover { color: var(--text-primary); }
 .s3Row.right p { margin-left: auto; }
+
+/* The first station gets no inter-station gap above it (the route arrives from
+   the section header loop), so give it explicit top breathing room to match the
+   spacing the lower stations get from the gap above them. Uses margin so the
+   gap down to station 2 is preserved (the route follows the label position). */
+.s3Track .s3Row:first-child { margin-top: 64px; }
 
 @media (min-width: 770px) and (max-width: 1023px) {
   .how { padding: 40px 40px 60px; }
@@ -64,4 +74,6 @@
   .s3Label { font-size: 11px; margin-bottom: 10px; }
   .s3Row h3 { font-size: 21px; letter-spacing: -0.5px; }
   .s3Row p { font-size: 14.5px; line-height: 1.55; max-width: none; }
+  /* Mobile spacing is even (platformed spine), so no extra first-station margin. */
+  .s3Track .s3Row:first-child { margin-top: 0; }
 }

@@ -117,7 +117,9 @@
 }
 
 @media (max-width: 767px) {
-  .problem { padding: 48px 20px 48px 48px; }
+  /* Extra top margin clears the hero hub/blue line; padding-top matches sections
+     03 & 04 so the route label sits the same distance above the headline. */
+  .problem { margin-top: 24px; padding: 32px 20px 48px 48px; }
   .secHead { margin: 0 0 32px 0; }
   .secHead h2 { font-size: 28px; letter-spacing: -0.8px; }
   .pgrid { margin: 0; gap: 20px; grid-template-columns: 1fr; }

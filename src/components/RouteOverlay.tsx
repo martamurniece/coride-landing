@@ -3,7 +3,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 
-const HERO_Y = 38;
 const CORNER = 30;
 
 const NODE_COLORS = [
@@ -117,7 +116,16 @@ export function RouteOverlay() {
     const padR = parseFloat(pStyle.paddingRight) || 56;
     const rl = padL;
     const rr = W - padR;
-    const heroX = rl;
+    // Anchor the route start to the nav logo so the car + spine line up with
+    // the wordmark at every breakpoint (nav height/padding change on mobile).
+    const logoEl = page.querySelector('.nav .word');
+    let heroX = rl;
+    let heroY = 38;
+    if (logoEl) {
+      const lr = rel(logoEl);
+      heroX = lr.l;
+      heroY = (lr.t + lr.btm) / 2;
+    }
     const cw = rr - rl;
     const sxL = Math.round(rl + cw * 0.214);
     const sxR = Math.round(rl + cw * 0.786);
@@ -131,7 +139,7 @@ export function RouteOverlay() {
 
     let endDocY = -1;
     const pts: Point[] = [];
-    pts.push({ x: heroX, y: HERO_Y });
+    pts.push({ x: heroX, y: heroY });
     pts.push({ x: rl, y: topY });
     pts.push({ x: cx(c1), y: topY, node: 0 });
     pts.push({ x: rr, y: topY });
@@ -148,7 +156,14 @@ export function RouteOverlay() {
         return (lr.t + lr.btm) / 2;
       });
       const txt = rows.map((r) => rel(r.querySelector('.s3Text')!));
-      pts.push({ x: rl, y: lab[0] });
+      // Approach the first station with a straight vertical run (like the others)
+      // instead of letting the dot sit on the bend: turn in above the station,
+      // staying clear of the section subhead, then drop straight into the dot.
+      const subEl = page.querySelector('.howSubhead');
+      const subBtm = subEl ? rel(subEl).btm : topY;
+      const turnY0 = Math.max(lab[0] - 96, subBtm + 36);
+      pts.push({ x: rl, y: turnY0 });
+      pts.push({ x: sx[0], y: turnY0 });
       pts.push({ x: sx[0], y: lab[0], node: 4 });
       for (let i = 1; i < 5; i++) {
         const gapY = (txt[i - 1].btm + txt[i].t) / 2;
@@ -161,7 +176,9 @@ export function RouteOverlay() {
       if (signupEl) {
         const su = rel(signupEl);
         const fx = (su.l + su.r) / 2;
-        const gapY = su.t - 30;
+        // Turn toward the final stop well above the signup so the car settles on
+        // a longer straight run rather than right on the horizontal bend.
+        const gapY = su.t - 96;
         pts.push({ x: sx[4], y: gapY });
         pts.push({ x: fx, y: gapY });
         pts.push({ x: fx, y: su.t, node: 9 });
@@ -196,7 +213,7 @@ export function RouteOverlay() {
     }
 
     startEl.style.left = `${heroX}px`;
-    startEl.style.top = `${HERO_Y}px`;
+    startEl.style.top = `${heroY}px`;
 
     s.nodeLens = nodePts.map((np, i) => {
       const el = nodeEls.current[i];

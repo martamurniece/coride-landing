@@ -45,7 +45,7 @@ export function Problem() {
   return (
     <section className="problem" id="problem" ref={sectionRef}>
       <div className="secHead">
-        <h2>People have been co-riding for years. We&apos;re just making it profitable.</h2>
+        <h2>People have been co-riding for years. We&apos;re just making it profitable for everyone.</h2>
       </div>
 
       <div className="pgrid">
@@ -85,7 +85,7 @@ export function Problem() {
           <div className="pcardBody">
             <div className="pcardTag"><span className="pip" />Cost</div>
             <h3>Driving alone costs more every month.</h3>
-            <p>Fuel, parking, wear, time. Most rides are one person in five seats.</p>
+            <p>Fuel, parking, wear and tear, and wasted time add up. Most rides still carry one person in a car built for five.</p>
           </div>
         </article>
 
@@ -108,8 +108,8 @@ export function Problem() {
           </div>
           <div className="pcardBody">
             <div className="pcardTag"><span className="pip" />Coverage</div>
-            <h3>Public transport covers the city well.</h3>
-            <p>The industrial parks, airport, and logistics hubs less so.</p>
+            <h3>Public transport doesn&apos;t reach every workplace.</h3>
+            <p>Industrial parks, airports, and logistics hubs sit on the outskirts, far from public transport routes and difficult to reach without a car.</p>
           </div>
         </article>
 
@@ -120,8 +120,8 @@ export function Problem() {
           </div>
           <div className="pcardBody">
             <div className="pcardTag"><span className="pip" />Land</div>
-            <h3>Every parking spot costs more than employers admit.</h3>
-            <p>Construction, maintenance, land, snow clearing. Thousands per space, per year, mostly for one person.</p>
+            <h3>Every parking space costs more than most employers realize.</h3>
+            <p>Land, construction, maintenance, and snow clearing all add up to thousands per space each year, often for a single commuter.</p>
           </div>
         </article>
       </div>
