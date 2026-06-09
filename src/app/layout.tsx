@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { SmoothScroll } from '@/components/SmoothScroll';
+import { LocaleProvider } from '@/i18n/LocaleProvider';
 import '../styles/globals.css';
 import '../styles/nav.css';
 import '../styles/hero.css';
@@ -45,8 +46,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SmoothScroll />
-        {children}
+        <LocaleProvider>
+          <SmoothScroll />
+          {children}
+        </LocaleProvider>
         {process.env.NODE_ENV === 'production' && (
           <Script
             defer

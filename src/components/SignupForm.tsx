@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 type Branch = 'individual' | 'employer' | 'partner';
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
@@ -9,6 +10,7 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 const CALENDLY_URL = 'https://calendly.com/coride/intro';
 
 export function SignupForm() {
+  const { t } = useLocale();
   const [branch, setBranch] = useState<Branch>('individual');
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -55,7 +57,7 @@ export function SignupForm() {
       ro?.disconnect();
       window.removeEventListener('resize', sizeStage);
     };
-  }, [branch, sizeStage]);
+  }, [branch, sizeStage, t]);
 
   // Re-measure when status changes (success message replaces form fields)
   useEffect(() => {
@@ -72,7 +74,7 @@ export function SignupForm() {
     if (status === 'submitting') return;
 
     if (!consent) {
-      setErrorMsg('You must agree to be contacted to submit this form.');
+      setErrorMsg(t.signup.errors.consent);
       setStatus('error');
       return;
     }
@@ -94,7 +96,7 @@ export function SignupForm() {
       const company = (form.querySelector('input[name="company"]') as HTMLInputElement)?.value ?? '';
 
       if (!name || !email || !company) {
-        setErrorMsg('Please fill in all required fields.');
+        setErrorMsg(t.signup.errors.required);
         setStatus('error');
         return;
       }
@@ -107,7 +109,7 @@ export function SignupForm() {
       const perkIdea = (form.querySelector('input[name="perkIdea"]') as HTMLInputElement)?.value ?? '';
 
       if (!businessName || !contactName || !email) {
-        setErrorMsg('Please fill in all required fields.');
+        setErrorMsg(t.signup.errors.required);
         setStatus('error');
         return;
       }
@@ -125,14 +127,14 @@ export function SignupForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data.error ?? 'Something went wrong. Please try again.');
+        setErrorMsg(data.error ?? t.signup.errors.generic);
         setStatus('error');
         return;
       }
 
       setStatus('success');
     } catch {
-      setErrorMsg('Something went wrong. Please try again.');
+      setErrorMsg(t.signup.errors.generic);
       setStatus('error');
     }
   };
@@ -144,12 +146,9 @@ export function SignupForm() {
   return (
     <section className="signup" id="signup">
       <div className="secHead">
-        <h2>Start before the first ride.</h2>
+        <h2>{t.signup.title}</h2>
       </div>
-      <p className="signupSubhead">
-        Coride pilots launch later this year. Tell us where you work, and we&apos;ll let you know when
-        your company can join.
-      </p>
+      <p className="signupSubhead">{t.signup.subhead}</p>
 
       <form className="formCard" ref={formRef} onSubmit={(e) => e.preventDefault()}>
         {/* Honeypot — hidden from real users, bots will fill it */}
@@ -159,26 +158,26 @@ export function SignupForm() {
 
         {status !== 'success' && (
           <>
-            <div className="radioLabel">I&apos;m signing up as…</div>
+            <div className="radioLabel">{t.signup.signingUpAs}</div>
             <div className="radioOpts">
               <RadioOption
                 value="individual"
-                title="An individual"
-                desc="I'd like to use Coride at my workplace."
+                title={t.signup.branches.individual.title}
+                desc={t.signup.branches.individual.desc}
                 checked={branch === 'individual'}
                 onChange={() => handleBranchChange('individual')}
               />
               <RadioOption
                 value="employer"
-                title="An employer"
-                desc="I want to bring Coride to my team."
+                title={t.signup.branches.employer.title}
+                desc={t.signup.branches.employer.desc}
                 checked={branch === 'employer'}
                 onChange={() => handleBranchChange('employer')}
               />
               <RadioOption
                 value="partner"
-                title="A partner"
-                desc="My business wants to offer perks to Coride riders."
+                title={t.signup.branches.partner.title}
+                desc={t.signup.branches.partner.desc}
                 checked={branch === 'partner'}
                 onChange={() => handleBranchChange('partner')}
               />
@@ -191,24 +190,24 @@ export function SignupForm() {
           <div className={`branch ${branch === 'individual' ? 'active' : ''}`}>
             {status === 'success' && branch === 'individual' ? (
               <div className="formSuccess">
-                <p>We got it. We&apos;ll be in touch when Coride goes live for you.</p>
+                <p>{t.signup.success}</p>
                 <button className="formCta formCtaBack" type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                  Back to top <span className="arr">↑</span>
+                  {t.signup.backToTop} <span className="arr">↑</span>
                 </button>
               </div>
             ) : (
               <>
                 <div className="field">
-                  <label>Your name</label>
+                  <label>{t.signup.fields.name}</label>
                   <input type="text" name="name" placeholder="Jānis Bērziņš" />
                 </div>
                 <div className="field">
-                  <label>Email</label>
+                  <label>{t.signup.fields.email}</label>
                   <input type="email" name="email" placeholder="janis@example.lv" />
                 </div>
                 <div className="field">
-                  <label>Where do you work?</label>
-                  <input type="text" name="company" placeholder={`Company name or "Prefer not to say"`} />
+                  <label>{t.signup.fields.company}</label>
+                  <input type="text" name="company" placeholder={t.signup.fields.companyPlaceholder} />
                 </div>
 
                 <label className="consentRow">
@@ -218,8 +217,9 @@ export function SignupForm() {
                     onChange={(e) => { setConsent(e.target.checked); if (status === 'error') setErrorMsg(''); }}
                   />
                   <span className="consentText">
-                    I agree to be contacted about Coride and have read the{' '}
-                    <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+                    {t.signup.consentBefore}{' '}
+                    <a href="/privacy" target="_blank" rel="noopener noreferrer">{t.signup.consentLink}</a>
+                    {t.signup.consentAfter}
                   </span>
                 </label>
 
@@ -233,8 +233,8 @@ export function SignupForm() {
                   disabled={status === 'submitting'}
                   onClick={handleSubmit}
                 >
-                  {status === 'submitting' ? 'Submitting…' : (
-                    <>Add my workplace to the list <span className="arr">→</span></>
+                  {status === 'submitting' ? t.signup.submitting : (
+                    <>{t.signup.submit} <span className="arr">→</span></>
                   )}
                 </button>
               </>
@@ -243,29 +243,23 @@ export function SignupForm() {
 
           {/* Employer */}
           <div className={`branch ${branch === 'employer' ? 'active' : ''}`}>
-            <p className="branchMsg">
-              We&apos;d rather talk than have you fill a form. Pick a 20-minute slot and we&apos;ll walk you
-              through what a Coride pilot looks like for your team.
-            </p>
+            <p className="branchMsg">{t.signup.employerMsg}</p>
             <button className="formCta" type="button" onClick={handleBookCall}>
-              Book a call with Coride <span className="arr">→</span>
+              {t.signup.bookCall} <span className="arr">→</span>
             </button>
             <div className="emailNote">
-              Or email us: <a href="mailto:info@coride.org">info@coride.org</a>
+              {t.signup.emailNote} <a href="mailto:info@coride.org">info@coride.org</a>
             </div>
           </div>
 
           {/* Partner */}
           <div className={`branch ${branch === 'partner' ? 'active' : ''}`}>
-            <p className="branchMsg">
-              Want to offer perks to Coride riders? Let&apos;s talk. Pick a 20-minute slot and we&apos;ll
-              figure out a partnership that works for your business.
-            </p>
+            <p className="branchMsg">{t.signup.partnerMsg}</p>
             <button className="formCta" type="button" onClick={handleBookCall}>
-              Book a call with Coride <span className="arr">→</span>
+              {t.signup.bookCall} <span className="arr">→</span>
             </button>
             <div className="emailNote">
-              Or email us: <a href="mailto:info@coride.org">info@coride.org</a>
+              {t.signup.emailNote} <a href="mailto:info@coride.org">info@coride.org</a>
             </div>
           </div>
         </div>

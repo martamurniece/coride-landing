@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 export function Problem() {
+  const { t } = useLocale();
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export function Problem() {
   return (
     <section className="problem" id="problem" ref={sectionRef}>
       <div className="secHead">
-        <h2>People have been co-riding for years. We&apos;re just making it profitable for everyone.</h2>
+        <h2>{t.problem.title}</h2>
       </div>
 
       <div className="pgrid">
@@ -63,9 +65,9 @@ export function Problem() {
             <div className="cg empty a1Car c5" style={{ '--stop': '116px', zIndex: 1 } as React.CSSProperties} />
           </div>
           <div className="pcardBody">
-            <div className="pcardTag"><span className="pip" />Time</div>
-            <h3>Traffic eats an hour of your day.</h3>
-            <p>Same route. Same hour. Five different cars from your office.</p>
+            <div className="pcardTag"><span className="pip" />{t.problem.cards[0].tag}</div>
+            <h3>{t.problem.cards[0].title}</h3>
+            <p>{t.problem.cards[0].desc}</p>
           </div>
         </article>
 
@@ -83,9 +85,9 @@ export function Problem() {
             </div>
           </div>
           <div className="pcardBody">
-            <div className="pcardTag"><span className="pip" />Cost</div>
-            <h3>Driving alone costs more every month.</h3>
-            <p>Fuel, parking, wear and tear, and wasted time add up. Most rides still carry one person in a car built for five.</p>
+            <div className="pcardTag"><span className="pip" />{t.problem.cards[1].tag}</div>
+            <h3>{t.problem.cards[1].title}</h3>
+            <p>{t.problem.cards[1].desc}</p>
           </div>
         </article>
 
@@ -107,9 +109,9 @@ export function Problem() {
             </div>
           </div>
           <div className="pcardBody">
-            <div className="pcardTag"><span className="pip" />Coverage</div>
-            <h3>Public transport doesn&apos;t reach every workplace.</h3>
-            <p>Industrial parks, airports, and logistics hubs sit on the outskirts, far from public transport routes and difficult to reach without a car.</p>
+            <div className="pcardTag"><span className="pip" />{t.problem.cards[2].tag}</div>
+            <h3>{t.problem.cards[2].title}</h3>
+            <p>{t.problem.cards[2].desc}</p>
           </div>
         </article>
 
@@ -119,9 +121,9 @@ export function Problem() {
             <div className="a4Grid" />
           </div>
           <div className="pcardBody">
-            <div className="pcardTag"><span className="pip" />Land</div>
-            <h3>Every parking space costs more than most employers realize.</h3>
-            <p>Land, construction, maintenance, and snow clearing all add up to thousands per space each year, often for a single commuter.</p>
+            <div className="pcardTag"><span className="pip" />{t.problem.cards[3].tag}</div>
+            <h3>{t.problem.cards[3].title}</h3>
+            <p>{t.problem.cards[3].desc}</p>
           </div>
         </article>
       </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 const SPINE_X = 28; // fallback when nav logo isn't measurable
 const START_Y = 38;
@@ -10,11 +11,11 @@ const CORNER = 12;
 // Must stay in sync with the .s3Text indent in how.css (mobile block).
 const PLATFORM_INSET = 24;
 
-const SECTIONS = [
-  { selector: '.problem', label: '02 · The problem', color: '#1B4FCF', soft: 'rgba(27,79,207,0.14)' },
-  { selector: '.how', label: '03 · How it works', color: '#F26B1F', soft: 'rgba(242,107,31,0.16)' },
-  { selector: '.signup', label: '04 · Get on board', color: '#0CA64A', soft: 'rgba(12,166,74,0.16)' },
-];
+const SECTION_STYLES = [
+  { selector: '.problem', color: '#1B4FCF', soft: 'rgba(27,79,207,0.14)' },
+  { selector: '.how', color: '#F26B1F', soft: 'rgba(242,107,31,0.16)' },
+  { selector: '.signup', color: '#0CA64A', soft: 'rgba(12,166,74,0.16)' },
+] as const;
 
 // Per-station node colours, matching the .line-* tokens on each .s3Row.
 const STATION_COLORS = [
@@ -48,6 +49,7 @@ function roundedPath(pts: Point[], R: number): string {
 }
 
 export function RouteOverlayMobile() {
+  const { locale, t } = useLocale();
   const layerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const trackRef = useRef<SVGPathElement>(null);
@@ -91,6 +93,12 @@ export function RouteOverlayMobile() {
     const howEl = page.querySelector('.how');
     const signupEl = page.querySelector('.signup');
 
+    const sections = [
+      { ...SECTION_STYLES[0], label: t.route.problem },
+      { ...SECTION_STYLES[1], label: t.route.how },
+      { ...SECTION_STYLES[2], label: t.route.signup },
+    ];
+
     const rows = howEl ? [...howEl.querySelectorAll('.s3Row')] : [];
     const platformed = rows.length === 5;
 
@@ -109,12 +117,12 @@ export function RouteOverlayMobile() {
     const nodes: NodeDef[] = [];
 
     if (problemEl) {
-      nodes.push({ x: spineX, y: rel(problemEl).t, color: SECTIONS[0].color, soft: SECTIONS[0].soft, label: SECTIONS[0].label });
+      nodes.push({ x: spineX, y: rel(problemEl).t, color: sections[0].color, soft: sections[0].soft, label: sections[0].label });
     }
 
     if (howEl && platformed) {
       // Section-3 header marker sits on the outer spine line.
-      nodes.push({ x: spineX, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
+      nodes.push({ x: spineX, y: rel(howEl).t, color: sections[1].color, soft: sections[1].soft, label: sections[1].label });
 
       const txtRects = rows.map((r) => rel(r.querySelector('.s3Text')!));
       const innerX = spineX + PLATFORM_INSET;
@@ -136,15 +144,15 @@ export function RouteOverlayMobile() {
       if (signupEl) {
         const su = rel(signupEl);
         pts.push({ x: spineX, y: su.t });
-        nodes.push({ x: spineX, y: su.t, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
+        nodes.push({ x: spineX, y: su.t, color: sections[2].color, soft: sections[2].soft, label: sections[2].label });
       }
     } else {
       // Fallback (stations not found): a plain straight spine through the page.
-      if (howEl) nodes.push({ x: spineX, y: rel(howEl).t, color: SECTIONS[1].color, soft: SECTIONS[1].soft, label: SECTIONS[1].label });
+      if (howEl) nodes.push({ x: spineX, y: rel(howEl).t, color: sections[1].color, soft: sections[1].soft, label: sections[1].label });
       let endY = startY;
       if (signupEl) {
         endY = rel(signupEl).t;
-        nodes.push({ x: spineX, y: endY, color: SECTIONS[2].color, soft: SECTIONS[2].soft, label: SECTIONS[2].label });
+        nodes.push({ x: spineX, y: endY, color: sections[2].color, soft: sections[2].soft, label: sections[2].label });
       }
       pts.push({ x: spineX, y: endY });
     }
@@ -219,7 +227,7 @@ export function RouteOverlayMobile() {
 
     startEl.style.left = `${spineX}px`;
     startEl.style.top = `${startY}px`;
-  }, []);
+  }, [locale, t]);
 
   useEffect(() => {
     const s = state.current;

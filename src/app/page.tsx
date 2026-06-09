@@ -5,7 +5,6 @@ import { HowItWorks } from '@/components/HowItWorks';
 import { SignupForm } from '@/components/SignupForm';
 import { Footer } from '@/components/Footer';
 import { RouteSwitch } from '@/components/RouteSwitch';
-
 export default function Home() {
   return (
     <div className="page">

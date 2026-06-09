@@ -2,28 +2,33 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const { t } = useLocale();
 
   return (
     <nav className="nav">
-      <Link className="word" href="/" aria-label="Coride home">Coride</Link>
+      <Link className="word" href="/" aria-label={t.nav.homeAria}>
+        Coride
+      </Link>
       <div className="navRight">
         <div className={`navLinks ${open ? 'navLinksOpen' : ''}`}>
           {/* Hidden until the destination pages exist — do not delete. */}
           {/* <a href="#" onClick={() => setOpen(false)}>For employers</a> */}
           {/* <a href="#" onClick={() => setOpen(false)}>For partners</a> */}
         </div>
-        <button className="navCta">Join the waitlist</button>
-        <div className="lang">
-          <span className="on">EN</span>
-          <span>LV</span>
-        </div>
+        <button className="navCta" type="button">
+          {t.nav.joinWaitlist}
+        </button>
+        <LanguageSwitcher />
         <button
           className={`navBurger ${open ? 'navBurgerOpen' : ''}`}
           onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
+          aria-label={t.nav.menuAria}
+          type="button"
         >
           <span />
           <span />

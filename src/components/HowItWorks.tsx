@@ -1,70 +1,50 @@
-const stations = [
-  {
-    number: '01',
-    label: 'Workplace',
-    line: 'line-blue',
-    side: 'left' as const,
-    title: 'Your workplace joins Coride.',
-    desc: (
-      <>
-        We partner with your employer to verify commuters and open Coride to your team. Not live at
-        your workplace yet?{' '}
-        <a href="#signup">Tell us</a>{' '}where you work, and we&apos;ll reach out.
-      </>
-    ),
-  },
-  {
-    number: '02',
-    label: 'Match',
-    line: 'line-orange',
-    side: 'right' as const,
-    title: 'Match with colleagues going your way.',
-    desc: 'Add your home, shift, and route. Coride connects you with verified colleagues travelling on similar routes.',
-  },
-  {
-    number: '03',
-    label: 'Ride',
-    line: 'line-green',
-    side: 'left' as const,
-    title: 'Ride together.',
-    desc: 'One car instead of five. Choose to drive or ride as a passenger, with commute costs fairly split through the app.',
-  },
-  {
-    number: '04',
-    label: 'Earn',
-    line: 'line-magenta',
-    side: 'right' as const,
-    title: 'Earn perks with every ride.',
-    desc: 'Each commute with Coride adds perks to your account, funded by local partners across your country.',
-  },
-  {
-    number: '05',
-    label: 'Spend',
-    line: 'line-lime',
-    side: 'left' as const,
-    title: 'Spend your rewards where you already go.',
-    desc: 'Cafés, gyms, shops, services in your area, get discounts on things you would be buying anyway.',
-  },
+'use client';
+
+import { useLocale } from '@/i18n/LocaleProvider';
+
+const STATION_META = [
+  { number: '01', line: 'line-blue', side: 'left' as const },
+  { number: '02', line: 'line-orange', side: 'right' as const },
+  { number: '03', line: 'line-green', side: 'left' as const },
+  { number: '04', line: 'line-magenta', side: 'right' as const },
+  { number: '05', line: 'line-lime', side: 'left' as const },
 ];
 
 export function HowItWorks() {
+  const { t } = useLocale();
+
   return (
     <section className="how" id="how">
       <div className="secHead">
-        <h2>How Coride works.</h2>
+        <h2>{t.how.title}</h2>
       </div>
-      <p className="howSubhead">Simple to start easy to use.</p>
+      <p className="howSubhead">{t.how.subhead}</p>
 
       <div className="s3Track">
-        {stations.map((s) => (
-          <div key={s.number} className={`s3Row ${s.side} ${s.line}`}>
-            <div className="s3Text">
-              <div className="s3Label">Station {s.number} · {s.label}</div>
-              <h3>{s.title}</h3>
-              <p>{s.desc}</p>
+        {STATION_META.map((meta, i) => {
+          const station = t.how.stations[i];
+          return (
+            <div key={meta.number} className={`s3Row ${meta.side} ${meta.line}`}>
+              <div className="s3Text">
+                <div className="s3Label">
+                  {t.how.stationPrefix} {meta.number} · {station.label}
+                </div>
+                <h3>{station.title}</h3>
+                <p>
+                  {'descBeforeLink' in station ? (
+                    <>
+                      {station.descBeforeLink}{' '}
+                      <a href="#signup">{station.link}</a>
+                      {station.descAfterLink}
+                    </>
+                  ) : (
+                    station.desc
+                  )}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

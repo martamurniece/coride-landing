@@ -38,8 +38,11 @@
   border: 1px solid var(--border-default); border-radius: var(--radius-pill);
   overflow: hidden;
 }
-.lang span { padding: 5px 10px; color: var(--text-tertiary); cursor: pointer; }
-.lang span.on { background: var(--ink-950); color: var(--text-inverse); }
+.lang button {
+  padding: 5px 10px; color: var(--text-tertiary); cursor: pointer;
+  border: none; background: transparent; font: inherit;
+}
+.lang button.on { background: var(--ink-950); color: var(--text-inverse); }
 
 /* Hamburger button — hidden on desktop */
 .navBurger {
