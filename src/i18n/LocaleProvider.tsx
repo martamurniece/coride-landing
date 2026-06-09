@@ -18,6 +18,13 @@ function readStoredLocale(): Locale {
   return stored === 'lv' ? 'lv' : DEFAULT_LOCALE;
 }
 
+function pageTitle(locale: Locale): string {
+  if (typeof window !== 'undefined' && window.location.pathname === '/privacy') {
+    return messages[locale].privacy.documentTitle;
+  }
+  return messages[locale].meta.title;
+}
+
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(DEFAULT_LOCALE);
   const [ready, setReady] = useState(false);
@@ -31,13 +38,13 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     setLocaleState(next);
     window.localStorage.setItem(LOCALE_STORAGE_KEY, next);
     document.documentElement.lang = next;
-    document.title = messages[next].meta.title;
+    document.title = pageTitle(next);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
     document.documentElement.lang = locale;
-    document.title = messages[locale].meta.title;
+    document.title = pageTitle(locale);
   }, [locale, ready]);
 
   const value = useMemo(

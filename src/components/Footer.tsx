@@ -20,7 +20,6 @@ export function Footer() {
         <nav className="footLegal" aria-label={t.footer.legal}>
           <span className="footColLabel">{t.footer.legal}</span>
           <a href="/privacy">{t.footer.privacy}</a>
-          <a href="/legal">{t.footer.legalInfo}</a>
         </nav>
       </div>
 

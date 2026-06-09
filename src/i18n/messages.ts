@@ -133,8 +133,51 @@ const en = {
     homeAria: 'Coride home',
     legal: 'Legal',
     privacy: 'Privacy policy',
-    legalInfo: 'Legal info',
     supportedBy: 'Supported by',
+  },
+  privacy: {
+    documentTitle: 'Privacy Policy - Coride',
+    title: 'Privacy Policy',
+    updated: 'Last updated: June 5, 2026',
+    lead:
+      'This Privacy Policy explains how Milup SIA ("we", "us", "Coride") collects, uses, and protects personal data when you use the Coride website.',
+    s1Title: '1. Who we are',
+    s1Body:
+      'Coride is a brand of SIA "Milup", registered in Latvia. Registration number: 40203734972. Registered address: Raunas iela 45 k-1 - 20, Rīga, LV-1084. Contact:',
+    s2Title: '2. What data we collect',
+    s2Intro: 'When you submit the signup form, we collect:',
+    s2Items: [
+      'Your name',
+      'Your email address',
+      'For individuals: your employer name (or "Don\'t want to say")',
+      'For partners: business name, role, perk offer (optional)',
+      'Technical: IP address (used only for rate limiting, not stored long-term)',
+    ],
+    s2Outro:
+      'We do not use cookies or analytics that track you. The site uses Plausible Analytics, which is cookieless and does not collect personal data.',
+    s3Title: '3. Why we collect it',
+    s3Items: [
+      'To respond to your inquiry about Coride',
+      'To notify you when Coride launches at your workplace',
+      'To improve our understanding of Coride\'s potential user base (in aggregated form)',
+    ],
+    s3Outro: 'We do not sell, rent, or share your personal data with third parties for marketing.',
+    s4Title: '4. How we store it',
+    s4Intro: 'Form submissions are processed by:',
+    s4Items: [
+      'Linear (linear.app): used as our lead-tracking system. Data controller: us. Data processor: Linear.',
+      'Resend (resend.com): sends our confirmation emails. Data controller: us. Data processor: Resend.',
+    ],
+    s4Outro:
+      'We retain submitted contact information for up to 12 months from submission, after which it is anonymized or deleted.',
+    s5Title: '5. Your rights',
+    s5Body:
+      'Under GDPR, you have the right to access, correct, or request deletion of your data, and to lodge a complaint with the Latvian Data State Inspectorate (Datu valsts inspekcija). To exercise any of these rights, email',
+    s6Title: '6. Changes to this policy',
+    s6Body:
+      'We will update this policy as our services evolve. The "last updated" date at the top reflects the most recent revision.',
+    s7Title: '7. Contact',
+    s7Body: 'For privacy-related questions:',
   },
 };
 
@@ -152,7 +195,7 @@ const lv = {
   hero: {
     title: 'Ar Coride tavs ceļš uz darbu pelna bonusus.',
     sub:
-      'Pievienojies savas darbavietas kopienai Coride. Brauc uz darbu kopā ar kolēģiem, samazini ceļa izmaksas un saņem bonusus no vietējiem partneriem.',
+      'Pievienojies savas darba vietas kopienai Coride platformā. Brauc uz darbu kopā ar kolēģiem, samazini ceļa izmaksas un saņem bonusus no mūsu partneriem.',
     ctaPrimary: 'Piesakies agrīnai piekļuvei',
     ctaGhost: 'Kā tas darbojas',
     tractionBold: 'Pirmie pilotprojekti ar organizācijām sāksies šī gada rudenī.',
@@ -271,8 +314,52 @@ const lv = {
     homeAria: 'Coride sākums',
     legal: 'Juridiskā informācija',
     privacy: 'Privātuma politika',
-    legalInfo: 'Reģistrācijas dati',
     supportedBy: 'Atbalsta',
+  },
+  privacy: {
+    documentTitle: 'Privātuma politika - Coride',
+    title: 'Privātuma politika',
+    updated: 'Pēdējoreiz atjaunināta: 2026. gada 5. jūnijā',
+    lead:
+      'Šī Privātuma politika izskaidro, kā SIA "Milup" ("mēs", "mūsu", "Coride") vāc, izmanto un aizsargā personas datus, kad izmantojat Coride tīmekļa vietni.',
+    s1Title: '1. Kas mēs esam',
+    s1Body:
+      'Coride ir SIA "Milup" zīmols, reģistrēts Latvijā. Reģistrācijas numurs: 40203734972. Juridiskā adrese: Raunas iela 45 k-1 - 20, Rīga, LV-1084. Kontakti:',
+    s2Title: '2. Kādus datus mēs vācam',
+    s2Intro: 'Kad iesniedzat pieteikuma veidlapu, mēs vācam:',
+    s2Items: [
+      'Jūsu vārdu',
+      'Jūsu e-pasta adresi',
+      'Privātpersonām: darba devēja nosaukumu (vai "Nevēlos norādīt")',
+      'Partneriem: uzņēmuma nosaukumu, kontaktpersonu, bonusu piedāvājumu (pēc izvēles)',
+      'Tehniskos datus: IP adresi (izmantota tikai pieprasījumu ierobežošanai, netiek glabāta ilgtermiņā)',
+    ],
+    s2Outro:
+      'Mēs neizmantojam sīkdatnes vai analītiku, kas jūs izseko. Vietne izmanto Plausible Analytics, kas darbojas bez sīkdatnēm un nevāc personas datus.',
+    s3Title: '3. Kāpēc mēs tos vācam',
+    s3Items: [
+      'Lai atbildētu uz jūsu pieprasījumu par Coride',
+      'Lai informētu jūs, kad Coride tiks palaists jūsu darbavietā',
+      'Lai uzlabotu izpratni par Coride potenciālo lietotāju bāzi (apkopotā formā)',
+    ],
+    s3Outro:
+      'Mēs nepārdodam, neizīrējam un nedalāmies ar jūsu personas datiem ar trešajām pusēm mārketinga nolūkos.',
+    s4Title: '4. Kā mēs tos glabājam',
+    s4Intro: 'Veidlapu iesniegumus apstrādā:',
+    s4Items: [
+      'Linear (linear.app): mūsu potenciālo klientu uzskaites sistēma. Datu pārzinis: mēs. Datu apstrādātājs: Linear.',
+      'Resend (resend.com): apstiprinājuma e-pastu sūtīšana. Datu pārzinis: mēs. Datu apstrādātājs: Resend.',
+    ],
+    s4Outro:
+      'Mēs glabājam iesniegtos kontaktus līdz 12 mēnešiem no iesniegšanas brīža, pēc tam tos anonimizējam vai dzēšam.',
+    s5Title: '5. Jūsu tiesības',
+    s5Body:
+      'Saskaņā ar VDAR jums ir tiesības piekļūt saviem datiem, tos labot vai pieprasīt dzēšanu, kā arī iesniegt sūdzību Datu valsts inspekcijā. Lai izmantotu šīs tiesības, rakstiet uz',
+    s6Title: '6. Izmaiņas šajā politikā',
+    s6Body:
+      'Mēs atjaunināsim šo politiku, attīstoties mūsu pakalpojumiem. Datums "pēdējoreiz atjaunināta" augšā norāda uz jaunāko versiju.',
+    s7Title: '7. Kontakti',
+    s7Body: 'Jautājumi par privātumu:',
   },
 };
 
