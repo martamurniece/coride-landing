@@ -19,9 +19,11 @@ function readStoredLocale(): Locale {
 }
 
 function pageTitle(locale: Locale): string {
-  if (typeof window !== 'undefined' && window.location.pathname === '/privacy') {
-    return messages[locale].privacy.documentTitle;
-  }
+  if (typeof window === 'undefined') return messages[locale].meta.title;
+  const { pathname } = window.location;
+  if (pathname === '/privacy') return messages[locale].privacy.documentTitle;
+  if (pathname === '/employers') return messages[locale].employers.meta.title;
+  if (pathname === '/partners') return messages[locale].partners.meta.title;
   return messages[locale].meta.title;
 }
 

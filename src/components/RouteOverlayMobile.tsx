@@ -342,7 +342,7 @@ export function RouteOverlayMobile() {
       </svg>
       <span ref={startRef} className="routeStart" />
       <div ref={carRef} className="routeCar">
-        <Image src="/assets/coride-car.png" alt="" width={347} height={168} priority />
+        <Image src="/assets/coride-car.png" alt="" width={347} height={168} priority draggable={false} />
       </div>
     </div>
   );

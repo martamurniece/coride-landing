@@ -8,8 +8,252 @@ const en = {
   },
   nav: {
     homeAria: 'Coride home',
+    home: 'Home',
     joinWaitlist: 'Join the waitlist',
+    forEmployers: 'For employers',
+    forPartners: 'For partners',
+    bookCall: 'Book a call',
+    becomePartner: 'Become a partner',
     menuAria: 'Toggle menu',
+  },
+  employers: {
+    meta: {
+      title: 'Coride: For employers',
+      description:
+        'Help your team get to work without building another parking lot. Coride connects employees into verified, shared commutes.',
+    },
+    hero: {
+      title: 'Help your team get to work, without building another parking lot.',
+      sub:
+        'Coride connects your employees into verified, shared commutes. Fewer cars in the lot, lower parking costs, a real sustainability impact, and an easier journey for everyone on your team.',
+      ctaPrimary: 'Book a call',
+      ctaGhost: 'How it works',
+      baBefore: 'Before',
+      baAfter: 'After',
+      baCap: 'Fewer cars means space you can use, expand, rent out, or simply stop paying for.',
+      baAria: 'Before and after: a packed parking lot becomes a mostly freed, repurposable lot',
+    },
+    cost: {
+      title: 'The hidden cost of how your team commutes.',
+      lead: 'Most workplaces pay for solo commuting without ever seeing the bill.',
+      cards: [
+        {
+          line: 'line-magenta',
+          title: 'Parking is more expensive than it looks',
+          desc:
+            'Land, construction, maintenance, snow clearing. Every space costs thousands per year, and most carry one person.',
+        },
+        {
+          line: 'line-blue',
+          title: 'Hard-to-reach locations cost you talent',
+          desc:
+            'Industrial parks, the airport, logistics hubs. When getting to work is difficult, hiring and keeping people gets harder.',
+        },
+        {
+          line: 'line-green',
+          title: 'Solo commuting works against your climate goals',
+          desc:
+            'One person per car is the least efficient way for a team to travel. It shows up in your footprint and your reporting.',
+        },
+        {
+          line: 'line-orange',
+          title: "The commute is a daily friction you can't easily fix",
+          desc: 'Your people lose time and money getting to work. Now you can help them save real money over a year.',
+        },
+      ],
+    },
+    value: {
+      title: 'What Coride brings.',
+      lead: "Coride turns your team's daily commute into something that works for everyone.",
+      cards: [
+        {
+          line: 'line-blue',
+          title: 'Fewer cars, less parking pressure',
+          desc:
+            'When colleagues share rides, you need fewer spaces. Free up land, cut parking costs, and ease the daily crunch.',
+        },
+        {
+          line: 'line-orange',
+          title: "A workplace that's easier to reach",
+          desc:
+            'Make your location more accessible without waiting for new bus routes. Easier commutes help you hire and keep people.',
+        },
+        {
+          line: 'line-green',
+          title: 'Measurable sustainability impact',
+          desc:
+            'Fewer cars on the road is a clear, reportable contribution to your climate and ESG commitments.',
+        },
+        {
+          line: 'line-magenta',
+          title: 'A real perk, with no work for you',
+          desc:
+            'Your employees earn rewards from local partners every time they co-ride. You offer a genuine benefit without running anything yourself.',
+        },
+        {
+          line: 'line-lime',
+          span2: true,
+          title: 'Verified and workplace-only',
+          desc: 'Only your people, verified through your workplace. Colleagues ride with colleagues, not strangers.',
+        },
+      ],
+    },
+    how: {
+      title: 'How Coride works for employers.',
+      lead: 'Four steps, from joining to seeing the impact.',
+      steps: [
+        {
+          line: 'line-blue',
+          step: '01',
+          title: 'Your workplace joins Coride',
+          desc: 'We set up Coride for your team and verify your commuters.',
+        },
+        {
+          line: 'line-orange',
+          step: '02',
+          title: 'Your employees match',
+          desc: 'They find colleagues on the same routes and shifts.',
+        },
+        {
+          line: 'line-green',
+          step: '03',
+          title: 'They co-ride',
+          desc: 'One car instead of several. Costs are shared through the app.',
+        },
+        {
+          line: 'line-magenta',
+          step: '04',
+          title: 'You see the impact',
+          desc: 'Fewer cars, freed-up parking, and a measurable sustainability result.',
+        },
+      ],
+    },
+    pilot: {
+      title: "We're launching our first pilots later this year.",
+      body:
+        "We're working with a small number of employers to bring Coride to their teams first. If your workplace struggles with parking, access, or commuting, we'd like to talk.",
+      carAria: 'Move the car along the route',
+    },
+    closing: {
+      title: 'Want to bring Coride to your workplace?',
+      body:
+        "Let's have a short conversation about whether Coride fits your team. No commitment, just a chance to explore it.",
+      cta: 'Book a call',
+      emailNote: 'Or email us:',
+    },
+  },
+  partners: {
+    meta: {
+      title: 'Coride: For partners',
+      description:
+        'Reach loyal local customers on their way to work. Coride riders earn rewards from nearby businesses as part of their daily commute.',
+    },
+    hero: {
+      title: 'Reach loyal local customers on their way to work.',
+      sub:
+        'Coride riders earn rewards from nearby businesses as part of their daily commute. Become a partner and put your business in front of a steady stream of local customers — the people who pass you every day.',
+      ctaPrimary: 'Become a partner',
+      ctaGhost: 'How it works',
+      map: {
+        aria: 'A commute route from home to work with local businesses as stops along the way',
+        home: 'Home',
+        work: 'Work',
+        cafe: 'Café',
+        gym: 'Gym',
+        shop: 'Shop',
+        bakery: 'Bakery',
+        cap: 'Be a stop on the daily route',
+      },
+    },
+    why: {
+      title: 'Why partner with Coride.',
+      lead:
+        "Coride isn't another discount platform. It's a way to reach the people who already pass your door, every working day.",
+      cards: [
+        {
+          line: 'line-blue',
+          title: 'Reach customers without a marketing budget',
+          desc:
+            'Coride puts your business in front of nearby commuters. No ad campaigns, no marketing spend. The platform brings the customers to you.',
+        },
+        {
+          line: 'line-orange',
+          title: 'Customers who arrive ready to spend',
+          desc:
+            'Coride riders come to you as part of their routine — motivated and local, not one-off discount hunters passing through.',
+        },
+        {
+          line: 'line-green',
+          title: 'Become the local choice on their commute',
+          desc:
+            'Be the café, the gym, the shop, the stop that commuters choose on their way to and from work. A whole network of nearby workers, choosing you.',
+        },
+        {
+          line: 'line-magenta',
+          title: 'Repeat, routine visits',
+          desc:
+            "Commuting is daily. These aren't one-time customers — they pass you every working day, again and again.",
+        },
+      ],
+    },
+    how: {
+      title: 'How partnership works.',
+      lead: "We're shaping the partner program together with our first partners.",
+      steps: [
+        {
+          line: 'line-blue',
+          step: '01',
+          title: 'Riders earn rewards through Coride',
+          desc: 'Every time colleagues co-ride, they earn rewards to spend with local partners.',
+        },
+        {
+          line: 'line-orange',
+          step: '02',
+          title: 'You offer something that fits',
+          desc:
+            "Cafés, gyms, shops, services — we'll work with you to find the right fit. No rigid formula.",
+        },
+        {
+          line: 'line-green',
+          step: '03',
+          title: 'Commuters discover and visit you',
+          desc: 'Riders find you through the app and come to you as part of their daily route.',
+        },
+        {
+          line: 'line-magenta',
+          step: '04',
+          title: 'We figure out the details together',
+          desc:
+            'As an early partner, you help shape how the program works — and get in before anyone else.',
+        },
+      ],
+    },
+    local: {
+      title: 'Built for local businesses near where people work.',
+      body:
+        'Cafés, restaurants, gyms, shops, fuel stations, services — if commuters pass you on their way to and from work, Coride can bring them in.',
+      tags: [
+        { label: 'Cafés', color: 'line-orange' },
+        { label: 'Restaurants', color: 'line-blue' },
+        { label: 'Gyms', color: 'line-green' },
+        { label: 'Shops', color: 'line-magenta' },
+        { label: 'Fuel stations', color: 'line-brown' },
+        { label: 'Services', color: 'line-lime' },
+      ],
+    },
+    network: {
+      title: "We're building our first partner network now.",
+      body:
+        "We're talking to local businesses who want to be part of Coride from the start. Early partners help shape the program and are the first commuters see when we launch.",
+      carAria: 'Move the car along the route',
+    },
+    closing: {
+      title: 'Interested in becoming a Coride partner?',
+      body:
+        "Let's talk about whether Coride fits your business. We're still shaping the program, and your input helps build it.",
+      cta: 'Become a partner',
+      emailNote: 'Or email us:',
+    },
   },
   hero: {
     title: 'Earn perks for the commute you already make.',
@@ -189,8 +433,253 @@ const lv = {
   },
   nav: {
     homeAria: 'Coride sākums',
+    home: 'Sākums',
     joinWaitlist: 'Piesakies agrīnai piekļuvei',
+    forEmployers: 'Darba devējiem',
+    forPartners: 'Partneriem',
+    bookCall: 'Pieteikt zvanu',
+    becomePartner: 'Kļūt par partneri',
     menuAria: 'Atvērt izvēlni',
+  },
+  employers: {
+    meta: {
+      title: 'Coride: Darba devējiem',
+      description:
+        'Palīdziet komandai nokļūt darbā, nebūvējot vēl vienu stāvlaukumu. Coride savieno darbiniekus pārbaudītos kopbraucienos.',
+    },
+    hero: {
+      title: 'Palīdziet komandai nokļūt darbā, nebūvējot vēl vienu stāvlaukumu.',
+      sub:
+        'Coride savieno jūsu darbiniekus pārbaudītos kopbraucienos. Mazāk auto stāvlaukumā, zemākas stāvvietu izmaksas, reāls ilgtspējības ieguvums un vieglāks ceļš uz darbu visai komandai.',
+      ctaPrimary: 'Pieteikt zvanu',
+      ctaGhost: 'Kā tas darbojas',
+      baBefore: 'Pirms',
+      baAfter: 'Pēc',
+      baCap: 'Mazāk automašīnu nozīmē brīvu vietu, ko var izmantot, paplašināt, izīrēt, vai vienkārši vairs par to nemaksāt.',
+      baAria: 'Pirms un pēc: pilns stāvlaukums kļūst brīvāks un izmantojams citiem mērķiem',
+    },
+    cost: {
+      title: 'Slēptās izmaksas, kā jūsu komanda brauc uz darbu.',
+      lead: 'Lielākā daļa darbavietu maksā par braukšanu vienatnē, pat neredzot rēķinu.',
+      cards: [
+        {
+          line: 'line-magenta',
+          title: 'Stāvvieta maksā vairāk, nekā šķiet',
+          desc:
+            'Zeme, būvniecība, uzturēšana, sniega tīrīšana. Katra vieta gadā izmaksā tūkstošiem eiro, un lielākajā daļā brauc tikai viens cilvēks.',
+        },
+        {
+          line: 'line-blue',
+          title: 'Grūti pieejamas lokācijas atņem talantus',
+          desc:
+            'Industriālie parki, lidosta, loģistikas centri. Kad ceļš uz darbu ir sarežģīts, atrast un noturēt darbiniekus kļūst grūtāk.',
+        },
+        {
+          line: 'line-green',
+          title: 'Braukšana vienatnē iet pret jūsu klimata mērķiem',
+          desc:
+            'Viens cilvēks vienā automašīnā: neefektīvākais veids, kā komandai ceļot. Tas redzams jūsu oglekļa pēdā un pārskatos.',
+        },
+        {
+          line: 'line-orange',
+          title: 'Ceļš uz darbu ir ikdienas slogs, kuru grūti noņemt',
+          desc:
+            'Jūsu darbinieki katru dienu zaudē laiku un naudu ceļā. Tagad varat palīdzēt viņiem ietaupīt reālas summas gada laikā.',
+        },
+      ],
+    },
+    value: {
+      title: 'Ko Coride sniedz.',
+      lead: 'Coride pārvērš jūsu komandas ikdienas braucienu par risinājumu, kas der visiem.',
+      cards: [
+        {
+          line: 'line-blue',
+          title: 'Mazāk auto, mazāks spiediens uz stāvvietām',
+          desc:
+            'Kolēģi braucot kopā, vajag mazāk vietu. Atbrīvojiet zemi, samaziniet stāvvietu izmaksas un maziniet ikdienas sastrēgumus.',
+        },
+        {
+          line: 'line-orange',
+          title: 'Darbavieta, kurai vieglāk piekļūt',
+          desc:
+            'Padariet savu lokāciju pieejamāku, negaidot jaunus autobusu maršrutus. Vieglāks ceļš uz darbu palīdz atrast un noturēt darbiniekus.',
+        },
+        {
+          line: 'line-green',
+          title: 'Izmērāms ilgtspējības ieguvums',
+          desc:
+            'Mazāk automašīnu uz ceļiem: skaidrs, uzskatāms ieguldījums jūsu klimata un ESG saistībās.',
+        },
+        {
+          line: 'line-magenta',
+          title: 'Reāls bonuss darbiniekiem, bez papildu darba jums',
+          desc:
+            'Darbinieki par katru kopbraucienu saņem bonusus no vietējiem partneriem. Jūs piedāvājat reālu labumu, neko pārvaldot paši.',
+        },
+        {
+          line: 'line-lime',
+          span2: true,
+          title: 'Pārbaudīti un tikai no jūsu darbavietas',
+          desc: 'Tikai jūsu cilvēki, pārbaudīti caur darbavietu. Kolēģi brauc ar kolēģiem, ne ar svešiniekiem.',
+        },
+      ],
+    },
+    how: {
+      title: 'Kā Coride darbojas darba devējiem.',
+      lead: 'Četri soļi, no pievienošanās līdz redzamam rezultātam.',
+      steps: [
+        {
+          line: 'line-blue',
+          step: '01',
+          title: 'Jūsu darbavieta pievienojas Coride',
+          desc: 'Mēs iestatām Coride jūsu komandai un pārbaudām braucēus.',
+        },
+        {
+          line: 'line-orange',
+          step: '02',
+          title: 'Darbinieki atrod kolēģus',
+          desc: 'Viņi atrod kolēģus uz tā paša maršruta un maiņā.',
+        },
+        {
+          line: 'line-green',
+          step: '03',
+          title: 'Brauc kopā',
+          desc: 'Viens auto vairāku vietā. Izmaksas tiek godīgi sadalītas lietotnē.',
+        },
+        {
+          line: 'line-magenta',
+          step: '04',
+          title: 'Redzat rezultātu',
+          desc: 'Mazāk automašīnu, brīvākas stāvvietas un izmērāms ilgtspējības ieguvums.',
+        },
+      ],
+    },
+    pilot: {
+      title: 'Pirmie pilotprojekti sāksies šī gada rudenī.',
+      body:
+        'Mēs sadarbojamies ar ierobežotu skaitu darba devēju, lai Coride vispirms nonāktu pie viņu komandām. Ja jūsu darbavietā trūkst stāvvietu, ir grūti piekļūt vai ikdienu nokļūt līdz darbam ir sarežģīti, vēlamies parunāt.',
+      carAria: 'Pārvietot automašīnu pa maršrutu',
+    },
+    closing: {
+      title: 'Vēlaties ieviest Coride savā darbavietā?',
+      body:
+        'Parunāsim īsi par to, vai Coride der jūsu komandai. Bez saistībām, vienkārši iespēja izpētīt.',
+      cta: 'Pieteikt zvanu',
+      emailNote: 'Vai rakstiet mums:',
+    },
+  },
+  partners: {
+    meta: {
+      title: 'Coride: Partneriem',
+      description:
+        'Sasniedz lojālus vietējos klientus viņu ikdienas ceļā uz darbu. Coride braucēji pelna bonusus pie tuvējiem uzņēmumiem.',
+    },
+    hero: {
+      title: 'Sasniedz lojālus vietējos klientus ceļā uz darbu.',
+      sub:
+        'Coride braucēji ikdienas ceļā uz darbu pelna bonusus pie tuvējiem uzņēmumiem. Kļūsti par partneri un parādi savu uzņēmumu pastāvīgai vietējo klientu plūsmai — cilvēkiem, kas brauc tev garām katru dienu.',
+      ctaPrimary: 'Kļūt par partneri',
+      ctaGhost: 'Kā tas darbojas',
+      map: {
+        aria: 'Ceļš no mājām uz darbu ar vietējiem uzņēmumiem kā pieturām pa ceļam',
+        home: 'Mājas',
+        work: 'Darbs',
+        cafe: 'Kafejnīca',
+        gym: 'Sporta zāle',
+        shop: 'Veikals',
+        bakery: 'Maiznīca',
+        cap: 'Kļūsti par pieturu ikdienas maršrutā',
+      },
+    },
+    why: {
+      title: 'Kāpēc sadarboties ar Coride.',
+      lead:
+        'Coride nav kārtējā atlaižu platforma. Tas ir veids, kā sasniegt cilvēkus, kas jau tagad katru darba dienu brauc garām tavām durvīm.',
+      cards: [
+        {
+          line: 'line-blue',
+          title: 'Sasniedz klientus bez mārketinga budžeta',
+          desc:
+            'Coride parāda tavu uzņēmumu apkārtnes braucējiem. Bez reklāmas kampaņām, bez mārketinga izdevumiem. Platforma atved klientus pie tevis.',
+        },
+        {
+          line: 'line-orange',
+          title: 'Klienti, kas ierodas gatavi pirkt',
+          desc:
+            'Coride braucēji pie tevis iegriežas savas ikdienas gaitās — motivēti un vietēji, nevis vienreizēji atlaižu mednieki.',
+        },
+        {
+          line: 'line-green',
+          title: 'Kļūsti par viņu ikdienas izvēli',
+          desc:
+            'Esi tā kafejnīca, sporta zāle vai veikals, ko braucēji izvēlas ceļā uz darbu un mājām. Vesels apkārtnē strādājošo tīkls, kas izvēlas tevi.',
+        },
+        {
+          line: 'line-magenta',
+          title: 'Atkārtoti, regulāri apmeklējumi',
+          desc:
+            'Ceļš uz darbu ir katru dienu. Šie nav vienreizēji pircēji — viņi brauc tev garām katru darba dienu, atkal un atkal.',
+        },
+      ],
+    },
+    how: {
+      title: 'Kā darbojas partnerība.',
+      lead: 'Partneru programmu veidojam kopā ar pirmajiem partneriem.',
+      steps: [
+        {
+          line: 'line-blue',
+          step: '01',
+          title: 'Braucēji pelna bonusus ar Coride',
+          desc: 'Katru reizi, kad kolēģi brauc kopā, viņi nopelna bonusus, ko tērēt pie vietējiem partneriem.',
+        },
+        {
+          line: 'line-orange',
+          step: '02',
+          title: 'Tu piedāvā ko piemērotu',
+          desc:
+            'Kafejnīcas, sporta zāles, veikali, pakalpojumi — kopā atradīsim īsto piedāvājumu. Bez stingras formulas.',
+        },
+        {
+          line: 'line-green',
+          step: '03',
+          title: 'Braucēji tevi atklāj un apciemo',
+          desc: 'Braucēji atrod tevi lietotnē un iegriežas pie tevis sava ikdienas maršruta laikā.',
+        },
+        {
+          line: 'line-magenta',
+          step: '04',
+          title: 'Detaļas izstrādājam kopā',
+          desc:
+            'Kā agrīnais partneris tu palīdzi veidot programmas darbību — un esi klāt pirms citiem.',
+        },
+      ],
+    },
+    local: {
+      title: 'Veidots vietējiem uzņēmumiem tur, kur cilvēki strādā.',
+      body:
+        'Kafejnīcas, restorāni, sporta zāles, veikali, degvielas uzpildes stacijas, pakalpojumi — ja braucēji tev brauc garām ceļā uz darbu un mājām, Coride var viņus atvest pie tevis.',
+      tags: [
+        { label: 'Kafejnīcas', color: 'line-orange' },
+        { label: 'Restorāni', color: 'line-blue' },
+        { label: 'Sporta zāles', color: 'line-green' },
+        { label: 'Veikali', color: 'line-magenta' },
+        { label: 'Degvielas stacijas', color: 'line-brown' },
+        { label: 'Pakalpojumi', color: 'line-lime' },
+      ],
+    },
+    network: {
+      title: 'Mēs jau tagad veidojam savu pirmo partneru tīklu.',
+      body:
+        'Mēs runājam ar vietējiem uzņēmumiem, kas vēlas būt daļa no Coride jau no paša sākuma. Agrīnie partneri palīdz veidot programmu, un tieši viņus braucēji ieraudzīs pirmos, kad sāksim.',
+      carAria: 'Pārvietot automašīnu pa maršrutu',
+    },
+    closing: {
+      title: 'Interesē kļūt par Coride partneri?',
+      body:
+        'Aprunāsimies, vai Coride der tavam uzņēmumam. Mēs vēl veidojam programmu, un tava pieredze palīdz to izveidot.',
+      cta: 'Kļūt par partneri',
+      emailNote: 'Vai raksti mums:',
+    },
   },
   hero: {
     title: 'Ar Coride tavs ceļš uz darbu pelna bonusus.',
