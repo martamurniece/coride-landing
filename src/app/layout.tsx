@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { LocaleProvider } from '@/i18n/LocaleProvider';
+import OrganizationSchema from './organization-schema';
 import '../styles/globals.css';
 import '../styles/nav.css';
 import '../styles/hero.css';
@@ -46,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <OrganizationSchema />
         <LocaleProvider>
           <SmoothScroll />
           {children}
