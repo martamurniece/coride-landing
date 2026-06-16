@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     siteName: 'Coride',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     locale: 'en_US',
+    alternateLocale: ['lv_LV'],
     type: 'website',
   },
   twitter: {
