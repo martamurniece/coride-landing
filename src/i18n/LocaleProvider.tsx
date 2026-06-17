@@ -1,59 +1,24 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import { messages, type Messages } from './messages';
-import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY, type Locale } from './types';
+import type { Locale } from './types';
 
 interface LocaleContextValue {
   locale: Locale;
-  setLocale: (locale: Locale) => void;
   t: Messages;
 }
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
-function readStoredLocale(): Locale {
-  if (typeof window === 'undefined') return DEFAULT_LOCALE;
-  const stored = window.localStorage.getItem(LOCALE_STORAGE_KEY);
-  return stored === 'lv' ? 'lv' : DEFAULT_LOCALE;
-}
-
-function pageTitle(locale: Locale): string {
-  if (typeof window === 'undefined') return messages[locale].meta.title;
-  const { pathname } = window.location;
-  if (pathname === '/privacy') return messages[locale].privacy.documentTitle;
-  if (pathname === '/employers') return messages[locale].employers.meta.title;
-  if (pathname === '/partners') return messages[locale].partners.meta.title;
-  return messages[locale].meta.title;
-}
-
-export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(DEFAULT_LOCALE);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setLocaleState(readStoredLocale());
-    setReady(true);
-  }, []);
-
-  const setLocale = useCallback((next: Locale) => {
-    setLocaleState(next);
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, next);
-    document.documentElement.lang = next;
-    document.title = pageTitle(next);
-  }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-    document.documentElement.lang = locale;
-    document.title = pageTitle(locale);
-  }, [locale, ready]);
-
-  const value = useMemo(
-    () => ({ locale, setLocale, t: messages[locale] }),
-    [locale, setLocale],
-  );
-
+export function LocaleProvider({
+  locale,
+  children,
+}: {
+  locale: Locale;
+  children: React.ReactNode;
+}) {
+  const value = useMemo(() => ({ locale, t: messages[locale] }), [locale]);
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
 }
 

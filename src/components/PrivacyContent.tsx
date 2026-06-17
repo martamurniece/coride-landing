@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useLocale } from '@/i18n/LocaleProvider';
 
 const EMAIL = 'info@coride.org';
@@ -8,10 +7,6 @@ const EMAIL = 'info@coride.org';
 export function PrivacyContent() {
   const { t } = useLocale();
   const p = t.privacy;
-
-  useEffect(() => {
-    document.title = p.documentTitle;
-  }, [p.documentTitle]);
 
   return (
     <main className="legalDoc">

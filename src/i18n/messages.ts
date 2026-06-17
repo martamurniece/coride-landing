@@ -101,6 +101,7 @@ const en = {
     how: {
       title: 'How Coride works for employers.',
       lead: 'Four steps, from joining to seeing the impact.',
+      step: 'Step',
       steps: [
         {
           line: 'line-blue',
@@ -199,6 +200,7 @@ const en = {
     how: {
       title: 'How partnership works.',
       lead: "We're shaping the partner program together with our first partners.",
+      step: 'Step',
       steps: [
         {
           line: 'line-blue',
@@ -380,7 +382,11 @@ const en = {
     supportedBy: 'Supported by',
   },
   privacy: {
-    documentTitle: 'Privacy Policy - Coride',
+    meta: {
+      title: 'Coride: Privacy Policy',
+      description:
+        'How Coride (SIA Milup) collects, uses, and protects personal data when you use coride.org.',
+    },
     title: 'Privacy Policy',
     updated: 'Last updated: June 5, 2026',
     lead:
@@ -527,6 +533,7 @@ const lv = {
     how: {
       title: 'Kā Coride darbojas darba devējiem.',
       lead: 'Četri soļi, no pievienošanās līdz redzamam rezultātam.',
+      step: 'Solis',
       steps: [
         {
           line: 'line-blue',
@@ -625,6 +632,7 @@ const lv = {
     how: {
       title: 'Kā darbojas partnerība.',
       lead: 'Partneru programmu veidojam kopā ar pirmajiem partneriem.',
+      step: 'Solis',
       steps: [
         {
           line: 'line-blue',
@@ -806,7 +814,11 @@ const lv = {
     supportedBy: 'Atbalsta',
   },
   privacy: {
-    documentTitle: 'Privātuma politika - Coride',
+    meta: {
+      title: 'Coride: Privātuma politika',
+      description:
+        'Kā Coride (SIA Milup) vāc, izmanto un aizsargā personas datus, kad lietojat coride.org.',
+    },
     title: 'Privātuma politika',
     updated: 'Pēdējoreiz atjaunināta: 2026. gada 5. jūnijā',
     lead:

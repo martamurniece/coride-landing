@@ -108,7 +108,7 @@ export function PartnersContent() {
             {t.partners.how.steps.map((step) => (
               <div className={`stop ${step.line}`} key={step.step}>
                 <span className="dot" />
-                <div className="stepno">Step {step.step}</div>
+                <div className="stepno">{t.partners.how.step} {step.step}</div>
                 <h3>{step.title}</h3>
                 <p>{step.desc}</p>
               </div>

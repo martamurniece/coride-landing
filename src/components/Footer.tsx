@@ -3,23 +3,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { localePath } from '@/i18n/metadata';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Footer() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   return (
     <footer className="footer" id="footer">
       <div className="footMain">
         <div className="footBrand">
-          <Link className="footWord" href="/" aria-label={t.footer.homeAria}>
+          <Link className="footWord" href={localePath(locale, '/')} aria-label={t.footer.homeAria}>
             Coride
           </Link>
           <a className="footEmail" href="mailto:info@coride.org">info@coride.org</a>
         </div>
         <nav className="footLegal" aria-label={t.footer.legal}>
           <span className="footColLabel">{t.footer.legal}</span>
-          <a href="/privacy">{t.footer.privacy}</a>
+          <a href={localePath(locale, '/privacy')}>{t.footer.privacy}</a>
         </nav>
       </div>
 

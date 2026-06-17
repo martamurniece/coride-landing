@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { localePath } from '@/i18n/metadata';
 
 type Branch = 'individual' | 'employer' | 'partner';
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
@@ -10,7 +11,7 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 const CALENDLY_URL = 'https://calendly.com/coride/intro';
 
 export function SignupForm() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [branch, setBranch] = useState<Branch>('individual');
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -218,7 +219,7 @@ export function SignupForm() {
                   />
                   <span className="consentText">
                     {t.signup.consentBefore}{' '}
-                    <a href="/privacy" target="_blank" rel="noopener noreferrer">{t.signup.consentLink}</a>
+                    <a href={localePath(locale, '/privacy')} target="_blank" rel="noopener noreferrer">{t.signup.consentLink}</a>
                     {t.signup.consentAfter}
                   </span>
                 </label>

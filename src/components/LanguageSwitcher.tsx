@@ -1,15 +1,26 @@
 'use client';
 
+import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from '@/i18n/LocaleProvider';
-import type { Locale } from '@/i18n/types';
+import { LOCALES, type Locale } from '@/i18n/types';
 
-const OPTIONS: { id: Locale; label: string }[] = [
-  { id: 'en', label: 'EN' },
-  { id: 'lv', label: 'LV' },
-];
+const OPTIONS: { id: Locale; label: string }[] = LOCALES.map((id) => ({
+  id,
+  label: id.toUpperCase(),
+}));
+
+const LOCALE_PREFIX = new RegExp(`^/(?:${LOCALES.join('|')})(?=/|$)`);
 
 export function LanguageSwitcher() {
-  const { locale, setLocale } = useLocale();
+  const { locale } = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const swap = (next: Locale) => {
+    if (next === locale) return;
+    const rest = pathname.replace(LOCALE_PREFIX, '');
+    router.push(`/${next}${rest || ''}`);
+  };
 
   return (
     <div className="lang" role="group" aria-label="Language">
@@ -19,7 +30,7 @@ export function LanguageSwitcher() {
           type="button"
           className={locale === id ? 'on' : undefined}
           aria-pressed={locale === id}
-          onClick={() => setLocale(id)}
+          onClick={() => swap(id)}
         >
           {label}
         </button>

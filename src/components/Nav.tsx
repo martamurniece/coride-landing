@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { localePath } from '@/i18n/metadata';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export type NavProps = {
@@ -16,34 +17,38 @@ export type NavProps = {
 export function Nav({ activeLink, ctaHref, ctaLabel, ctaExternal }: NavProps = {}) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   const ctaContent = ctaLabel ?? t.nav.joinWaitlist;
 
+  const home = localePath(locale, '/');
+  const employers = localePath(locale, '/employers');
+  const partners = localePath(locale, '/partners');
+
   return (
     <nav className="nav">
-      <Link className="word" href="/" aria-label={t.nav.homeAria}>
+      <Link className="word" href={home} aria-label={t.nav.homeAria}>
         Coride
       </Link>
       <div className="navRight">
         <div className={`navLinks ${open ? 'navLinksOpen' : ''}`}>
           <Link
-            href="/"
-            className={pathname === '/' ? 'current' : undefined}
+            href={home}
+            className={pathname === home ? 'current' : undefined}
             onClick={() => setOpen(false)}
           >
             {t.nav.home}
           </Link>
           <Link
-            href="/employers"
-            className={pathname === '/employers' || activeLink === 'employers' ? 'current' : undefined}
+            href={employers}
+            className={pathname === employers || activeLink === 'employers' ? 'current' : undefined}
             onClick={() => setOpen(false)}
           >
             {t.nav.forEmployers}
           </Link>
           <Link
-            href="/partners"
-            className={pathname === '/partners' || activeLink === 'partners' ? 'current' : undefined}
+            href={partners}
+            className={pathname === partners || activeLink === 'partners' ? 'current' : undefined}
             onClick={() => setOpen(false)}
           >
             {t.nav.forPartners}
