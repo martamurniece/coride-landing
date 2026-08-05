@@ -36,7 +36,9 @@ export function proxy(request: NextRequest) {
   const locale = detectLocale(request);
   const url = request.nextUrl.clone();
   url.pathname = `/${locale}${pathname === '/' ? '' : pathname}`;
-  return NextResponse.redirect(url);
+  // 308 (permanent) so search engines consolidate signals on the locale URLs;
+  // NextResponse.redirect defaults to 307 (temporary).
+  return NextResponse.redirect(url, 308);
 }
 
 export const config = {
