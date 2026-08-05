@@ -37,7 +37,7 @@ export default async function Home({
 
   return (
     <div className="page">
-      <Nav />
+      <Nav ctaHref="#signup" />
       <RouteSwitch />
       <Hero />
       <Problem />
