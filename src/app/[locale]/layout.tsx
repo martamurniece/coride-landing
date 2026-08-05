@@ -8,6 +8,7 @@ import OrganizationSchema from '../organization-schema';
 import '../../styles/globals.css';
 import '../../styles/nav.css';
 import '../../styles/hero.css';
+import '../../styles/showcase.css';
 import '../../styles/problem.css';
 import '../../styles/how.css';
 import '../../styles/signup.css';

@@ -1,26 +1,35 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
+import { ROUTE_X, VIEW_W } from './showcase/config';
 
 const GREEN = '#0CA64A';
 const ORANGE = '#F26B1F';
 const BLUE = '#1B4FCF';
-const INK = '#1f1f1f';
-const STROKE = '#1f1f1f';
 
-const PATH_COLORS = [GREEN, ORANGE, BLUE, INK];
+/** path 0–1 green, 2 orange, 3 blue */
+const PATH_COLORS = [GREEN, GREEN, ORANGE, BLUE];
+/** dock dots: green-top, green-bottom, orange, blue */
+const DOT_COLORS = [GREEN, GREEN, ORANGE, BLUE];
 
 const r1 = (n: number) => Math.round(n * 10) / 10;
 
+/** Clearance between outer green stubs and the panel's top/bottom edges. */
+const EDGE_GAP = 14;
+
 /**
- * Draws the hero's colored route lines so they always hug the phone mock-up.
- * The phone is a fixed size per breakpoint (see hero.css); the line break-points
- * are computed from the phone's measured box, with the design's gutter/hub
- * offsets applied, while the open ends always run out to the screen edges.
- * Desktop (≥1024px) uses the static SVG in Hero.tsx, so this hides itself.
+ * Mobile / tablet line work around the hero showcase panel.
  *
- * The SVG is updated imperatively (no React state) to mirror RouteOverlay and
- * avoid re-render churn on resize/scroll.
+ * Tablet (side-by-side): green continues the functional route above/below the
+ * panel; orange & blue are side roads that dock into the panel frame — blue
+ * is always placed below the copy/CTA block so it never crosses text.
+ *
+ * Mobile (stacked): no vertical green through the headline. All roads —
+ * including green — enter/exit from the page sides and stop short of the
+ * panel so a clear gap remains at the top/bottom edges.
+ *
+ * Desktop (≥1024px) uses the static SVG in Hero.tsx, so this hides itself.
+ * The SVG is updated imperatively (no React state) to mirror RouteOverlay.
  */
 export function HeroLines() {
   const layerRef = useRef<HTMLDivElement>(null);
@@ -32,8 +41,8 @@ export function HeroLines() {
     const layer = layerRef.current;
     const svg = svgRef.current;
     const hero = layer?.closest('.hero') as HTMLElement | null;
-    const phoneEl = hero?.querySelector('.appFrame') as HTMLElement | null;
-    if (!layer || !svg || !hero || !phoneEl) return;
+    const panelEl = hero?.querySelector('.scMount') as HTMLElement | null;
+    if (!layer || !svg || !hero || !panelEl) return;
 
     const vw = window.innerWidth;
     if (vw >= 1024) {
@@ -45,58 +54,67 @@ export function HeroLines() {
     const w = hero.offsetWidth;
     const h = hero.offsetHeight;
     const hr = hero.getBoundingClientRect();
-    const pr = phoneEl.getBoundingClientRect();
-    const pL = pr.left - hr.left;
-    const pR = pr.right - hr.left;
-    const pT = pr.top - hr.top;
-    const pB = pr.bottom - hr.top;
-    const pCx = (pL + pR) / 2;
-    const pW = pR - pL;
-    const hubX = r1(pCx);
-    const jY = r1(pB);
+    const pr = panelEl.getBoundingClientRect();
+    const pL = r1(pr.left - hr.left);
+    const pR = r1(pr.right - hr.left);
+    const pT = r1(pr.top - hr.top);
+    const pB = r1(pr.bottom - hr.top);
+    const routeX = r1(pL + (pR - pL) * (ROUTE_X / VIEW_W));
+    const stacked = vw < 768;
+
+    // Keep blue clear of the copy / "Kā tas darbojas" CTA on tablet.
+    const copyEl = hero.querySelector('.heroContent') as HTMLElement | null;
+    const copyBottom = copyEl
+      ? r1(copyEl.getBoundingClientRect().bottom - hr.top + 18)
+      : 0;
 
     let ds: string[];
-    let dots: { cx: number; cy: number; r: number }[];
+    let dots: { cx: number; cy: number; r: number; show: boolean }[];
 
-    if (vw < 768) {
-      // Mobile — centered phone. Offsets derived from the 390×1000 design,
-      // scaled by the phone-width ratio (design phone = 190.8).
-      const f = pW / 190.8;
-      const lg = r1(pL - 42 * f);
-      const rg = r1(pR + 43 * f);
-      const entryY = r1(pT + 90 * f);
-      const hubY = r1(pB + 28 * f);
-      const blueY = r1(pB + 52 * f);
+    if (stacked) {
+      // Side-entry roads only — never a vertical stroke through the headline.
+      // Green stops EDGE_GAP short of the panel so it doesn't sit on the
+      // rounded top/bottom edge; orange/blue still dock into the side frame.
+      const greenTopY = r1(pT - EDGE_GAP);
+      const greenBotY = r1(pB + EDGE_GAP);
+      const orangeY = r1(pT + (pB - pT) * 0.28);
+      const blueY = r1(pT + (pB - pT) * 0.72);
+
       ds = [
-        `M-4,${entryY} H${lg} V${hubY} H${hubX}`,
-        `M${w + 4},${entryY} H${rg} V${hubY} H${hubX}`,
-        `M-4,${blueY} H${hubX} V${hubY}`,
-        `M${hubX},${jY} V${hubY}`,
+        `M-4,${greenTopY} H${routeX}`,
+        `M${routeX},${greenBotY} H${w + 4}`,
+        `M${w + 4},${orangeY} H${pR}`,
+        `M-4,${blueY} H${pL}`,
       ];
       dots = [
-        { cx: hubX, cy: jY, r: 4.5 },
-        { cx: hubX, cy: hubY, r: 6.5 },
+        { cx: routeX, cy: greenTopY, r: 4.5, show: true },
+        { cx: routeX, cy: greenBotY, r: 4.5, show: true },
+        { cx: pR, cy: orangeY, r: 4.5, show: true },
+        { cx: pL, cy: blueY, r: 4.5, show: true },
       ];
     } else {
-      // Tablet — phone on the right. Offsets derived from the 820×1100 design,
-      // scaled by the phone-width ratio (design phone = 260.8).
-      const f = pW / 260.8;
-      const lg = r1(pL - 15 * f);
-      const rg = r1(pR + 24 * f);
-      const greenDropX = r1(w * 0.22);
-      const greenTurnY = r1(Math.max(8, pT - 140 * f));
-      const orangeEntryY = r1(pT + 40 * f);
-      const hubY = r1(pB + 52 * f);
-      const blueY = r1(pB + 150 * f);
+      // Tablet: green continues the route vertically (copy sits left of it),
+      // stopping short of the panel's top/bottom edges.
+      // Blue docks into the panel below the copy / CTA block so it never
+      // crosses "Kā tas darbojas" or the traction line.
+      const orangeY = r1(pT + (pB - pT) * 0.25);
+      const blueY = r1(
+        Math.min(Math.max(pT + (pB - pT) * 0.72, copyBottom), pB - 16),
+      );
+      const greenTopEnd = r1(pT - EDGE_GAP);
+      const greenBotStart = r1(pB + EDGE_GAP);
+
       ds = [
-        `M${greenDropX},-4 V${greenTurnY} H${lg} V${hubY} H${hubX}`,
-        `M${w + 4},${orangeEntryY} H${rg} V${hubY} H${hubX}`,
-        `M-4,${blueY} H${hubX} V${hubY}`,
-        `M${hubX},${jY} V${hubY}`,
+        `M${routeX},-4 V${greenTopEnd}`,
+        `M${routeX},${greenBotStart} V${h + 4}`,
+        `M${w + 4},${orangeY} H${pR}`,
+        `M-4,${blueY} H${pL}`,
       ];
       dots = [
-        { cx: hubX, cy: jY, r: 5.5 },
-        { cx: hubX, cy: hubY, r: 8 },
+        { cx: routeX, cy: greenTopEnd, r: 0, show: false },
+        { cx: routeX, cy: greenBotStart, r: 0, show: false },
+        { cx: pR, cy: orangeY, r: 4.5, show: true },
+        { cx: pL, cy: blueY, r: 4.5, show: true },
       ];
     }
 
@@ -113,11 +131,15 @@ export function HeroLines() {
     });
     dotRefs.current.forEach((dot, i) => {
       const data = dots[i];
-      if (dot && data) {
-        dot.setAttribute('cx', String(data.cx));
-        dot.setAttribute('cy', String(data.cy));
-        dot.setAttribute('r', String(data.r));
+      if (!dot || !data) return;
+      if (!data.show) {
+        dot.setAttribute('r', '0');
+        return;
       }
+      dot.setAttribute('cx', String(data.cx));
+      dot.setAttribute('cy', String(data.cy));
+      dot.setAttribute('r', String(data.r));
+      dot.setAttribute('stroke', DOT_COLORS[i]);
     });
   }, []);
 
@@ -127,10 +149,12 @@ export function HeroLines() {
     window.addEventListener('resize', onResize);
 
     const hero = layerRef.current?.closest('.hero') as HTMLElement | null;
-    const phoneEl = hero?.querySelector('.appFrame') as HTMLElement | null;
+    const panelEl = hero?.querySelector('.scMount') as HTMLElement | null;
+    const copyEl = hero?.querySelector('.heroContent') as HTMLElement | null;
     const ro = new ResizeObserver(() => build());
     if (hero) ro.observe(hero);
-    if (phoneEl) ro.observe(phoneEl);
+    if (panelEl) ro.observe(panelEl);
+    if (copyEl) ro.observe(copyEl);
 
     if (document.fonts?.ready) {
       document.fonts.ready.then(() => build());
@@ -151,20 +175,19 @@ export function HeroLines() {
             ref={(el) => {
               pathRefs.current[i] = el;
             }}
-            strokeWidth={5}
+            strokeWidth={3}
             strokeLinecap="round"
             strokeLinejoin="round"
           />
         ))}
-        {[0, 1].map((i) => (
+        {[0, 1, 2, 3].map((i) => (
           <circle
             key={i}
             ref={(el) => {
               dotRefs.current[i] = el;
             }}
             fill="#fff"
-            stroke={STROKE}
-            strokeWidth={2.5}
+            strokeWidth={2}
           />
         ))}
       </svg>

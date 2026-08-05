@@ -1,0 +1,295 @@
+/* ════════════════ HERO SHOWCASE ════════════════
+   Scripted "add a colleague" demo panel. All colours, type and spacing come
+   from tokens.css — no new brand values. Animation is CSS transitions +
+   SVG stroke draw-on; the interactive chunk adds only a tiny rAF ticker. */
+
+/* ── Mount / frame ─────────────────────────────────── */
+.scMount {
+  position: absolute; right: 96px; top: 110px; width: 560px; z-index: 28;
+}
+.scWrap { position: relative; outline: none; }
+
+.scPanel {
+  position: relative; width: 100%; aspect-ratio: 540 / 780;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 28px; overflow: hidden;
+  box-shadow: 0 2px 4px rgba(31,31,31,0.05), 0 24px 60px rgba(31,31,31,0.10);
+}
+.scMap { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* ── Streets, route, detours, stops (SVG) ──────────── */
+.scStreet { stroke: var(--ink-100); }
+
+.scRoute { stroke: var(--line-green-500); stroke-width: 6; }
+
+/* Once a detour is committed, the bypassed straight segment is masked back
+   to plain street — the old route simply disappears */
+.scBypass {
+  stroke: var(--ink-100); opacity: 0;
+  transition: opacity 450ms var(--ease-default);
+}
+.scBypass.is-active { opacity: 1; }
+
+/* Detours preview in the route colour at reduced opacity, then solidify */
+.scDetour {
+  stroke: var(--line-green-500); stroke-width: 6; opacity: 0.45;
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition:
+    stroke-dashoffset 650ms var(--ease-default),
+    opacity 450ms var(--ease-default);
+}
+.scDetour.is-pending { stroke-dashoffset: 0; }
+.scDetour.is-committed { stroke-dashoffset: 0; opacity: 1; }
+
+.scStop { stroke-width: 4.5; }
+
+/* ── Labels + time-to-office badge ─────────────────── */
+.scStopLabel {
+  position: absolute; transform: translateY(-50%);
+  font-family: var(--font-display); font-weight: 600; font-size: 13.5px;
+  letter-spacing: -0.1px; color: var(--ink-950); white-space: nowrap;
+  pointer-events: none; z-index: 2;
+}
+
+.scEta {
+  position: absolute; transform: translate(-100%, -50%); z-index: 4;
+  font-family: var(--font-display); font-weight: 600; font-size: 12.5px;
+  color: var(--text-secondary); background: var(--surface-elevated);
+  border: 1px solid var(--border-default); border-radius: var(--radius-pill);
+  padding: 4px 11px; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  animation: scFadeIn 350ms var(--ease-default) both;
+}
+
+/* ── Colleague pins ────────────────────────────────── */
+.scPin { position: absolute; width: 0; height: 0; z-index: 3; }
+
+/* The bubble itself is the pickup stop: its ring lights on confirm */
+.scBubble {
+  position: absolute; left: -19px; top: -19px; width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--white); border: 2px solid var(--border-default); border-radius: 50%;
+  font-family: var(--font-display); font-weight: 700; font-size: 12px;
+  color: var(--ink-950); box-shadow: var(--shadow-dropdown);
+  transition: border-color 350ms var(--ease-default), box-shadow 350ms var(--ease-default);
+}
+.scPin.is-previewing .scBubble {
+  border-color: var(--sc-stop, var(--line-blue-500));
+  animation: scPulseOnce 600ms var(--ease-default);
+}
+.scPin.is-committed .scBubble {
+  border-color: var(--sc-stop, var(--line-blue-500));
+  box-shadow: 0 0 0 4px var(--line-blue-50), var(--shadow-dropdown);
+}
+.scPin.is-second { animation: scPop 520ms var(--ease-spring) both; }
+
+.scPinName {
+  position: absolute; top: 23px; left: -60px; width: 120px; text-align: center;
+  font-family: var(--font-body); font-size: 11px; font-weight: 500;
+  color: var(--text-secondary); pointer-events: none;
+  text-shadow: 0 1px 0 var(--white), 0 -1px 0 var(--white), 1px 0 0 var(--white), -1px 0 0 var(--white);
+}
+
+.scAdd {
+  position: absolute; left: 29px; top: -16px; height: 32px;
+  display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  background: var(--interactive-default); color: var(--text-on-accent);
+  border: none; border-radius: var(--radius-pill); padding: 0 14px;
+  font-family: var(--font-display); font-weight: 600; font-size: 13px;
+  cursor: pointer; box-shadow: var(--shadow-dropdown);
+  transition: background var(--dur-normal) var(--ease-default);
+}
+/* The second colleague sits near the panel's right edge, so his pill goes on
+   the left of the bubble (floating over the map) to never get cropped */
+.scPin.is-flip .scAdd { left: auto; right: 29px; }
+.scAdd:hover { background: var(--interactive-hover); }
+
+/* Attention cue: pulsating outer ring. The 3s delay is baked into the CSS so
+   the server-rendered frame pulses without any JS (phones included); the
+   interactive layer promotes it to start immediately (`is-live`) as soon as
+   the pointer enters the hero. Keep the delay in sync with
+   TIMINGS.attentionDelay. */
+.scAdd.has-cue { animation: scCue 1.7s var(--ease-default) 3s infinite; }
+.scAdd.has-cue.is-live { animation-delay: 0s; }
+
+.scAdd:focus-visible,
+.scBtnCancel:focus-visible,
+.scBtnConfirm:focus-visible {
+  outline: 2px solid var(--border-focus); outline-offset: 2px;
+}
+
+/* ── Cards (decision / toast / summary) ────────────── */
+.scCard {
+  position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 5;
+  background: var(--surface-elevated); border-radius: 18px;
+  padding: 16px 18px; overflow: hidden;
+  box-shadow: var(--shadow-modal), 0 0 0 1px var(--border-subtle);
+  animation: scCardIn 380ms var(--ease-default) both;
+}
+
+.scCardHead { display: flex; align-items: center; gap: 12px; }
+
+.scAvatar {
+  flex: none; width: 40px; height: 40px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--ink-950); color: var(--text-inverse);
+  font-family: var(--font-display); font-weight: 700; font-size: 12.5px;
+}
+.scAvatarStack { flex: none; display: inline-flex; }
+.scAvatarStack .scAvatar { box-shadow: 0 0 0 2.5px var(--surface-elevated); }
+.scAvatarStack .scAvatar.is-alt { margin-left: -10px; background: var(--line-green-500); }
+
+.scCardTitle {
+  margin: 0; font-family: var(--font-display); font-weight: 700;
+  font-size: 17.5px; letter-spacing: -0.3px; color: var(--ink-950);
+}
+.scCardSub {
+  margin: 2px 0 0; font-family: var(--font-body); font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.scTiles { display: flex; gap: 10px; margin-top: 14px; }
+.scTile {
+  flex: 1; display: flex; flex-direction: column; gap: 3px;
+  background: var(--ink-50); border-radius: var(--radius-md); padding: 10px 14px;
+}
+.scTile.is-earned { background: var(--line-green-50); }
+.scTileLabel {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--text-tertiary);
+}
+.scTile.is-earned .scTileLabel { color: var(--line-green-600); }
+.scTileValue {
+  font-family: var(--font-display); font-weight: 700; font-size: 17px;
+  letter-spacing: -0.2px; color: var(--ink-950);
+  font-variant-numeric: tabular-nums;
+}
+.scTile.is-earned .scTileValue { color: var(--line-green-700); }
+
+.scActions { display: flex; gap: 10px; margin-top: 14px; }
+.scBtnCancel {
+  flex: 1; padding: 11px 16px; border-radius: var(--radius-pill);
+  background: var(--surface-elevated); border: 1.5px solid var(--border-default);
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  color: var(--ink-950); cursor: pointer;
+  transition: border-color var(--dur-normal) var(--ease-default);
+}
+.scBtnCancel:hover { border-color: var(--border-strong); }
+.scBtnConfirm {
+  flex: 1.5; padding: 11px 16px; border-radius: var(--radius-pill);
+  background: var(--interactive-default); border: none;
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  color: var(--text-on-accent); cursor: pointer;
+  transition: background var(--dur-normal) var(--ease-default);
+}
+.scBtnConfirm:hover { background: var(--interactive-hover); }
+
+/* Growing time-indicator border, shared by the confirmation toasts and the
+   resting summary (whose completion resets the demo) */
+.scToastTimer {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--line-green-500); border-radius: 0 3px 3px 0;
+  transform: scaleX(0); transform-origin: left;
+  animation: scToastGrow var(--sc-toast-ms, 3400ms) linear forwards;
+}
+
+/* Pausing the demo (hover / focus / hidden) freezes looping animations */
+.scWrap.is-paused .scToastTimer,
+.scWrap.is-paused .scAdd.has-cue { animation-play-state: paused; }
+
+.scLiveRegion {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ── Keyframes ─────────────────────────────────────── */
+@keyframes scFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scCardIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes scPop {
+  0% { opacity: 0; transform: scale(0.35); }
+  70% { opacity: 1; transform: scale(1.07); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes scPulseOnce {
+  0% { box-shadow: 0 0 0 0 var(--line-blue-100), var(--shadow-dropdown); }
+  60% { box-shadow: 0 0 0 9px transparent, var(--shadow-dropdown); }
+  100% { box-shadow: 0 0 0 0 transparent, var(--shadow-dropdown); }
+}
+/* Pulsating outer stroke — no scaling, just an expanding fading ring */
+@keyframes scCue {
+  0% { box-shadow: 0 0 0 0 rgba(31,31,31,0.32), var(--shadow-dropdown); }
+  55% { box-shadow: 0 0 0 8px rgba(31,31,31,0), var(--shadow-dropdown); }
+  100% { box-shadow: 0 0 0 0 rgba(31,31,31,0), var(--shadow-dropdown); }
+}
+@keyframes scToastGrow { to { transform: scaleX(1); } }
+
+/* ── Instant mode (mobile tap-through) & reduced motion ── */
+.scWrap.is-instant .scDetour,
+.scWrap.is-instant .scBypass { transition: none; }
+.scWrap.is-instant .scCard,
+.scWrap.is-instant .scEta,
+.scWrap.is-instant .scPin.is-second { animation-duration: 1ms; }
+.scWrap.is-instant .scAdd.has-cue,
+.scWrap.is-instant .scAdd.has-cue.is-live {
+  animation: none;
+  box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--ink-950);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scDetour, .scBypass, .scBubble { transition: none !important; }
+  .scCard, .scEta, .scPin.is-second, .scPin.is-previewing .scBubble { animation: none !important; }
+  .scToastTimer { animation: none; transform: scaleX(1); }
+  /* Static emphasis instead of the looping attention cue */
+  .scAdd.has-cue, .scAdd.has-cue.is-live {
+    animation: none;
+    box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--ink-950);
+  }
+}
+
+/* ── Breakpoints ───────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .scMount { right: 36px; top: 250px; width: 316px; }
+  .scPanel { border-radius: 22px; }
+  .scStopLabel { font-size: 11.5px; }
+  .scEta { font-size: 11px; padding: 3px 9px; }
+  .scBubble { width: 32px; height: 32px; left: -16px; top: -16px; font-size: 10.5px; }
+  .scPinName { top: 19px; font-size: 10px; }
+  .scAdd { left: 25px; top: -14px; height: 28px; padding: 0 11px; font-size: 12px; }
+  .scPin.is-flip .scAdd { left: auto; right: 25px; }
+  .scCard { left: 10px; right: 10px; bottom: 10px; padding: 12px 13px; border-radius: 14px; }
+  .scAvatar { width: 32px; height: 32px; font-size: 11px; }
+  .scCardTitle { font-size: 14.5px; }
+  .scCardSub { font-size: 11.5px; }
+  .scTiles { gap: 8px; margin-top: 10px; }
+  .scTile { padding: 7px 10px; border-radius: 8px; }
+  .scTileValue { font-size: 14px; }
+  .scActions { gap: 8px; margin-top: 10px; }
+  .scBtnCancel, .scBtnConfirm { padding: 9px 12px; font-size: 12.5px; }
+}
+
+@media (max-width: 767px) {
+  .scMount {
+    position: relative; right: auto; top: auto;
+    width: min(346px, calc(100vw - 44px)); margin: 44px auto 0;
+  }
+  .scPanel { border-radius: 24px; }
+  .scStopLabel { font-size: 12px; }
+  .scEta { font-size: 11px; padding: 3px 9px; }
+  .scBubble { width: 34px; height: 34px; left: -17px; top: -17px; font-size: 11px; }
+  .scPinName { top: 20px; font-size: 10px; }
+  .scAdd { left: 27px; top: -15px; height: 30px; padding: 0 12px; font-size: 12.5px; }
+  .scPin.is-flip .scAdd { left: auto; right: 27px; }
+  .scCard { left: 10px; right: 10px; bottom: 10px; padding: 13px 14px; border-radius: 15px; }
+  .scAvatar { width: 34px; height: 34px; font-size: 11.5px; }
+  .scCardTitle { font-size: 15px; }
+  .scCardSub { font-size: 12px; }
+  .scTiles { gap: 8px; margin-top: 11px; }
+  .scTile { padding: 8px 11px; border-radius: 9px; }
+  .scTileValue { font-size: 15px; }
+  .scActions { gap: 8px; margin-top: 11px; }
+  .scBtnCancel, .scBtnConfirm { padding: 10px 12px; font-size: 13px; }
+}

@@ -13,9 +13,9 @@
   color: var(--ink-950); text-wrap: balance; margin: 0;
 }
 
-/* Desktop: keep the copy fluid so it always clears the right-anchored phone and
-   the green gutter line at narrow desktop widths, then snaps to the full 1440
-   design once there's room. (Phone stays fixed at 318px per breakpoint.) */
+/* Desktop: keep the copy fluid so it always clears the right-anchored showcase
+   panel and the green route line at narrow desktop widths, then snaps to the
+   full 1440 design once there's room. (Panel stays fixed at 560px.) */
 @media (min-width: 1024px) {
   .heroContent {
     left: clamp(40px, 8.6vw, 124px);
@@ -76,30 +76,7 @@ a.btnGhost {
 }
 .traction strong { color: var(--ink-950); font-weight: 600; }
 
-/* Phone preview placeholder */
-.appFrame {
-  position: absolute; right: 150px; top: 150px; z-index: 28;
-  background: var(--ink-950); border-radius: 44px; padding: 11px;
-  box-shadow: 0 2px 4px rgba(31,31,31,0.20), 0 24px 50px rgba(31,31,31,0.22), 0 60px 110px rgba(31,31,31,0.16);
-}
-.appScreen {
-  position: relative; width: 296px; height: 612px; border-radius: 34px;
-  background: var(--ink-100); overflow: hidden;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-}
-.appFrame .notch {
-  position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
-  width: 116px; height: 26px; border-radius: 0 0 16px 16px; background: var(--ink-950); z-index: 3;
-}
-.appPhGrid {
-  position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(45deg, transparent 0, transparent 13px, rgba(31,31,31,0.045) 13px, rgba(31,31,31,0.045) 14px);
-}
-.appPhStop { position: relative; z-index: 2; width: 22px; height: 22px; border-radius: 50%; background: var(--white); border: 3px solid var(--ink-300); }
-.appPhLabel { position: relative; z-index: 2; font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-500); }
-.appPhNote { position: relative; z-index: 2; font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-400); letter-spacing: 0.2px; }
-
-/* Runtime colored-line overlay for mobile & tablet (hugs the fixed phone) */
+/* Runtime colored-line overlay for mobile & tablet (docks into the showcase panel) */
 .heroLinesDyn {
   display: none;
   position: absolute; inset: 0; z-index: 1;
@@ -111,44 +88,24 @@ a.btnGhost {
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* Fixed-size phone (the size it has at the 768px lower edge), held constant
-     across the whole tablet range. Hero height fixed to fit the phone + hub. */
+  /* Showcase panel is right-anchored at a fixed size (see showcase.css);
+     hero height fixed to fit it. */
   .hero { height: 960px; }
   /* Shift the copy right of the route line so the scrolling car has clearance,
      and pin the right edge (instead of a fixed width) so the gap to the
-     right-anchored phone stays constant across the tablet range. */
-  .heroContent { left: 72px; right: 312px; top: 270px; width: auto; }
-  .hero h1 { font-size: 52px; letter-spacing: -2.2px; }
+     right-anchored showcase panel stays constant across the tablet range. */
+  .heroContent { left: 72px; right: 380px; top: 270px; width: auto; }
+  .hero h1 { font-size: 44px; letter-spacing: -1.8px; }
   .heroSub { font-size: 16px; max-width: 380px; }
   .heroNet { display: none; }
-  .appFrame {
-    position: absolute; left: auto; bottom: auto;
-    right: 41px; top: 270px;
-    transform: none; transform-origin: center;
-    width: 244px; padding: 10px; border-radius: 36px;
-  }
-  .appScreen { width: 100%; height: auto; aspect-ratio: 214 / 441; border-radius: 28px; }
 }
 
 @media (max-width: 767px) {
-  /* Fixed-size phone (the size it has at the 360px lower edge), held constant
-     across the whole mobile range. Phone sits centered in normal flow; the
-     hero grows with content and leaves room below for the hub. */
+  /* Showcase panel sits centered in normal flow; the hero grows with content. */
   .hero { height: auto; padding-bottom: 72px; }
   .heroContent { position: relative; left: auto; top: auto; width: auto; padding: 80px 20px 0 48px; }
   .hero h1 { font-size: 34px; letter-spacing: -1.4px; }
   .heroSub { font-size: 16px; }
   .heroNet { display: none; }
   .ctaRow { flex-direction: column; align-items: flex-start; gap: 12px; }
-
-  .appFrame {
-    position: relative; right: auto; top: auto; left: auto; bottom: auto;
-    transform: none; width: 176px; margin: 44px auto 0;
-    border-radius: 32px; padding: 8px;
-  }
-  .appScreen { width: 100%; height: auto; aspect-ratio: 214 / 441; border-radius: 24px; }
-  .appFrame .notch { width: 84px; height: 19px; border-radius: 0 0 12px 12px; top: 8px; }
-  .appPhStop { width: 16px; height: 16px; border-width: 2.5px; }
-  .appPhLabel { font-size: 10px; }
-  .appPhNote { font-size: 9px; }
 }
