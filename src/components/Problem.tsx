@@ -102,7 +102,7 @@ export function Problem() {
                   <circle cx="466" cy="98" r="7" fill="none" stroke="#0CA64A" strokeWidth="3" />
                   <circle cx="466" cy="148" r="7" fill="none" stroke="#0CA64A" strokeWidth="3" />
                   <text x="482" y="52" fontFamily="DM Mono, monospace" fontSize="11" fill="#5e5e5e">Industrial park</text>
-                  <text x="482" y="102" fontFamily="DM Mono, monospace" fontSize="11" fill="#5e5e5e">Airport RIX</text>
+                  <text x="482" y="102" fontFamily="DM Mono, monospace" fontSize="11" fill="#5e5e5e">Airport</text>
                   <text x="482" y="152" fontFamily="DM Mono, monospace" fontSize="11" fill="#5e5e5e">Logistics hub</text>
                 </g>
               </svg>
