@@ -44,6 +44,13 @@
 }
 .footBarRight { display: flex; align-items: center; gap: 18px; }
 
+.footSocial { display: flex; align-items: center; gap: 14px; }
+.footSocial a {
+  display: inline-flex; color: var(--text-secondary);
+  transition: color 150ms var(--ease-default);
+}
+.footSocial a:hover { color: var(--ink-950); }
+
 .footSupport { display: flex; align-items: center; gap: 12px; margin-top: 92px; }
 .footSupportLabel {
   font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.4px;
