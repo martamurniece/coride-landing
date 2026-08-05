@@ -18,10 +18,8 @@ import '../../styles/legal.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://coride.org'),
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
+  // Icons come from the app/ file conventions (favicon.ico, icon.png,
+  // apple-icon.png); Next.js emits the <link> tags automatically.
 };
 
 export function generateStaticParams() {
