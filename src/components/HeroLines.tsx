@@ -14,19 +14,21 @@ const DOT_COLORS = [GREEN, GREEN, ORANGE, BLUE];
 
 const r1 = (n: number) => Math.round(n * 10) / 10;
 
-/** Clearance between outer green stubs and the panel's top/bottom edges. */
-const EDGE_GAP = 14;
+/** Slight overlap into the panel so outer green meets the inner route. */
+const ROUTE_OVERLAP = 8;
+/** Vertical clearance between the green elbow and the panel's top/bottom edge. */
+const EDGE_GAP = 32;
 
 /**
  * Mobile / tablet line work around the hero showcase panel.
  *
  * Tablet (side-by-side): green continues the functional route above/below the
- * panel; orange & blue are side roads that dock into the panel frame — blue
- * is always placed below the copy/CTA block so it never crosses text.
+ * panel and overlaps the edge so it joins the inner route; orange & blue are
+ * side roads that dock into the panel frame — blue stays below the copy/CTA.
  *
  * Mobile (stacked): no vertical green through the headline. All roads —
- * including green — enter/exit from the page sides and stop short of the
- * panel so a clear gap remains at the top/bottom edges.
+ * including green — enter/exit from the page sides and meet the panel at the
+ * route column so the outer stub joins the inner route.
  *
  * Desktop (≥1024px) uses the static SVG in Hero.tsx, so this hides itself.
  * The SVG is updated imperatively (no React state) to mirror RouteOverlay.
@@ -73,16 +75,17 @@ export function HeroLines() {
 
     if (stacked) {
       // Side-entry roads only — never a vertical stroke through the headline.
-      // Green stops EDGE_GAP short of the panel so it doesn't sit on the
-      // rounded top/bottom edge; orange/blue still dock into the side frame.
+      // Green L-shapes leave EDGE_GAP of air above/below the panel before
+      // turning into the route column (with a short overlap so it joins the
+      // inner route); orange/blue dock into the side frame.
       const greenTopY = r1(pT - EDGE_GAP);
       const greenBotY = r1(pB + EDGE_GAP);
       const orangeY = r1(pT + (pB - pT) * 0.28);
       const blueY = r1(pT + (pB - pT) * 0.72);
 
       ds = [
-        `M-4,${greenTopY} H${routeX}`,
-        `M${routeX},${greenBotY} H${w + 4}`,
+        `M-4,${greenTopY} H${routeX} V${r1(pT + ROUTE_OVERLAP)}`,
+        `M${routeX},${r1(pB - ROUTE_OVERLAP)} V${greenBotY} H${w + 4}`,
         `M${w + 4},${orangeY} H${pR}`,
         `M-4,${blueY} H${pL}`,
       ];
@@ -93,26 +96,26 @@ export function HeroLines() {
         { cx: pL, cy: blueY, r: 4.5, show: true },
       ];
     } else {
-      // Tablet: green continues the route vertically (copy sits left of it),
-      // stopping short of the panel's top/bottom edges.
+      // Tablet: green continues the route vertically (copy sits left of it)
+      // and overlaps the panel edge so it joins the inner route.
       // Blue docks into the panel below the copy / CTA block so it never
       // crosses "Kā tas darbojas" or the traction line.
       const orangeY = r1(pT + (pB - pT) * 0.25);
       const blueY = r1(
         Math.min(Math.max(pT + (pB - pT) * 0.72, copyBottom), pB - 16),
       );
-      const greenTopEnd = r1(pT - EDGE_GAP);
-      const greenBotStart = r1(pB + EDGE_GAP);
+      const greenTopEnd = r1(pT + ROUTE_OVERLAP);
+      const greenBotStart = r1(pB - ROUTE_OVERLAP);
 
       ds = [
         `M${routeX},-4 V${greenTopEnd}`,
-        `M${routeX},${greenBotStart} V${h + 4}`,
+        `M${routeX},${greenBotStart} V${r1(pB + 24)} H${w + 4}`,
         `M${w + 4},${orangeY} H${pR}`,
         `M-4,${blueY} H${pL}`,
       ];
       dots = [
         { cx: routeX, cy: greenTopEnd, r: 0, show: false },
-        { cx: routeX, cy: greenBotStart, r: 0, show: false },
+        { cx: routeX, cy: r1(pB + 24), r: 4.5, show: true },
         { cx: pR, cy: orangeY, r: 4.5, show: true },
         { cx: pL, cy: blueY, r: 4.5, show: true },
       ];
