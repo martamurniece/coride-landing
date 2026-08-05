@@ -20,10 +20,10 @@ const en = {
     meta: {
       title: 'Coride: For employers',
       description:
-        'Help your team get to work without building another parking lot. Coride connects employees into verified, shared commutes.',
+        'Help your team get to work without building another car park. Coride connects employees into verified, shared commutes.',
     },
     hero: {
-      title: 'Help your team get to work, without building another parking lot.',
+      title: 'Help your team get to work, without building another car park.',
       sub:
         'Coride connects your employees into verified, shared commutes. Fewer cars in the lot, lower parking costs, a real sustainability impact, and an easier journey for everyone on your team.',
       ctaPrimary: 'Book a call',
@@ -31,7 +31,7 @@ const en = {
       baBefore: 'Before',
       baAfter: 'After',
       baCap: 'Fewer cars means space you can use, expand, rent out, or simply stop paying for.',
-      baAria: 'Before and after: a packed parking lot becomes a mostly freed, repurposable lot',
+      baAria: 'Before and after: a packed car park becomes a mostly freed, repurposable space',
     },
     cost: {
       title: 'The hidden cost of how your team commutes.',
@@ -173,9 +173,9 @@ const en = {
       cards: [
         {
           line: 'line-blue',
-          title: 'Reach customers without a marketing budget',
+          title: 'Reach customers where they already are',
           desc:
-            'Coride puts your business in front of nearby commuters. No ad campaigns, no marketing spend. The platform brings the customers to you.',
+            'Coride puts your business in front of the commuters who pass your door every working day. The platform brings them to you.',
         },
         {
           line: 'line-orange',
@@ -199,7 +199,7 @@ const en = {
     },
     how: {
       title: 'How partnership works.',
-      lead: "We're shaping the partner program together with our first partners.",
+      lead: "We're shaping the partner programme together with our first partners.",
       step: 'Step',
       steps: [
         {
@@ -226,7 +226,7 @@ const en = {
           step: '04',
           title: 'We figure out the details together',
           desc:
-            'As an early partner, you help shape how the program works — and get in before anyone else.',
+            'As an early partner, you help shape how the programme works — and get in before anyone else.',
         },
       ],
     },
@@ -246,13 +246,13 @@ const en = {
     network: {
       title: "We're building our first partner network now.",
       body:
-        "We're talking to local businesses who want to be part of Coride from the start. Early partners help shape the program and are the first commuters see when we launch.",
+        "We're talking to local businesses who want to be part of Coride from the start. Early partners help shape the programme and are the first commuters see when we launch.",
       carAria: 'Move the car along the route',
     },
     closing: {
       title: 'Interested in becoming a Coride partner?',
       body:
-        "Let's talk about whether Coride fits your business. We're still shaping the program, and your input helps build it.",
+        "Let's talk about whether Coride fits your business. We're still shaping the programme, and your input helps build it.",
       cta: 'Become a partner',
       emailNote: 'Or email us:',
     },
@@ -263,13 +263,13 @@ const en = {
       'Join your workplace community on Coride. Share your daily commute with colleagues, save on your journey to work and earn rewards from local partners along the way.',
     ctaPrimary: 'Get early access',
     ctaGhost: 'How it works',
-    tractionBold: 'First pilots with select employers launch later this year.',
+    tractionBold: 'First pilots with select employers launch this autumn.',
     tractionRest: 'Get early access today.',
     appPreview: 'App preview',
     appNote: '// screen design - coming',
   },
   problem: {
-    title: "People have been co-riding for years. We're just making it profitable for everyone.",
+    title: "People have been co-riding for years. We're just making it rewarding for everyone.",
     cards: [
       {
         tag: 'Time',
@@ -290,7 +290,7 @@ const en = {
       },
       {
         tag: 'Land',
-        title: 'Every parking space costs more than most employers realize.',
+        title: 'Every parking space costs more than most employers realise.',
         desc:
           'Land, construction, maintenance, and snow clearing all add up to thousands per space each year, often for a single commuter.',
       },
@@ -325,7 +325,7 @@ const en = {
         label: 'Earn',
         title: 'Earn perks with every ride.',
         desc:
-          'Each commute with Coride adds perks to your account, funded by local partners across your country.',
+          'Each commute with Coride adds perks to your account — real rewards you can spend with local businesses near you.',
       },
       {
         label: 'Spend',
@@ -388,7 +388,7 @@ const en = {
         'How Coride (SIA Milup) collects, uses, and protects personal data when you use coride.org.',
     },
     title: 'Privacy Policy',
-    updated: 'Last updated: June 5, 2026',
+    updated: 'Last updated: 5 June 2026',
     lead:
       'This Privacy Policy explains how Milup SIA ("we", "us", "Coride") collects, uses, and protects personal data when you use the Coride website.',
     s1Title: '1. Who we are',
@@ -407,7 +407,7 @@ const en = {
       'We do not use cookies or analytics that track you. The site uses Plausible Analytics, which is cookieless and does not collect personal data.',
     s3Title: '3. Why we collect it',
     s3Items: [
-      'To respond to your inquiry about Coride',
+      'To respond to your enquiry about Coride',
       'To notify you when Coride launches at your workplace',
       'To improve our understanding of Coride\'s potential user base (in aggregated form)',
     ],
@@ -419,7 +419,7 @@ const en = {
       'Resend (resend.com): sends our confirmation emails. Data controller: us. Data processor: Resend.',
     ],
     s4Outro:
-      'We retain submitted contact information for up to 12 months from submission, after which it is anonymized or deleted.',
+      'We retain submitted contact information for up to 12 months from submission, after which it is anonymised or deleted.',
     s5Title: '5. Your rights',
     s5Body:
       'Under GDPR, you have the right to access, correct, or request deletion of your data, and to lodge a complaint with the Latvian Data State Inspectorate (Datu valsts inspekcija). To exercise any of these rights, email',
@@ -605,9 +605,9 @@ const lv = {
       cards: [
         {
           line: 'line-blue',
-          title: 'Sasniedz klientus bez mārketinga budžeta',
+          title: 'Sasniedz klientus tur, kur viņi jau ir',
           desc:
-            'Coride parāda tavu uzņēmumu apkārtnes braucējiem. Bez reklāmas kampaņām, bez mārketinga izdevumiem. Platforma atved klientus pie tevis.',
+            'Coride parāda tavu uzņēmumu braucējiem, kas ik darba dienu brauc garām tavām durvīm. Platforma atved klientus pie tevis.',
         },
         {
           line: 'line-orange',
@@ -751,13 +751,13 @@ const lv = {
         label: 'BRAUCIENS',
         title: 'Brauciet kopā.',
         desc:
-          'Viens auto piecu vietā. Izvēlies būt pie stūres vai braukt kā pasažieris, un Coride godīgi sadalīs visas ceļa izmaksas. Par slēptajām pozīcijām gala rēķinā vari nesatraukties, mums tādu nav.',
+          'Viens auto piecu vietā. Izvēlies būt pie stūres vai braukt kā pasažieris, un Coride godīgi sadalīs visas ceļa izmaksas.',
       },
       {
         label: 'NOPELNI',
         title: 'Saņem bonusus par katru braucienu.',
         desc:
-          'Ar katru Coride braucienu tavā kontā krājas bonusi, ko nodrošina mūsu partneri.',
+          'Ar katru Coride braucienu tavā kontā krājas bonusi — reāli ieguvumi, ko izmantot pie vietējiem uzņēmumiem tavā apkārtnē.',
       },
       {
         label: 'IZMANTO',

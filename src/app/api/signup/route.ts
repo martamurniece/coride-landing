@@ -155,11 +155,11 @@ export async function POST(request: NextRequest) {
         .filter(Boolean)
         .join('\n\n');
       labelName = 'lead:partner';
-      emailSubject = 'Welcome to the Coride partner inquiry';
+      emailSubject = 'Welcome to the Coride partner enquiry';
       emailBody = [
         `Hi ${contactName},`,
         '',
-        `Thanks for expressing interest in becoming a Coride partner with ${businessName}! We received your inquiry and will be in touch soon to discuss how we can work together.`,
+        `Thanks for expressing interest in becoming a Coride partner with ${businessName}! We received your enquiry and will be in touch soon to discuss how we can work together.`,
         '',
         'Feel free to reply to this email if you have any questions.',
         '',

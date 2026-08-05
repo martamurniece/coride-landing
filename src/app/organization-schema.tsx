@@ -6,7 +6,7 @@ export default function OrganizationSchema() {
     url: 'https://coride.org',
     logo: 'https://coride.org/assets/coride-logo.png',
     description:
-      'Employer-backed shared commuting that gets coworkers to work together and rewards both the drivers and passengers.',
+      'Verified workplace carpooling that gets coworkers to work together and rewards drivers and passengers with perks from local businesses.',
   }
   return (
     <script
