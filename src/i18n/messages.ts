@@ -410,7 +410,7 @@ const en = {
         'How Coride (SIA Milup) collects, uses, and protects personal data when you use coride.org.',
     },
     title: 'Privacy Policy',
-    updated: 'Last updated: 5 June 2026',
+    updated: 'Last updated: 5 August 2026',
     lead:
       'This Privacy Policy explains how Milup SIA ("we", "us", "Coride") collects, uses, and protects personal data when you use the Coride website.',
     s1Title: '1. Who we are',
@@ -864,7 +864,7 @@ const lv = {
         'Kā Coride (SIA Milup) vāc, izmanto un aizsargā personas datus, kad lietojat coride.org.',
     },
     title: 'Privātuma politika',
-    updated: 'Pēdējoreiz atjaunināta: 2026. gada 5. jūnijā',
+    updated: 'Pēdējoreiz atjaunināta: 2026. gada 5. augustā',
     lead:
       'Šī Privātuma politika izskaidro, kā SIA "Milup" ("mēs", "mūsu", "Coride") vāc, izmanto un aizsargā personas datus, kad izmantojat Coride tīmekļa vietni.',
     s1Title: '1. Kas mēs esam',
