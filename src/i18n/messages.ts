@@ -150,7 +150,7 @@ const en = {
         'Reach loyal local customers on their way to work. Coride riders earn rewards from nearby businesses as part of their daily commute.',
     },
     hero: {
-      title: 'Reach loyal local customers on their way to work.',
+      title: 'Become a stop on the daily route.',
       sub:
         'Coride riders earn rewards from nearby businesses as part of their daily commute. Become a partner and put your business in front of a steady stream of local customers — the people who pass you every day.',
       ctaPrimary: 'Become a partner',
@@ -162,8 +162,7 @@ const en = {
         cafe: 'Café',
         gym: 'Gym',
         shop: 'Shop',
-        bakery: 'Bakery',
-        cap: 'Be a stop on the daily route',
+        fuel: 'Fuel station',
       },
     },
     why: {
@@ -582,7 +581,7 @@ const lv = {
         'Sasniedz lojālus vietējos klientus viņu ikdienas ceļā uz darbu. Coride braucēji pelna bonusus pie tuvējiem uzņēmumiem.',
     },
     hero: {
-      title: 'Sasniedz lojālus vietējos klientus ceļā uz darbu.',
+      title: 'Kļūsti par pieturu ikdienas maršrutā.',
       sub:
         'Coride braucēji ikdienas ceļā uz darbu pelna bonusus pie tuvējiem uzņēmumiem. Kļūsti par partneri un parādi savu uzņēmumu pastāvīgai vietējo klientu plūsmai — cilvēkiem, kas brauc tev garām katru dienu.',
       ctaPrimary: 'Kļūt par partneri',
@@ -594,8 +593,7 @@ const lv = {
         cafe: 'Kafejnīca',
         gym: 'Sporta zāle',
         shop: 'Veikals',
-        bakery: 'Maiznīca',
-        cap: 'Kļūsti par pieturu ikdienas maršrutā',
+        fuel: 'DUS',
       },
     },
     why: {

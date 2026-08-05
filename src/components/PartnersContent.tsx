@@ -13,9 +13,9 @@ function RouteMapVisual() {
       <svg aria-hidden="true">
         <line x1="58%" y1="6%" x2="58%" y2="94%" stroke="var(--ink-300)" strokeWidth="3" />
         <line x1="58%" y1="24%" x2="38%" y2="24%" stroke="var(--line-orange-500)" strokeWidth="3" />
-        <line x1="58%" y1="42%" x2="76%" y2="42%" stroke="var(--line-green-500)" strokeWidth="3" />
+        <line x1="58%" y1="42%" x2="84%" y2="42%" stroke="var(--line-green-500)" strokeWidth="3" />
         <line x1="58%" y1="60%" x2="40%" y2="60%" stroke="var(--line-magenta-500)" strokeWidth="3" />
-        <line x1="58%" y1="78%" x2="74%" y2="78%" stroke="var(--line-brown-500)" strokeWidth="3" />
+        <line x1="58%" y1="78%" x2="82%" y2="78%" stroke="var(--line-brown-500)" strokeWidth="3" />
         <circle cx="58%" cy="6%" r="6" fill="var(--ink-950)" />
         <circle cx="58%" cy="94%" r="6" fill="var(--ink-950)" />
         <circle cx="58%" cy="24%" r="6" fill="var(--surface-elevated)" stroke="var(--line-orange-500)" strokeWidth="3.5" />
@@ -29,7 +29,7 @@ function RouteMapVisual() {
         <span className="pin" style={{ background: 'var(--line-orange-500)' }} />
         {map.cafe}
       </span>
-      <span className="biz" style={{ left: '78%', top: '42%', transform: 'translateY(-50%)' }}>
+      <span className="biz" style={{ right: '3%', top: '42%', transform: 'translateY(-50%)' }}>
         <span className="pin" style={{ background: 'var(--line-green-500)' }} />
         {map.gym}
       </span>
@@ -37,11 +37,10 @@ function RouteMapVisual() {
         <span className="pin" style={{ background: 'var(--line-magenta-500)' }} />
         {map.shop}
       </span>
-      <span className="biz" style={{ left: '76%', top: '78%', transform: 'translateY(-50%)' }}>
+      <span className="biz" style={{ right: '3%', top: '78%', transform: 'translateY(-50%)' }}>
         <span className="pin" style={{ background: 'var(--line-brown-500)' }} />
-        {map.bakery}
+        {map.fuel}
       </span>
-      <div className="diagram-cap">{map.cap}</div>
     </div>
   );
 }
@@ -71,7 +70,7 @@ export function PartnersContent() {
         </div>
       </header>
 
-      <section className="section" id="why" style={{ paddingTop: 104 }}>
+      <section className="section section-first" id="why">
         <div className="section-head">
           <div className="station line-orange">
             <span className="tick" />
@@ -93,7 +92,7 @@ export function PartnersContent() {
         </div>
       </section>
 
-      <section className="section" id="how" style={{ paddingTop: 120 }}>
+      <section className="section" id="how">
         <div className="section-head">
           <div className="station line-green">
             <span className="tick" />
@@ -117,7 +116,7 @@ export function PartnersContent() {
         </div>
       </section>
 
-      <section className="section" id="local" style={{ paddingTop: 120 }}>
+      <section className="section" id="local">
         <div className="section-head">
           <div className="station line-magenta">
             <span className="tick" />

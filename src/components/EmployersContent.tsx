@@ -104,7 +104,7 @@ export function EmployersContent() {
         </div>
       </header>
 
-      <section className="section" id="cost" style={{ paddingTop: 104 }}>
+      <section className="section section-first" id="cost">
         <div className="section-head">
           <div className="station line-orange">
             <span className="tick" />
@@ -126,7 +126,7 @@ export function EmployersContent() {
         </div>
       </section>
 
-      <section className="section" id="value" style={{ paddingTop: 120 }}>
+      <section className="section" id="value">
         <div className="section-head">
           <div className="station line-green">
             <span className="tick" />
@@ -151,7 +151,7 @@ export function EmployersContent() {
         </div>
       </section>
 
-      <section className="section" id="how" style={{ paddingTop: 120 }}>
+      <section className="section" id="how">
         <div className="section-head">
           <div className="station line-magenta">
             <span className="tick" />

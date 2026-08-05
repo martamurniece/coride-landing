@@ -62,7 +62,8 @@
   height: 4px; width: 38px; border-radius: 2px 0 0 2px; flex: 0 0 auto;
   background: var(--line-marker, var(--ink-400)); order: 1;
 }
-.employersPage .section { position: relative; z-index: 10; padding: 0 var(--gutter-r) 0 var(--gutter-l); }
+.employersPage .section { position: relative; z-index: 10; padding: 120px var(--gutter-r) 0 var(--gutter-l); }
+.employersPage .section.section-first { padding-top: 104px; }
 .employersPage .section-head { position: relative; max-width: 720px; }
 .employersPage .section-head h2 {
   font-family: var(--font-display); font-weight: 800; font-size: 44px; line-height: 1.05;
@@ -123,6 +124,7 @@
   font-family: var(--font-body); font-size: 14.5px; line-height: 1.5; color: var(--text-secondary);
   margin: 0; text-wrap: pretty;
 }
+.employersPage .band-spacer { height: 120px; }
 .employersPage .band {
   position: relative; z-index: 10; margin: 0 var(--gutter-r) 0 var(--gutter-l);
   background: var(--surface-inverse); color: var(--text-inverse);
@@ -291,11 +293,32 @@
   }
 
   .employersPage .hv2 { padding: 0; }
-  .employersPage .ba-grid { gap: 5px; }
-  .employersPage .ba-cell { min-height: 44px; }
   .employersPage .ba-label { font-size: 12px; margin-bottom: 10px; }
   .employersPage .ba-arrow { width: 32px; height: 32px; font-size: 16px; }
   .employersPage .ba-cap { font-size: 11px; margin-top: 14px; }
+
+  /* Sections — same scale step as the home page tablet rules (40px gutters). */
+  :root { --gutter-l: 40px; --gutter-r: 40px; }
+  .employersPage .section { padding-top: 88px; }
+  .employersPage .section.section-first { padding-top: 72px; }
+  .employersPage .section-head h2 { font-size: 40px; letter-spacing: -1.2px; }
+  .employersPage .section-head .lead { font-size: 17px; }
+  .employersPage .grid { margin-top: 40px; }
+  .employersPage .cell { padding: 24px 24px 26px; }
+  .employersPage .metro { margin-top: 48px; }
+  .employersPage .metro-line { display: none; }
+  .employersPage .metro-stops { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+  .employersPage .stop { padding-top: 40px; }
+  .employersPage .band-spacer { height: 88px; }
+  .employersPage .band { padding: 44px 40px 48px; }
+  .employersPage .band-top { gap: 32px; }
+  .employersPage .band h2 { font-size: 30px; }
+  .employersPage .band p { font-size: 15.5px; }
+  .employersPage .closing { padding: 90px 40px 100px; }
+  .employersPage .closing h2 { font-size: 42px; letter-spacing: -1.4px; }
+  .employersPage .closing p { font-size: 17px; }
+  .employersPage .netmap { height: 400px; }
+  .employersPage .biztags { gap: 10px; margin-top: 32px; }
 }
 
 @media (max-width: 767px) {
@@ -310,12 +333,50 @@
     gap: 0;
   }
 
+  /* Visual first, copy below. width must stay definite: with auto width the
+     all-absolute netmap collapses to 0 and the SVG road disappears. */
   .employersPage .empHeroInner .empHeroVisual {
-    width: auto;
+    order: -1;
+    width: 100%;
     max-width: 360px;
-    margin: 44px auto 0;
+    margin: 0 0 40px;
     padding: 0;
+    /* desktop flex-basis 620px would become height in this column layout */
+    flex: 0 0 auto;
   }
+  .employersPage .hero { padding-bottom: 24px; }
+
+  /* .heroContent carries its own mobile gutter on /home; the gutter here
+     comes from .empHeroInner, so drop it to avoid double indentation. */
+  .employersPage .empHeroInner .heroContent { padding: 0; }
+
+  /* Sections — same scale step as the home page mobile rules (20px gutters,
+     single-column grids). */
+  :root { --gutter-l: 20px; --gutter-r: 20px; }
+  .employersPage .section { padding-top: 64px; }
+  .employersPage .section.section-first { padding-top: 56px; }
+  .employersPage .section-head h2 { font-size: 28px; letter-spacing: -0.8px; }
+  .employersPage .section-head .lead { font-size: 16px; margin-top: 14px; }
+  .employersPage .grid { margin-top: 32px; }
+  .employersPage .grid.cols-2 { grid-template-columns: 1fr; }
+  .employersPage .cell { padding: 22px 20px 24px; }
+  .employersPage .metro { margin-top: 36px; }
+  .employersPage .metro-line { display: none; }
+  .employersPage .metro-stops { grid-template-columns: 1fr; gap: 30px; }
+  .employersPage .stop { padding-top: 36px; }
+  .employersPage .band-spacer { height: 64px; }
+  .employersPage .band { padding: 32px 24px 36px; border-radius: var(--radius-lg); }
+  .employersPage .band-top { grid-template-columns: 1fr; gap: 16px; }
+  .employersPage .band h2 { font-size: 26px; letter-spacing: -0.8px; }
+  .employersPage .band p { font-size: 15px; }
+  .employersPage .band-route { margin-top: 36px; height: 76px; }
+  .employersPage .band-route .br-car img { transform: rotate(-90deg); }
+  .employersPage .closing { padding: 72px 20px 84px; }
+  .employersPage .closing h2 { font-size: 30px; letter-spacing: -1px; }
+  .employersPage .closing p { font-size: 16px; }
+  .employersPage .netmap { height: 360px; }
+  .employersPage .netmap .biz { font-size: 11px; padding: 5px 11px 5px 9px; }
+  .employersPage .biztags { gap: 10px; margin-top: 28px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -336,10 +397,22 @@
 .employersPage .ba-label .swatch { width: 10px; height: 10px; border-radius: 50%; }
 .employersPage .ba-col.before .ba-label .swatch { background: var(--ink-400); }
 .employersPage .ba-col.after  .ba-label .swatch { background: var(--line-green-500); }
-.employersPage .ba-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; flex: 1; }
+/* Bays are fixed-size (constant proportions, like real parking spots): the
+   column/row count adapts to the available space instead of squishing cells.
+   Overflowing cells land in 0-height auto rows and are clipped. */
+.employersPage .ba-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 60px);
+  grid-template-rows: repeat(4, 56px);
+  grid-auto-rows: 0;
+  gap: 8px;
+  overflow: hidden;
+  align-content: start;
+  flex: 1;
+}
 .employersPage .ba-cell {
   position: relative; border: none; border-radius: 8px;
-  min-height: 58px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
 .employersPage .ba-cell.car { background: var(--ink-100); }
 .employersPage .ba-cell.car img { width: 60%; max-width: 30px; display: block; }
@@ -355,3 +428,12 @@
   margin: 22px 2px 0; text-wrap: pretty;
 }
 .employersPage .hv-car { position: absolute; display: block; pointer-events: none; }
+
+/* Must come after the .ba base rules above — equal specificity, order decides.
+   Below the desktop range the side-by-side lots get too narrow for fixed-size
+   bays, so stack them: four bays wide, two rows each. */
+@media (max-width: 1023px) {
+  .employersPage .ba { flex-direction: column; gap: 4px; }
+  .employersPage .ba-arrow { transform: rotate(90deg); margin: 10px 0; }
+  .employersPage .ba-grid { grid-template-rows: repeat(2, 56px); }
+}

@@ -204,7 +204,7 @@ export function RouteBand({ title, body, carAria }: RouteBandProps) {
 
   return (
     <>
-      <div style={{ height: 120 }} aria-hidden="true" />
+      <div className="band-spacer" aria-hidden="true" />
       <div className="band">
         <div className="band-top">
           <h2>{title}</h2>
