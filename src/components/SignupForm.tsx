@@ -7,8 +7,7 @@ import { localePath } from '@/i18n/metadata';
 type Branch = 'individual' | 'employer' | 'partner';
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
-// TODO: replace with the real Coride Calendly link once it's set up.
-const CALENDLY_URL = 'https://calendly.com/coride/intro';
+const CALENDLY_URL = 'https://calendly.com/coride/30min';
 
 export function SignupForm() {
   const { t, locale } = useLocale();

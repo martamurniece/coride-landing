@@ -130,7 +130,7 @@ const en = {
       ],
     },
     pilot: {
-      title: "We're launching our first pilots later this year.",
+      title: "We're launching our first pilots this autumn.",
       body:
         "We're working with a small number of employers to bring Coride to their teams first. If your workplace struggles with parking, access, or commuting, we'd like to talk.",
       carAria: 'Move the car along the route',
@@ -360,7 +360,7 @@ const en = {
   signup: {
     title: 'Start before the first ride.',
     subhead:
-      "Coride pilots launch later this year. Tell us where you work, and we'll let you know when your company can join.",
+      "Coride pilots launch this autumn. Tell us where you work, and we'll let you know when your company can join.",
     signingUpAs: "I'm signing up as…",
     branches: {
       individual: { title: 'An individual', desc: "I'd like to use Coride at my workplace." },
