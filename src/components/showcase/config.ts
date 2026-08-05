@@ -12,7 +12,14 @@
  */
 
 export const VIEW_W = 540;
-export const VIEW_H = 780;
+/** Vertically compressed map (was 780) — shorter street runs so the panel
+ *  leaves more room below it in the hero. */
+export const VIEW_H = 660;
+/** Crop empty space above the Office stop. Geometry stays in VIEW_H coords;
+ *  the SVG viewBox / aspect ratio use FRAME_H. Keep in sync with
+ *  showcase.css aspect-ratio. */
+export const TOP_CROP = 75;
+export const FRAME_H = VIEW_H - TOP_CROP;
 
 /** X of the main Home → Office route street. Keep in sync with Hero.tsx's
  *  heroNet continuation line (panel-left + panel-width × ROUTE_X / VIEW_W). */
@@ -26,7 +33,7 @@ export const BASE_ETA_MIN = 20;
  *  every detour run on these streets. */
 export const STREETS = {
   v: [190, 300, 420],
-  h: [240, 380, 440, 560],
+  h: [204, 323, 374, 476],
 };
 export const STREET_W = 10;
 
@@ -67,8 +74,8 @@ export type Colleague = {
 
 export const ROUTE_COLOR = 'var(--line-green-500)';
 
-export const ORIGIN: Stop = { id: 'home', x: ROUTE_X, y: 610, color: 'var(--line-green-500)' };
-export const DESTINATION: Stop = { id: 'office', x: ROUTE_X, y: 130, color: 'var(--ink-950)' };
+export const ORIGIN: Stop = { id: 'home', x: ROUTE_X, y: 520, color: 'var(--line-green-500)' };
+export const DESTINATION: Stop = { id: 'office', x: ROUTE_X, y: 110, color: 'var(--ink-950)' };
 
 export const COLLEAGUES: [Colleague, Colleague] = [
   {
@@ -77,10 +84,10 @@ export const COLLEAGUES: [Colleague, Colleague] = [
     shortName: 'Anna',
     initials: 'AK',
     pickupAddress: 'Dzirnavu iela 101',
-    pin: { x: 190, y: 318 },
+    pin: { x: 190, y: 270 },
     stopColor: 'var(--line-blue-500)',
-    detourPath: 'M300,240 L206,240 Q190,240 190,256 L190,364 Q190,380 206,380 L300,380',
-    bypassPath: 'M300,240 L300,380',
+    detourPath: 'M300,204 L206,204 Q190,204 190,218 L190,309 Q190,323 206,323 L300,323',
+    bypassPath: 'M300,204 L300,323',
     etaDeltaMin: 4,
     eurEarned: 2.1,
   },
@@ -90,10 +97,10 @@ export const COLLEAGUES: [Colleague, Colleague] = [
     shortName: 'Toms',
     initials: 'TV',
     pickupAddress: 'Čaka iela 48',
-    pin: { x: 420, y: 500 },
+    pin: { x: 420, y: 425 },
     stopColor: 'var(--line-blue-500)',
-    detourPath: 'M300,440 L404,440 Q420,440 420,456 L420,544 Q420,560 404,560 L300,560',
-    bypassPath: 'M300,440 L300,560',
+    detourPath: 'M300,374 L404,374 Q420,374 420,388 L420,462 Q420,476 404,476 L300,476',
+    bypassPath: 'M300,374 L300,476',
     etaDeltaMin: 3,
     eurEarned: 1.8,
   },

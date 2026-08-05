@@ -1,5 +1,5 @@
 /* ════════════════ HERO ════════════════ */
-.hero { position: relative; height: 1038px; }
+.hero { position: relative; height: 960px; }
 
 .heroNet {
   position: absolute; top: 0; right: 0; width: 1440px; height: 920px; z-index: 1;
@@ -71,21 +71,19 @@ a.btnGhost {
 }
 
 .traction {
-  margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--border-default);
+  margin-top: 30px; padding-top: 22px; border-top: none;
   font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--text-secondary); max-width: 430px;
 }
 .traction strong { color: var(--ink-950); font-weight: 600; }
 
-/* Runtime colored-line overlay for mobile & tablet (docks into the showcase panel) */
+/* Runtime colored-line overlay. On desktop it only draws the blue road
+   (aligned to the traction divider); green/orange stay in .heroNet. */
 .heroLinesDyn {
-  display: none;
+  display: block;
   position: absolute; inset: 0; z-index: 1;
   pointer-events: none; overflow: hidden;
 }
 .heroLinesDyn svg { position: absolute; top: 0; left: 0; display: block; overflow: visible; }
-@media (max-width: 1023px) {
-  .heroLinesDyn { display: block; }
-}
 
 @media (min-width: 768px) and (max-width: 1023px) {
   /* Showcase panel is right-anchored at a fixed size (see showcase.css);

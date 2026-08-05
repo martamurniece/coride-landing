@@ -10,7 +10,7 @@
 .scWrap { position: relative; outline: none; }
 
 .scPanel {
-  position: relative; width: 100%; aspect-ratio: 540 / 780;
+  position: relative; width: 100%; aspect-ratio: 540 / 585;
   background: var(--surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: 28px; overflow: hidden;

@@ -4,11 +4,13 @@ import {
   BASE_ETA_MIN,
   COLLEAGUES,
   DESTINATION,
+  FRAME_H,
   ORIGIN,
   ROUTE_X,
   STREETS,
   STREET_W,
   TIMINGS,
+  TOP_CROP,
   VIEW_H,
   VIEW_W,
   formatEur,
@@ -59,7 +61,7 @@ export type SceneHandlers = {
 };
 
 const px = (x: number) => `${((x / VIEW_W) * 100).toFixed(3)}%`;
-const py = (y: number) => `${((y / VIEW_H) * 100).toFixed(3)}%`;
+const py = (y: number) => `${(((y - TOP_CROP) / FRAME_H) * 100).toFixed(3)}%`;
 
 export const fmt = (template: string, vars: Record<string, string | number>) =>
   template.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m));
@@ -87,7 +89,7 @@ export function Scene({
     <div className="scPanel">
       <svg
         className="scMap"
-        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        viewBox={`0 ${TOP_CROP} ${VIEW_W} ${FRAME_H}`}
         preserveAspectRatio="xMidYMid slice"
         role="img"
         aria-label={s.sceneAria}

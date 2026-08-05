@@ -20,18 +20,13 @@ const ROUTE_OVERLAP = 8;
 const EDGE_GAP = 32;
 
 /**
- * Mobile / tablet line work around the hero showcase panel.
+ * Decorative / connector lines around the hero showcase panel.
  *
- * Tablet (side-by-side): green continues the functional route above/below the
- * panel and overlaps the edge so it joins the inner route; orange & blue are
- * side roads that dock into the panel frame — blue stays below the copy/CTA.
+ * Blue always sits on the traction divider (replacing the old grey rule) and
+ * runs to the panel's left edge on desktop/tablet, or full-bleed on mobile.
  *
- * Mobile (stacked): no vertical green through the headline. All roads —
- * including green — enter/exit from the page sides and meet the panel at the
- * route column so the outer stub joins the inner route.
- *
- * Desktop (≥1024px) uses the static SVG in Hero.tsx, so this hides itself.
- * The SVG is updated imperatively (no React state) to mirror RouteOverlay.
+ * Green + orange: mobile/tablet only (desktop draws those in Hero.tsx's
+ * static heroNet SVG). Updated imperatively to avoid resize re-render churn.
  */
 export function HeroLines() {
   const layerRef = useRef<HTMLDivElement>(null);
@@ -47,12 +42,6 @@ export function HeroLines() {
     if (!layer || !svg || !hero || !panelEl) return;
 
     const vw = window.innerWidth;
-    if (vw >= 1024) {
-      svg.style.display = 'none';
-      return;
-    }
-    svg.style.display = 'block';
-
     const w = hero.offsetWidth;
     const h = hero.offsetHeight;
     const hr = hero.getBoundingClientRect();
@@ -63,47 +52,50 @@ export function HeroLines() {
     const pB = r1(pr.bottom - hr.top);
     const routeX = r1(pL + (pR - pL) * (ROUTE_X / VIEW_W));
     const stacked = vw < 768;
+    const desktop = vw >= 1024;
 
-    // Keep blue clear of the copy / "Kā tas darbojas" CTA on tablet.
-    const copyEl = hero.querySelector('.heroContent') as HTMLElement | null;
-    const copyBottom = copyEl
-      ? r1(copyEl.getBoundingClientRect().bottom - hr.top + 18)
-      : 0;
+    const tractionEl = hero.querySelector('.traction') as HTMLElement | null;
+    const tractionY = tractionEl
+      ? r1(tractionEl.getBoundingClientRect().top - hr.top)
+      : r1(pT + (pB - pT) * 0.72);
 
     let ds: string[];
     let dots: { cx: number; cy: number; r: number; show: boolean }[];
+    let strokeW = 3;
 
-    if (stacked) {
-      // Side-entry roads only — never a vertical stroke through the headline.
-      // Green L-shapes leave EDGE_GAP of air above/below the panel before
-      // turning into the route column (with a short overlap so it joins the
-      // inner route); orange/blue dock into the side frame.
+    if (desktop) {
+      // Blue only — replaces the traction grey divider, docks into the panel.
+      strokeW = 5;
+      ds = ['', '', '', `M-4,${tractionY} H${pL}`];
+      dots = [
+        { cx: 0, cy: 0, r: 0, show: false },
+        { cx: 0, cy: 0, r: 0, show: false },
+        { cx: 0, cy: 0, r: 0, show: false },
+        { cx: pL, cy: tractionY, r: 5, show: true },
+      ];
+    } else if (stacked) {
+      // Side-entry roads; blue is the traction divider (full width).
       const greenTopY = r1(pT - EDGE_GAP);
       const greenBotY = r1(pB + EDGE_GAP);
       const orangeY = r1(pT + (pB - pT) * 0.28);
-      const blueY = r1(pT + (pB - pT) * 0.72);
 
       ds = [
         `M-4,${greenTopY} H${routeX} V${r1(pT + ROUTE_OVERLAP)}`,
         `M${routeX},${r1(pB - ROUTE_OVERLAP)} V${greenBotY} H${w + 4}`,
         `M${w + 4},${orangeY} H${pR}`,
-        `M-4,${blueY} H${pL}`,
+        `M-4,${tractionY} H${w + 4}`,
       ];
       dots = [
         { cx: routeX, cy: greenTopY, r: 4.5, show: true },
         { cx: routeX, cy: greenBotY, r: 4.5, show: true },
         { cx: pR, cy: orangeY, r: 4.5, show: true },
-        { cx: pL, cy: blueY, r: 4.5, show: true },
+        { cx: 0, cy: 0, r: 0, show: false },
       ];
     } else {
-      // Tablet: green continues the route vertically (copy sits left of it)
-      // and overlaps the panel edge so it joins the inner route.
-      // Blue docks into the panel below the copy / CTA block so it never
-      // crosses "Kā tas darbojas" or the traction line.
+      // Tablet: green continues the route; blue is the traction divider into
+      // the panel (clamped so it still meets the left frame).
       const orangeY = r1(pT + (pB - pT) * 0.25);
-      const blueY = r1(
-        Math.min(Math.max(pT + (pB - pT) * 0.72, copyBottom), pB - 16),
-      );
+      const blueY = r1(Math.min(Math.max(tractionY, pT + 16), pB - 16));
       const greenTopEnd = r1(pT + ROUTE_OVERLAP);
       const greenBotStart = r1(pB - ROUTE_OVERLAP);
 
@@ -121,16 +113,22 @@ export function HeroLines() {
       ];
     }
 
+    svg.style.display = 'block';
     svg.setAttribute('width', String(w));
     svg.setAttribute('height', String(h));
     svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
 
     ds.forEach((d, i) => {
       const p = pathRefs.current[i];
-      if (p) {
-        p.setAttribute('d', d);
-        p.setAttribute('stroke', PATH_COLORS[i]);
+      if (!p) return;
+      if (!d) {
+        p.setAttribute('d', '');
+        p.setAttribute('stroke-width', '0');
+        return;
       }
+      p.setAttribute('d', d);
+      p.setAttribute('stroke', PATH_COLORS[i]);
+      p.setAttribute('stroke-width', String(strokeW));
     });
     dotRefs.current.forEach((dot, i) => {
       const data = dots[i];
@@ -143,6 +141,7 @@ export function HeroLines() {
       dot.setAttribute('cy', String(data.cy));
       dot.setAttribute('r', String(data.r));
       dot.setAttribute('stroke', DOT_COLORS[i]);
+      dot.setAttribute('stroke-width', desktop ? '2.5' : '2');
     });
   }, []);
 
@@ -154,10 +153,12 @@ export function HeroLines() {
     const hero = layerRef.current?.closest('.hero') as HTMLElement | null;
     const panelEl = hero?.querySelector('.scMount') as HTMLElement | null;
     const copyEl = hero?.querySelector('.heroContent') as HTMLElement | null;
+    const tractionEl = hero?.querySelector('.traction') as HTMLElement | null;
     const ro = new ResizeObserver(() => build());
     if (hero) ro.observe(hero);
     if (panelEl) ro.observe(panelEl);
     if (copyEl) ro.observe(copyEl);
+    if (tractionEl) ro.observe(tractionEl);
 
     if (document.fonts?.ready) {
       document.fonts.ready.then(() => build());
