@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { LOCALES, type Locale } from './types';
+import { DEFAULT_LOCALE, LOCALES, type Locale } from './types';
 
 export const BASE_URL = 'https://coride.org';
 
@@ -46,6 +46,9 @@ export function buildPageMetadata({
   for (const l of LOCALES) {
     languages[l] = localeUrl(l, path);
   }
+  // x-default: the version served to visitors whose language we don't cover.
+  // The proxy falls back to English, so it points at the /en URL.
+  languages['x-default'] = localeUrl(DEFAULT_LOCALE, path);
 
   const alternateLocale = LOCALES.filter((l) => l !== locale).map((l) => OG_LOCALE[l]);
 
