@@ -10,7 +10,7 @@
   position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible;
 }
 .routeTrack { fill: none; stroke: var(--ink-200); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.routeDrawn { fill: none; stroke: var(--ink-950); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; will-change: stroke-dashoffset; }
+.routeDrawn { fill: none; stroke: var(--ink-600); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; will-change: stroke-dashoffset; }
 
 .routeNode {
   position: absolute; width: 20px; height: 20px; border-radius: 50%;
