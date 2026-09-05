@@ -76,29 +76,13 @@ export function Footer() {
 
       <div className="footSupport">
         <span className="footSupportLabel">{t.footer.supportedBy}</span>
-        <div className="footLogos">
-          <Image
-            className="footLogo"
-            src="/assets/rtu-logo.png"
-            alt="RTU Innovations"
-            width={530}
-            height={343}
-          />
-          <Image
-            className="footLogo"
-            src="/assets/eit-eu-logo.png"
-            alt="EIT Urban Mobility. Co-funded by the European Union"
-            width={1024}
-            height={133}
-          />
-          <Image
-            className="footLogo"
-            src="/assets/vefresh-logo.png"
-            alt="VEFRESH"
-            width={917}
-            height={133}
-          />
-        </div>
+        <Image
+          className="footRtu"
+          src="/assets/rtu-logo.png"
+          alt="RTU Innovations"
+          width={530}
+          height={343}
+        />
       </div>
     </footer>
   );
