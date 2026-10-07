@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
         '',
         'Thanks for signing up to Coride.',
         '',
-        "We'd like to hear about your commute and show you how Coride works. Pick a 30-minute slot that suits you:",
+        "We'd like to hear about your commute and show you how Coride works. Please pick a 30-min slot that suits you best!",
         CALENDLY_URL,
         '',
         'You can also reply to this email with any questions.',
