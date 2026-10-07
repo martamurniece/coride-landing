@@ -384,7 +384,7 @@ const en = {
       "Want to offer perks to Coride riders? Let's talk. Pick a 20-minute slot and we'll figure out a partnership that works for your business.",
     bookCall: 'Book a call with Coride',
     emailNote: 'Or email us:',
-    success: "We got it. We'll be in touch when Coride goes live for you.",
+    success: "We got it. We'll be in touch shortly.",
     backToTop: 'Back to top',
     errors: {
       consent: 'You must agree to be contacted to submit this form.',
@@ -838,7 +838,7 @@ const lv = {
       'Vēlies piedāvāt bonusus Coride braucējiem? Parunāsim. Izvēlies 20 minūšu sarunu, un kopā atradīsim sadarbības modeli tavam uzņēmumam.',
     bookCall: 'Pieteikt zvanu ar Coride',
     emailNote: 'Vai rakstiet mums:',
-    success: 'Saņemts. Sazināsimies, kad Coride būs pieejams arī tev.',
+    success: 'Saņemts. Drīzumā sazināsimies.',
     backToTop: 'Atpakaļ uz augšu',
     errors: {
       consent: 'Lai iesniegtu formu, jāpiekrīt saziņai ar tevi.',
