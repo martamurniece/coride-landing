@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { LinearClient } from '@linear/sdk';
 import { Resend } from 'resend';
+import { CALENDLY_URL } from '@/lib/constants';
 
 /* ── Rate-limit store (in-memory, resets on restart — fine for v1) ── */
 const rateMap = new Map<string, number[]>();
@@ -22,8 +23,6 @@ function isRateLimited(ip: string): boolean {
 const DEFAULT_LEAD_NOTIFY_EMAIL = 'marta.muurniece@gmail.com';
 // Where a lead's reply to the confirmation email goes. Override with RESEND_REPLY_TO.
 const DEFAULT_REPLY_TO = 'info@coride.org';
-// Booking link sent to every lead in the confirmation email.
-const BOOKING_URL = 'https://calendly.com/coride-info/30min';
 
 type SendResult = PromiseSettledResult<{ error: { message: string } | null }>;
 
@@ -154,7 +153,7 @@ export async function POST(request: NextRequest) {
         'Thanks for signing up to Coride.',
         '',
         "We'd like to hear about your commute and show you how Coride works. Pick a 30-minute slot that suits you:",
-        BOOKING_URL,
+        CALENDLY_URL,
         '',
         'You can also reply to this email with any questions.',
         '',

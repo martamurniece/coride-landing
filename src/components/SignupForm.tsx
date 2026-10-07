@@ -3,11 +3,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { localePath } from '@/i18n/metadata';
+import { CALENDLY_URL } from '@/lib/constants';
 
 type Branch = 'individual' | 'employer' | 'partner';
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
-
-const CALENDLY_URL = 'https://calendly.com/coride/30min';
 
 export function SignupForm() {
   const { t, locale } = useLocale();
