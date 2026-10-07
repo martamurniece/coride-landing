@@ -379,9 +379,9 @@ const en = {
     submit: 'Add my workplace to the list',
     submitting: 'Submitting…',
     employerMsg:
-      "We'd rather talk than have you fill a form. Pick a 20-minute slot and we'll walk you through what a Coride pilot looks like for your team.",
+      "We'd rather talk than have you fill a form. Pick a 30-minute slot and we'll walk you through what a Coride pilot looks like for your team.",
     partnerMsg:
-      "Want to offer perks to Coride riders? Let's talk. Pick a 20-minute slot and we'll figure out a partnership that works for your business.",
+      "Want to offer perks to Coride riders? Let's talk. Pick a 30-minute slot and we'll figure out a partnership that works for your business.",
     bookCall: 'Book a call with Coride',
     emailNote: 'Or email us:',
     success: "We got it. We'll be in touch shortly.",
@@ -833,9 +833,9 @@ const lv = {
     submit: 'Pievienot manu darbavietu sarakstam',
     submitting: 'Nosūta…',
     employerMsg:
-      'Mēs labprātāk runājam, nekā liekam aizpildīt formu. Izvēlies 20 minūšu sarunu, un mēs pastāstīsim, kā Coride izmēģinājums izskatās tavai komandai.',
+      'Mēs labprātāk runājam, nekā liekam aizpildīt formu. Izvēlies 30 minūšu sarunu, un mēs pastāstīsim, kā Coride izmēģinājums izskatās tavai komandai.',
     partnerMsg:
-      'Vēlies piedāvāt bonusus Coride braucējiem? Parunāsim. Izvēlies 20 minūšu sarunu, un kopā atradīsim sadarbības modeli tavam uzņēmumam.',
+      'Vēlies piedāvāt bonusus Coride braucējiem? Parunāsim. Izvēlies 30 minūšu sarunu, un kopā atradīsim sadarbības modeli tavam uzņēmumam.',
     bookCall: 'Pieteikt zvanu ar Coride',
     emailNote: 'Vai rakstiet mums:',
     success: 'Saņemts. Drīzumā sazināsimies.',
