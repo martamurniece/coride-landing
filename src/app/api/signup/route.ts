@@ -17,6 +17,26 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
+/* ── Email settings ── */
+// Where the "new lead" alert goes. Override with LEAD_NOTIFY_EMAIL.
+const DEFAULT_LEAD_NOTIFY_EMAIL = 'marta.muurniece@gmail.com';
+// Where a lead's reply to the confirmation email goes. Override with RESEND_REPLY_TO.
+const DEFAULT_REPLY_TO = 'info@coride.org';
+
+type SendResult = PromiseSettledResult<{ error: { message: string } | null }>;
+
+/* Resend returns API errors instead of throwing, so both cases need logging. */
+function logEmailFailure(label: string, result: SendResult): void {
+  if (result.status === 'rejected') {
+    console.error(
+      `${label} email failed:`,
+      result.reason instanceof Error ? result.reason.message : 'Unknown error',
+    );
+  } else if (result.value.error) {
+    console.error(`${label} email failed:`, result.value.error.message);
+  }
+}
+
 /* ── Validation helpers ── */
 const EMAIL_RE =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -102,6 +122,7 @@ export async function POST(request: NextRequest) {
     let labelName: string;
     let emailSubject: string;
     let emailBody: string;
+    let leadSummary: string;
 
     if (role === 'individual') {
       const name = clean(body.name, 100);
@@ -123,6 +144,7 @@ export async function POST(request: NextRequest) {
         .filter(Boolean)
         .join('\n\n');
       labelName = 'lead:individual';
+      leadSummary = `${name}, ${company}`;
       emailSubject = 'We got your Coride request';
       emailBody = [
         `Hi ${name},`,
@@ -155,6 +177,7 @@ export async function POST(request: NextRequest) {
         .filter(Boolean)
         .join('\n\n');
       labelName = 'lead:partner';
+      leadSummary = `${contactName}, ${businessName}`;
       emailSubject = 'Welcome to the Coride partner enquiry';
       emailBody = [
         `Hi ${contactName},`,
@@ -173,6 +196,8 @@ export async function POST(request: NextRequest) {
     const linearProjectId = process.env.LINEAR_PROJECT_ID;
     const resendKey = process.env.RESEND_API_KEY;
     const fromEmail = process.env.RESEND_FROM_EMAIL;
+    const notifyEmail = process.env.LEAD_NOTIFY_EMAIL || DEFAULT_LEAD_NOTIFY_EMAIL;
+    const replyToEmail = process.env.RESEND_REPLY_TO || DEFAULT_REPLY_TO;
 
     if (!linearKey || !linearTeamId || !linearProjectId || !resendKey || !fromEmail) {
       console.error('Missing required environment variables');
@@ -183,7 +208,7 @@ export async function POST(request: NextRequest) {
     const linear = new LinearClient({ apiKey: linearKey });
     const labelId = await getOrCreateLabel(linear, linearTeamId, labelName);
 
-    await linear.createIssue({
+    const created = await linear.createIssue({
       teamId: linearTeamId,
       projectId: linearProjectId,
       title,
@@ -191,14 +216,42 @@ export async function POST(request: NextRequest) {
       labelIds: [labelId],
     });
 
-    /* Send confirmation email */
+    let issueUrl: string | undefined;
+    try {
+      issueUrl = (await created.issue)?.url;
+    } catch {
+      // The alert still goes out, just without the Linear link.
+    }
+
+    /* Send the internal lead alert and the confirmation to the lead.
+       The lead is already stored in Linear, so a failed email must not fail the request. */
     const resend = new Resend(resendKey);
-    await resend.emails.send({
-      from: fromEmail,
-      to: email,
-      subject: emailSubject,
-      text: emailBody,
-    });
+    const [alert, confirmation] = await Promise.allSettled([
+      resend.emails.send({
+        from: fromEmail,
+        to: notifyEmail,
+        replyTo: email,
+        subject: `New Coride ${role} lead: ${leadSummary}`.replace(/[\r\n]+/g, ' '),
+        text: [
+          `New ${role} lead from coride.org`,
+          '',
+          description.replace(/\*\*/g, ''),
+          '',
+          issueUrl ? `Linear: ${issueUrl}` : 'Linear: see the Leads project',
+          '',
+          'Replying to this email goes straight to the lead.',
+        ].join('\n'),
+      }),
+      resend.emails.send({
+        from: fromEmail,
+        to: email,
+        replyTo: replyToEmail,
+        subject: emailSubject,
+        text: emailBody,
+      }),
+    ]);
+    logEmailFailure('Lead alert', alert);
+    logEmailFailure('Confirmation', confirmation);
 
     return Response.json({ ok: true });
   } catch (err) {
