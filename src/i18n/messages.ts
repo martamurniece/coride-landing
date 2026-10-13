@@ -426,7 +426,7 @@ const en = {
       'Technical: IP address (used only for rate limiting, not stored long-term)',
     ],
     s2Outro:
-      'We do not use cookies or analytics that track you. The site uses Plausible Analytics, which is cookieless and does not collect personal data.',
+      'We do not use cookies or analytics that track you. The site uses Simple Analytics, an EU-hosted service that is cookieless and does not collect personal data.',
     s3Title: '3. Why we collect it',
     s3Items: [
       'To respond to your enquiry about Coride',
@@ -880,7 +880,7 @@ const lv = {
       'Tehniskos datus: IP adresi (izmantota tikai pieprasījumu ierobežošanai, netiek glabāta ilgtermiņā)',
     ],
     s2Outro:
-      'Mēs neizmantojam sīkdatnes vai analītiku, kas jūs izseko. Vietne izmanto Plausible Analytics, kas darbojas bez sīkdatnēm un nevāc personas datus.',
+      'Mēs neizmantojam sīkdatnes vai analītiku, kas jūs izseko. Vietne izmanto Simple Analytics, ES izvietotu pakalpojumu, kas darbojas bez sīkdatnēm un nevāc personas datus.',
     s3Title: '3. Kāpēc mēs tos vācam',
     s3Items: [
       'Lai atbildētu uz jūsu pieprasījumu par Coride',

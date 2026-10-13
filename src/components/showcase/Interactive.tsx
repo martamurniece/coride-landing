@@ -26,7 +26,7 @@ const COMMITTED: Record<StateId, number> = {
 
 declare global {
   interface Window {
-    plausible?: (event: string) => void;
+    sa_event?: (event: string) => void;
   }
 }
 
@@ -198,7 +198,7 @@ export function ShowcaseInteractive({
         focusConfirmRef.current = true;
         if (!trackedRef.current) {
           trackedRef.current = true;
-          window.plausible?.('hero_demo_interact');
+          window.sa_event?.('hero_demo_interact');
         }
         const c = COLLEAGUES[idx];
         setAnnounce(

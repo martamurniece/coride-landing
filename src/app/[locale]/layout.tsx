@@ -44,11 +44,11 @@ export default async function RootLayout({
           <SmoothScroll />
           {children}
         </LocaleProvider>
-        {process.env.NODE_ENV === 'production' && (
+        {/* Simple Analytics (EU-hosted, cookieless). Production deploys only,
+            so Vercel preview URLs don't pollute the stats. */}
+        {process.env.VERCEL_ENV === 'production' && (
           <Script
-            defer
-            data-domain="coride.org"
-            src="https://plausible.io/js/script.js"
+            src="https://scripts.simpleanalyticscdn.com/latest.js"
             strategy="afterInteractive"
           />
         )}
