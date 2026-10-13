@@ -59,6 +59,14 @@
 .footRtu {
   display: block; width: auto; height: 44px;
 }
+/* Analytics badge: as quiet as it can be, toned to the footer's grey text */
+.footBadge { display: inline-flex; margin-left: auto; align-self: flex-end; }
+.footBadge img {
+  display: block; width: auto; height: 14px;
+  filter: grayscale(1); opacity: 0.55;
+  transition: opacity 150ms var(--ease-default);
+}
+.footBadge:hover img { opacity: 0.9; }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .footer { padding: 60px 40px 40px; }
