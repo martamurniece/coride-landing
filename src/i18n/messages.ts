@@ -2,9 +2,9 @@ import type { Locale } from './types';
 
 const en = {
   meta: {
-    title: 'Coride: Skip traffic. Earn perks. Co-ride with colleagues.',
+    title: 'Coride: Skip traffic. Cut costs. Co-ride with colleagues.',
     description:
-      'Join verified communities going on the same routes as you. Drive together and earn perks from local partners across Riga.',
+      'Join verified communities going on the same routes as you. Drive together and split the cost of your commute.',
   },
   nav: {
     homeAria: 'Coride home',
@@ -86,9 +86,9 @@ const en = {
         },
         {
           line: 'line-magenta',
-          title: 'A real perk, with no work for you',
+          title: 'A real saving, with no work for you',
           desc:
-            'Your employees earn rewards from local partners every time they co-ride. You offer a genuine benefit without running anything yourself.',
+            'Your employees cut their commute costs every time they co-ride. You offer a genuine benefit without running anything yourself.',
         },
         {
           line: 'line-lime',
@@ -130,7 +130,7 @@ const en = {
       ],
     },
     pilot: {
-      title: "We're launching our first pilots this autumn.",
+      title: 'Our first pilots start in early 2027.',
       body:
         "We're working with a small number of employers to bring Coride to their teams first. If your workplace struggles with parking, access, or commuting, we'd like to talk.",
       carAria: 'Move the car along the route',
@@ -257,12 +257,12 @@ const en = {
     },
   },
   hero: {
-    title: 'Earn perks for the commute you already make.',
+    title: 'Cut the cost of the commute you already make.',
     sub:
-      'Join your workplace community on Coride. Share your daily commute with colleagues, save on your journey to work and earn rewards from local partners along the way.',
+      'Join your workplace community on Coride. Share your daily commute with colleagues and split the fuel cost fairly.',
     ctaPrimary: 'Get early access',
     ctaGhost: 'How it works',
-    tractionBold: 'First pilots with select employers launch this autumn.',
+    tractionBold: 'First pilots with select employers start in early 2027.',
     tractionRest: 'Get early access today.',
     showcase: {
       add: 'Add',
@@ -341,26 +341,26 @@ const en = {
         label: 'Ride',
         title: 'Ride together.',
         desc:
-          'One car instead of five. Choose to drive or ride as a passenger, with commute costs fairly split through the app.',
+          'One car instead of five. Choose to drive or ride as a passenger, with fuel costs fairly split by the app.',
       },
       {
-        label: 'Earn',
-        title: 'Earn perks with every ride.',
+        label: 'Save',
+        title: 'See what you save.',
         desc:
-          'Each commute with Coride adds perks to your account — real rewards you can spend with local businesses near you.',
+          'Every shared ride shows the money, time and CO2 you saved.',
       },
       {
-        label: 'Spend',
-        title: 'Spend your rewards where you already go.',
+        label: 'Collect',
+        title: 'Earn badges with every shared ride.',
         desc:
-          'Cafés, gyms, shops, services in your area, get discounts on things you would be buying anyway.',
+          'Collect badges and see how you rank among colleagues.',
       },
     ],
   },
   signup: {
     title: 'Start before the first ride.',
     subhead:
-      "Coride pilots launch this autumn. Tell us where you work, and we'll let you know when your company can join.",
+      "Coride pilots start in early 2027. Tell us where you work, and we'll let you know when your company can join.",
     signingUpAs: "I'm signing up as…",
     branches: {
       individual: { title: 'An individual', desc: "I'd like to use Coride at my workplace." },
@@ -455,9 +455,9 @@ const en = {
 
 const lv = {
   meta: {
-    title: 'Coride: Ietaupi laiku. Nopelni bonusus. Brauc kopā ar kolēģiem.',
+    title: 'Coride: Ietaupi laiku. Samazini izmaksas. Brauc kopā ar kolēģiem.',
     description:
-      'Pievienojies kolēģiem, kas brauc pa tiem pašiem maršrutiem. Brauc kopā un saņem bonusus no vietējiem partneriem.',
+      'Pievienojies kolēģiem, kas brauc pa tiem pašiem maršrutiem. Brauc kopā un dali ceļa izmaksas.',
   },
   nav: {
     homeAria: 'Coride sākums',
@@ -540,9 +540,9 @@ const lv = {
         },
         {
           line: 'line-magenta',
-          title: 'Reāls bonuss darbiniekiem, bez papildu darba jums',
+          title: 'Reāls ietaupījums darbiniekiem, bez papildu darba jums',
           desc:
-            'Darbinieki par katru kopbraucienu saņem bonusus no vietējiem partneriem. Jūs piedāvājat reālu labumu, neko pārvaldot paši.',
+            'Darbinieki ar katru kopbraucienu samazina savas ceļa izmaksas. Jūs piedāvājat reālu labumu, neko pārvaldot paši.',
         },
         {
           line: 'line-lime',
@@ -584,7 +584,7 @@ const lv = {
       ],
     },
     pilot: {
-      title: 'Pirmie pilotprojekti sāksies šī gada rudenī.',
+      title: 'Pirmie pilotprojekti sāksies 2027. gada sākumā.',
       body:
         'Mēs sadarbojamies ar ierobežotu skaitu darba devēju, lai Coride vispirms nonāktu pie viņu komandām. Ja jūsu darbavietā trūkst stāvvietu, ir grūti piekļūt vai ikdienu nokļūt līdz darbam ir sarežģīti, vēlamies parunāt.',
       carAria: 'Pārvietot automašīnu pa maršrutu',
@@ -711,12 +711,12 @@ const lv = {
     },
   },
   hero: {
-    title: 'Ar Coride tavs ceļš uz darbu pelna bonusus.',
+    title: 'Ar Coride tavs ceļš uz darbu izmaksā mazāk.',
     sub:
-      'Pievienojies savas darba vietas kopienai Coride platformā. Brauc uz darbu kopā ar kolēģiem, samazini ceļa izmaksas un saņem bonusus no mūsu partneriem.',
+      'Pievienojies savas darba vietas kopienai Coride platformā. Brauc uz darbu kopā ar kolēģiem un godīgi dali degvielas izmaksas.',
     ctaPrimary: 'Piesakies agrīnai piekļuvei',
     ctaGhost: 'Kā tas darbojas',
-    tractionBold: 'Pirmie pilotprojekti ar organizācijām sāksies šī gada rudenī.',
+    tractionBold: 'Pirmie pilotprojekti ar organizācijām sāksies 2027. gada sākumā.',
     tractionRest: 'Piesaki arī savu darbavietu gaidīšanas sarakstā',
     showcase: {
       add: 'Pievienot',
@@ -798,23 +798,23 @@ const lv = {
           'Viens auto piecu vietā. Izvēlies būt pie stūres vai braukt kā pasažieris, un Coride godīgi sadalīs visas ceļa izmaksas.',
       },
       {
-        label: 'NOPELNI',
-        title: 'Saņem bonusus par katru braucienu.',
+        label: 'IETAUPI',
+        title: 'Redzi, cik ietaupi.',
         desc:
-          'Ar katru Coride braucienu tavā kontā krājas bonusi — reāli ieguvumi, ko izmantot pie vietējiem uzņēmumiem tavā apkārtnē.',
+          'Katrs kopbrauciens parāda ietaupīto naudu, laiku un CO2.',
       },
       {
-        label: 'IZMANTO',
-        title: 'Izmanto uzkrātos bonusus vietās, kuras ikdienā jau apmeklē.',
+        label: 'KRĀJ',
+        title: 'Krāj nozīmītes par katru kopbraucienu.',
         desc:
-          'Coride uzkrātos bonusa punktus iztērē kafejnīcās, degvielas uzpildē, sporta zālēs, veikalos vai maksājot par citiem pakalpojumiem. Braucot ar Coride saņemsi atlaides saviem ikdienas pirkumiem, kurus tu visdrīzāk veic jebkurā gadījumā.',
+          'Krāj nozīmītes un redzi savu vietu kolēģu vidū.',
       },
     ],
   },
   signup: {
     title: 'Piesakies lietotnes testam savā darba vietā.',
     subhead:
-      'Pirmie pilotprojecti ar organizācijām sāksies šī gada rudenī. Pastāsti mums, kur strādā, un mēs ziņosim, kad Coride būs pieejams arī tavā uzņēmumā.',
+      'Pirmie pilotprojekti ar organizācijām sāksies 2027. gada sākumā. Pastāsti mums, kur strādā, un mēs ziņosim, kad Coride būs pieejams arī tavā uzņēmumā.',
     signingUpAs: 'Es pierakstos kā…',
     branches: {
       individual: { title: 'Privātpersona', desc: 'Vēlos izmantot Coride savā darbavietā.' },
