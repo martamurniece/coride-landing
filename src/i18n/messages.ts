@@ -12,7 +12,7 @@ const en = {
     joinWaitlist: 'Join the waitlist',
     forEmployers: 'For employers',
     forPartners: 'For partners',
-    bookCall: 'Book a call',
+    bookCall: 'Book a demo',
     becomePartner: 'Become a partner',
     menuAria: 'Toggle menu',
   },
@@ -20,126 +20,115 @@ const en = {
     meta: {
       title: 'Coride: For employers',
       description:
-        'Help your team get to work without building another car park. Coride connects employees into verified, shared commutes.',
+        "Lower your team's commute costs, parking included. Coride connects employees into verified, shared commutes.",
     },
     hero: {
-      title: 'Help your team get to work, without building another car park.',
-      sub:
-        'Coride connects your employees into verified, shared commutes. Fewer cars in the lot, lower parking costs, a real sustainability impact, and an easier journey for everyone on your team.',
-      ctaPrimary: 'Book a call',
+      title: "Lower your team's commute costs, parking included.",
+      sub: 'Spend less on getting people to work, fewer parking spaces to maintain, and gain commute data you can report.',
+      ctaPrimary: 'Book a demo',
       ctaGhost: 'How it works',
-      baBefore: 'Before',
-      baAfter: 'After',
-      baCap: 'Fewer cars means space you can use, expand, rent out, or simply stop paying for.',
-      baAria: 'Before and after: a packed car park becomes a mostly freed, repurposable space',
     },
-    cost: {
-      title: 'The hidden cost of how your team commutes.',
-      lead: 'Most workplaces pay for solo commuting without ever seeing the bill.',
-      cards: [
-        {
-          line: 'line-magenta',
-          title: 'Parking is more expensive than it looks',
-          desc:
-            'Land, construction, maintenance, snow clearing. Every space costs thousands per year, and most carry one person.',
-        },
-        {
-          line: 'line-blue',
-          title: 'Hard-to-reach locations cost you talent',
-          desc:
-            'Industrial parks, the airport, logistics hubs. When getting to work is difficult, hiring and keeping people gets harder.',
-        },
-        {
-          line: 'line-green',
-          title: 'Solo commuting works against your climate goals',
-          desc:
-            'One person per car is the least efficient way for a team to travel. It shows up in your footprint and your reporting.',
-        },
-        {
-          line: 'line-orange',
-          title: "The commute is a daily friction you can't easily fix",
-          desc: 'Your people lose time and money getting to work. Now you can help them save real money over a year.',
-        },
-      ],
+    timeline: {
+      title: 'Your site, over time',
+      badge: 'Example data',
+      aria: 'Example of the employer admin panel over time',
+      periodAria: 'Time period',
+      stages: ['Week 1', 'Month 1', 'Month 2', 'Month 3', 'Month 6'],
+      stagesShort: ['Week 1', 'M1', 'M2', 'M3', 'M6'],
+      sharing: 'Employees sharing rides',
+      countsOnly: 'Counts only. No names.',
+      parking: 'Parking in use',
+      co2: 'CO₂ avoided, Scope 3 Category 7',
     },
     value: {
       title: 'What Coride brings.',
-      lead: "Coride turns your team's daily commute into something that works for everyone.",
+      lead: 'Most workplaces pay for solo commuting without ever seeing the bill. Here is what changes with Coride.',
+      big: {
+        today: 'Today: Someone pays for every commute',
+        title: 'Lower commute costs',
+        desc: 'Colleagues share one car and split the fuel. Your employees pay less to get to work, and you have fewer seats to fund on buses and taxis.',
+      },
       cards: [
         {
-          line: 'line-blue',
+          color: 'blue',
+          today: 'Today: Parking is more expensive than it looks',
           title: 'Fewer cars, less parking pressure',
-          desc:
-            'When colleagues share rides, you need fewer spaces. Free up land, cut parking costs, and ease the daily crunch.',
+          desc: 'When colleagues share their commute, you need fewer parking spaces.',
         },
         {
-          line: 'line-orange',
-          title: "A workplace that's easier to reach",
-          desc:
-            'Make your location more accessible without waiting for new bus routes. Easier commutes help you hire and keep people.',
-        },
-        {
-          line: 'line-green',
+          color: 'green',
+          today: 'Today: Solo commuting works against your climate goals',
           title: 'Measurable sustainability impact',
-          desc:
-            'Fewer cars on the road is a clear, reportable contribution to your climate and ESG commitments.',
+          desc: 'Fewer cars on the road is a clear, reportable contribution to your climate and ESG commitments.',
         },
         {
-          line: 'line-magenta',
+          color: 'magenta',
+          today: '',
           title: 'A real saving, with no work for you',
-          desc:
-            'Your employees cut their commute costs every time they co-ride. You offer a genuine benefit without running anything yourself.',
+          desc: 'Your employees split fuel costs through the app every time they share a ride. You offer a benefit without running anything yourself.',
         },
         {
-          line: 'line-lime',
-          span2: true,
-          title: 'Verified and workplace-only',
-          desc: 'Only your people, verified through your workplace. Colleagues ride with colleagues, not strangers.',
+          color: 'brown',
+          today: 'Today: Hard-to-reach locations cost you talent',
+          title: "A workplace that's easier to reach",
+          desc: 'Make your location easier to reach without organising alternative transport, and hire and retain good people.',
         },
       ],
+      wide: {
+        title: 'Verified and workplace-only',
+        desc: 'Everyone is heading to the same workplace. By our estimate, that makes each employee about 20 times more likely to find a match than on an open carpool app.',
+      },
+    },
+    admin: {
+      title: 'An admin panel with the commute data you report.',
+      lead: 'Add your employees, follow adoption and export Scope 3 commute data from one place.',
+      features: [
+        {
+          title: 'Adoption at a glance',
+          desc: 'See how many employees have joined and how often they share rides.',
+        },
+        {
+          title: 'Scope 3 commute data',
+          desc: 'Shared rides become commute emissions data you can export for Scope 3 Category 7 reporting.',
+        },
+        {
+          title: 'Statistics, not names',
+          desc: 'You see counts and trends. The panel never shows which named employee is or is not using Coride.',
+        },
+      ],
+      report: {
+        title: 'From shared rides to your report',
+        badge: 'Example data',
+        aria: 'Example: shared rides turning into a Scope 3 report',
+        ride: 'Shared ride, {n} colleagues',
+        reportTitle: 'Scope 3, Category 7',
+        reportSub: 'Employee commuting, this month',
+        rows: ['Shared rides', 'CO₂ avoided', 'Parking freed'],
+        note: 'Totals for your company only. No employee names.',
+        download: 'Download report',
+        downloaded: 'Report downloaded',
+        replay: 'Replay the example',
+      },
     },
     how: {
       title: 'How Coride works for employers.',
       lead: 'Four steps, from joining to seeing the impact.',
       step: 'Step',
       steps: [
+        { title: 'Your workplace joins Coride', desc: 'We set up Coride for your team and verify your commuters.' },
+        { title: 'Your employees match', desc: 'They find colleagues on the same routes and shifts.' },
+        { title: 'They co-ride', desc: 'One car instead of several. Costs are shared through the app.' },
         {
-          line: 'line-blue',
-          step: '01',
-          title: 'Your workplace joins Coride',
-          desc: 'We set up Coride for your team and verify your commuters.',
-        },
-        {
-          line: 'line-orange',
-          step: '02',
-          title: 'Your employees match',
-          desc: 'They find colleagues on the same routes and shifts.',
-        },
-        {
-          line: 'line-green',
-          step: '03',
-          title: 'They co-ride',
-          desc: 'One car instead of several. Costs are shared through the app.',
-        },
-        {
-          line: 'line-magenta',
-          step: '04',
           title: 'You see the impact',
-          desc: 'Fewer cars, freed-up parking, and a measurable sustainability result.',
+          desc: 'Lower commute costs, freed-up parking, and commute data for your sustainability report.',
         },
       ],
     },
-    pilot: {
-      title: 'Our first pilots start in early 2027.',
-      body:
-        "We're working with a small number of employers to bring Coride to their teams first. If your workplace struggles with parking, access, or commuting, we'd like to talk.",
-      carAria: 'Move the car along the route',
-    },
     closing: {
+      label: 'First pilots start in early 2027',
       title: 'Want to bring Coride to your workplace?',
-      body:
-        "Let's have a short conversation about whether Coride fits your team. No commitment, just a chance to explore it.",
-      cta: 'Book a call',
+      body: "We're working with a small number of employers to bring Coride to their teams first. If your workplace struggles with commute costs, parking, or access, let us show you how it works. No commitment.",
+      cta: 'Book a demo',
       emailNote: 'Or email us:',
     },
   },
@@ -258,109 +247,135 @@ const en = {
   },
   hero: {
     title: 'Cut the cost of the commute you already make.',
-    sub:
-      'Join your workplace community on Coride. Share your daily commute with colleagues and split the fuel cost fairly.',
+    sub: 'Join your workplace community on Coride.',
     ctaPrimary: 'Get early access',
     ctaGhost: 'How it works',
     tractionBold: 'First pilots with select employers start in early 2027.',
     tractionRest: 'Get early access today.',
-    showcase: {
-      add: 'Add',
-      addAria: 'Add {name} to your ride',
+    demo: {
+      tabsAria: 'How a shared commute works',
+      tabs: ['Match', 'Ride', 'Save'],
+      mapAria:
+        'Example map of a commute from Home to Office, with two colleagues living near the route.',
       home: 'Home',
       office: 'Office',
-      cardTitle: 'Add {name} to your ride?',
-      pickup: 'Pickup · {address}',
-      detourLabel: 'Detour',
-      earnedLabel: 'Earned',
-      confirm: 'Confirm',
-      cancel: 'Cancel',
-      toastTitle: '{name} is on your ride',
-      toastSub: 'Ride confirmed · {address}',
-      summaryTitle: '{names} are on your ride',
-      summarySub: '{count} pickups on your route',
-      min: '+{n} min',
-      etaBadge: '{n} min to office',
-      etaAria: '{n} minutes to the office',
-      sceneAria:
-        'Schematic map of your commute. The route runs from Home at the bottom to Office at the top; colleagues near the route can be added as pickups.',
-      announceAdd: 'Add {name}? Plus {min} minutes, you earn {eur}.',
-      announceConfirmNext: '{name} added. {next} is also on your way.',
-      announceConfirm: '{name} added.',
-      announceSummary: '{names} are on your ride. {min} minutes, {eur} earned.',
+      add: '+ Add {name}',
+      added: '{name} added',
+      addAria: 'Add {name} to your ride',
+      removeAria: 'Remove {name} from your ride',
+      eta: 'Arrive 8:50',
+      etaDone: 'Arrived 8:50',
+      start: 'Start the ride →',
+      arrive: 'Arrive →',
+      replay: 'Replay ↺',
+      matchNoneTitle: '2 colleagues live on your route',
+      matchNoneSub: 'Both drive to your office at the same time.',
+      matchOneTitle: '{name} joins your ride',
+      matchOneSub: '{other} is on your route too.',
+      matchTwoTitle: '{a} and {b} join your ride',
+      matchTwoSub: 'Three colleagues, one car to work.',
+      joinsTitle: '{name} joins the ride',
+      joinsSub: 'Picked up on your way to work.',
+      onWayTitle: 'On the way to the office',
+      aloneSub: 'Driving alone today.',
+      nextSub: 'Next pick-up: {name}.',
+      boardTitle: 'Everyone is on board',
+      boardSub: 'Heading to the office together.',
+      sharedTitle: "You shared today's commute",
+      sharedSub: 'One car instead of {n}.',
+      soloTitle: 'You drove alone today',
+      soloSub: 'Add a colleague next time to split the fuel.',
+      chipFuel: 'Fuel split {n} ways',
+      chipCar: '{n} people, 1 car',
     },
   },
-  problem: {
-    title: "People have been co-riding for years. We're just making it rewarding for everyone.",
-    cards: [
-      {
-        tag: 'Time',
-        title: 'Traffic eats an hour of your day.',
-        desc: 'Same route. Same hour. Five different cars from your office.',
-      },
-      {
+  home: {
+    problem: {
+      title: 'Carpooling that fits your schedule and route, not the other way round.',
+      cost: {
         tag: 'Cost',
         title: 'Driving alone costs more every month.',
-        desc:
-          'Fuel, parking, wear and tear, and wasted time add up. Most rides still carry one person in a car built for five.',
+        desc: 'Fuel, parking and wear and tear add up. The average car in the EU carries 1.4 people. It is built for five.',
       },
-      {
+      coverage: {
         tag: 'Coverage',
-        title: "Public transport doesn't reach every workplace.",
-        desc:
-          'Industrial parks, airports, and logistics hubs sit on the outskirts, far from public transport routes and difficult to reach without a car.',
+        title: "Public transport doesn't fit every commute.",
+        desc: "We're battling two issues: inefficient and costly transport alternatives for remote sites, and costly and busy parking spaces in dense areas.",
+        places: ['Industrial park', 'Logistics hub', 'Airport', 'City office'],
       },
-      {
-        tag: 'Land',
-        title: 'Every parking space costs more than most employers realise.',
-        desc:
-          'Land, construction, maintenance, and snow clearing all add up to thousands per space each year, often for a single commuter.',
+      trust: {
+        tag: 'Trust',
+        title: 'Sharing a ride with strangers is a hard sell.',
+        desc: 'Other carpool apps match you with anyone. Coride matches you only with verified colleagues from your own workplace.',
+        verified: 'Verified colleagues',
       },
-    ],
-  },
-  how: {
-    title: 'How Coride works.',
-    subhead: 'Simple to start, easy to use.',
-    stationPrefix: 'Station',
-    stations: [
-      {
-        label: 'Workplace',
-        title: 'Your workplace joins Coride.',
-        descBeforeLink:
-          'We partner with your employer to verify commuters and open Coride to your team. Not live at your workplace yet?',
-        link: 'Tell us',
-        descAfterLink: " where you work, and we'll reach out.",
+    },
+    impact: {
+      title: 'The impact?',
+      lead: 'Reduce your impact on the environment while reducing your monthly commute expenses.',
+      cost: {
+        tag: 'Commute cost',
+        from: '250',
+        to: '63',
+        unit: 'EUR a month',
+        desc: 'A 40 km commute, driving alone compared with sharing the car with three colleagues.',
       },
-      {
-        label: 'Match',
-        title: 'Match with colleagues going your way.',
-        desc:
-          'Add your home, shift, and route. Coride connects you with verified colleagues travelling on similar routes.',
+      parking: {
+        tag: 'Parking',
+        from: '4',
+        to: '1',
+        unit: 'parking spaces',
+        desc: 'Four colleagues in one car take one space at work instead of four.',
       },
-      {
-        label: 'Ride',
-        title: 'Ride together.',
-        desc:
-          'One car instead of five. Choose to drive or ride as a passenger, with fuel costs fairly split by the app.',
+    },
+    backers: {
+      title: 'Who backs Coride.',
+      eit: {
+        title: 'EIT Jumpstarter 2026',
+        desc: 'Winner of EIT Jumpstarter 2026, Urban Mobility and Smart Cities cohort',
+        alt: 'EIT Community Jumpstarter, funded by the European Union',
       },
-      {
-        label: 'Save',
-        title: 'See what you save.',
-        desc:
-          'Every shared ride shows the money, time and CO2 you saved.',
-      },
-      {
-        label: 'Collect',
-        title: 'Earn badges with every shared ride.',
-        desc:
-          'Collect badges and see how you rank among colleagues.',
-      },
-    ],
+      rtu: { title: 'RTU Innovations', desc: 'Supported by RTU Innovations.', alt: 'RTU Innovations' },
+      vefresh: { title: 'VEFRESH', desc: 'Supported by VEFRESH.', alt: 'VEFRESH' },
+    },
+    how: {
+      title: 'How do you get Coride?',
+      stations: [
+        {
+          label: 'Workplace',
+          title: 'Your workplace joins Coride.',
+          descBeforeLink:
+            'We partner with your employer to verify commuters and open Coride to your team. Not live at your workplace yet?',
+          link: 'Tell us',
+          descAfterLink: " where you work, and we'll reach out.",
+        },
+        {
+          label: 'Match',
+          title: 'Match with people who actually go where you go.',
+          desc: 'Everyone on Coride is heading to your workplace. By our estimate, that makes each colleague about 20 times more likely to be your match than a user of an open carpool app.',
+        },
+        {
+          label: 'Ride',
+          title: 'Ride together.',
+          desc: 'One car instead of five. Choose to drive or ride as a passenger, with fuel costs fairly split by the app.',
+        },
+        {
+          label: 'Save',
+          title: 'See what you save.',
+          desc: 'After every shared ride the app shows what the commute cost you, next to what it costs alone.',
+        },
+        {
+          label: 'Collect',
+          title: 'Earn badges with every shared ride.',
+          desc: 'Your shared rides add up to badges you collect alongside your colleagues.',
+        },
+      ],
+    },
   },
   signup: {
     title: 'Start before the first ride.',
     subhead:
-      "Coride pilots start in early 2027. Tell us where you work, and we'll let you know when your company can join.",
+      "Coride pilots start in early 2027. Tell us where you work, and we'll let you know when your company joins.",
     signingUpAs: "I'm signing up as…",
     branches: {
       individual: { title: 'An individual', desc: "I'd like to use Coride at my workplace." },
@@ -382,7 +397,7 @@ const en = {
       "We'd rather talk than have you fill a form. Pick a 30-minute slot and we'll walk you through what a Coride pilot looks like for your team.",
     partnerMsg:
       "Want to offer perks to Coride riders? Let's talk. Pick a 30-minute slot and we'll figure out a partnership that works for your business.",
-    bookCall: 'Book a call with Coride',
+    bookCall: 'Book a demo',
     emailNote: 'Or email us:',
     success: "We got it. We'll be in touch shortly.",
     backToTop: 'Back to top',
@@ -391,11 +406,6 @@ const en = {
       required: 'Please fill in all required fields.',
       generic: 'Something went wrong. Please try again.',
     },
-  },
-  route: {
-    problem: '02 · The problem',
-    how: '03 · How it works',
-    signup: '04 · Get on board',
   },
   footer: {
     homeAria: 'Coride home',
@@ -465,7 +475,7 @@ const lv = {
     joinWaitlist: 'Piesakies agrīnai piekļuvei',
     forEmployers: 'Darba devējiem',
     forPartners: 'Partneriem',
-    bookCall: 'Pieteikt zvanu',
+    bookCall: 'Pieteikt demo',
     becomePartner: 'Kļūt par partneri',
     menuAria: 'Atvērt izvēlni',
   },
@@ -473,127 +483,115 @@ const lv = {
     meta: {
       title: 'Coride: Darba devējiem',
       description:
-        'Palīdziet komandai nokļūt darbā, nebūvējot vēl vienu stāvlaukumu. Coride savieno darbiniekus pārbaudītos kopbraucienos.',
+        'Samaziniet komandas ceļa izmaksas, ieskaitot stāvvietas. Coride savieno darbiniekus pārbaudītos kopbraucienos.',
     },
     hero: {
-      title: 'Palīdziet komandai nokļūt darbā, nebūvējot vēl vienu stāvlaukumu.',
-      sub:
-        'Coride savieno jūsu darbiniekus pārbaudītos kopbraucienos. Mazāk auto stāvlaukumā, zemākas stāvvietu izmaksas, reāls ilgtspējības ieguvums un vieglāks ceļš uz darbu visai komandai.',
-      ctaPrimary: 'Pieteikt zvanu',
+      title: 'Samaziniet komandas ceļa izmaksas, ieskaitot stāvvietas.',
+      sub: 'Mazāk izdevumu par darbinieku nokļūšanu darbā, mazāk uzturamu stāvvietu un dati par ceļu uz darbu, ko varat iekļaut pārskatos.',
+      ctaPrimary: 'Pieteikt demo',
       ctaGhost: 'Kā tas darbojas',
-      baBefore: 'Pirms',
-      baAfter: 'Pēc',
-      baCap: 'Mazāk automašīnu nozīmē brīvu vietu, ko var izmantot, paplašināt, izīrēt, vai vienkārši vairs par to nemaksāt.',
-      baAria: 'Pirms un pēc: pilns stāvlaukums kļūst brīvāks un izmantojams citiem mērķiem',
     },
-    cost: {
-      title: 'Slēptās izmaksas, kā jūsu komanda brauc uz darbu.',
-      lead: 'Lielākā daļa darbavietu maksā par braukšanu vienatnē, pat neredzot rēķinu.',
-      cards: [
-        {
-          line: 'line-magenta',
-          title: 'Stāvvieta maksā vairāk, nekā šķiet',
-          desc:
-            'Zeme, būvniecība, uzturēšana, sniega tīrīšana. Katra vieta gadā izmaksā tūkstošiem eiro, un lielākajā daļā brauc tikai viens cilvēks.',
-        },
-        {
-          line: 'line-blue',
-          title: 'Grūti pieejamas lokācijas atņem talantus',
-          desc:
-            'Industriālie parki, lidosta, loģistikas centri. Kad ceļš uz darbu ir sarežģīts, atrast un noturēt darbiniekus kļūst grūtāk.',
-        },
-        {
-          line: 'line-green',
-          title: 'Braukšana vienatnē iet pret jūsu klimata mērķiem',
-          desc:
-            'Viens cilvēks vienā automašīnā: neefektīvākais veids, kā komandai ceļot. Tas redzams jūsu oglekļa pēdā un pārskatos.',
-        },
-        {
-          line: 'line-orange',
-          title: 'Ceļš uz darbu ir ikdienas slogs, kuru grūti noņemt',
-          desc:
-            'Jūsu darbinieki katru dienu zaudē laiku un naudu ceļā. Tagad varat palīdzēt viņiem ietaupīt reālas summas gada laikā.',
-        },
-      ],
+    timeline: {
+      title: 'Jūsu darbavieta laika gaitā',
+      badge: 'Piemēra dati',
+      aria: 'Darba devēja administrēšanas paneļa piemērs laika gaitā',
+      periodAria: 'Laika posms',
+      stages: ['1. nedēļa', '1. mēnesis', '2. mēnesis', '3. mēnesis', '6. mēnesis'],
+      stagesShort: ['1. ned.', '1. mēn.', '2. mēn.', '3. mēn.', '6. mēn.'],
+      sharing: 'Darbinieki, kas brauc kopā',
+      countsOnly: 'Tikai skaits. Bez vārdiem.',
+      parking: 'Aizņemtās stāvvietas',
+      co2: 'Ietaupītais CO₂, Scope 3 7. kategorija',
     },
     value: {
       title: 'Ko Coride sniedz.',
-      lead: 'Coride pārvērš jūsu komandas ikdienas braucienu par risinājumu, kas der visiem.',
+      lead: 'Lielākā daļa darbavietu maksā par braukšanu vienatnē, pat neredzot rēķinu. Lūk, kas mainās ar Coride.',
+      big: {
+        today: 'Šodien: kāds maksā par katru braucienu uz darbu',
+        title: 'Zemākas ceļa izmaksas',
+        desc: 'Kolēģi brauc vienā auto un dala degvielas izmaksas. Darbinieki maksā mazāk par ceļu uz darbu, un jums jāfinansē mazāk vietu autobusos un taksometros.',
+      },
       cards: [
         {
-          line: 'line-blue',
+          color: 'blue',
+          today: 'Šodien: stāvvieta maksā vairāk, nekā šķiet',
           title: 'Mazāk auto, mazāks spiediens uz stāvvietām',
-          desc:
-            'Kolēģi braucot kopā, vajag mazāk vietu. Atbrīvojiet zemi, samaziniet stāvvietu izmaksas un maziniet ikdienas sastrēgumus.',
+          desc: 'Kolēģiem braucot kopā, vajag mazāk stāvvietu.',
         },
         {
-          line: 'line-orange',
-          title: 'Darbavieta, kurai vieglāk piekļūt',
-          desc:
-            'Padariet savu lokāciju pieejamāku, negaidot jaunus autobusu maršrutus. Vieglāks ceļš uz darbu palīdz atrast un noturēt darbiniekus.',
-        },
-        {
-          line: 'line-green',
+          color: 'green',
+          today: 'Šodien: braukšana vienatnē iet pret jūsu klimata mērķiem',
           title: 'Izmērāms ilgtspējības ieguvums',
-          desc:
-            'Mazāk automašīnu uz ceļiem: skaidrs, uzskatāms ieguldījums jūsu klimata un ESG saistībās.',
+          desc: 'Mazāk automašīnu uz ceļiem: skaidrs, uzskatāms ieguldījums jūsu klimata un ESG saistībās.',
         },
         {
-          line: 'line-magenta',
-          title: 'Reāls ietaupījums darbiniekiem, bez papildu darba jums',
-          desc:
-            'Darbinieki ar katru kopbraucienu samazina savas ceļa izmaksas. Jūs piedāvājat reālu labumu, neko pārvaldot paši.',
+          color: 'magenta',
+          today: '',
+          title: 'Reāls ietaupījums bez papildu darba jums',
+          desc: 'Darbinieki lietotnē dala degvielas izmaksas katru reizi, kad brauc kopā. Jūs piedāvājat labumu, neko nepārvaldot paši.',
         },
         {
-          line: 'line-lime',
-          span2: true,
-          title: 'Pārbaudīti un tikai no jūsu darbavietas',
-          desc: 'Tikai jūsu cilvēki, pārbaudīti caur darbavietu. Kolēģi brauc ar kolēģiem, ne ar svešiniekiem.',
+          color: 'brown',
+          today: 'Šodien: grūti pieejamas lokācijas atņem talantus',
+          title: 'Darbavieta, kurai vieglāk piekļūt',
+          desc: 'Padariet savu lokāciju vieglāk sasniedzamu, neorganizējot alternatīvu transportu, un piesaistiet un noturiet labus darbiniekus.',
         },
       ],
+      wide: {
+        title: 'Pārbaudīti un tikai no jūsu darbavietas',
+        desc: 'Visi brauc uz to pašu darbavietu. Pēc mūsu aprēķiniem tas katram darbiniekam dod aptuveni 20 reizes lielāku iespēju atrast braukšanas biedru nekā atvērtā kopbraukšanas lietotnē.',
+      },
+    },
+    admin: {
+      title: 'Administrēšanas panelis ar ceļa datiem jūsu pārskatiem.',
+      lead: 'Pievienojiet darbiniekus, sekojiet līdzi lietošanai un eksportējiet Scope 3 ceļa datus vienuviet.',
+      features: [
+        {
+          title: 'Lietošana vienā skatienā',
+          desc: 'Redziet, cik darbinieku ir pievienojušies un cik bieži viņi brauc kopā.',
+        },
+        {
+          title: 'Scope 3 ceļa dati',
+          desc: 'Kopbraucieni pārvēršas emisiju datos, ko varat eksportēt Scope 3 7. kategorijas pārskatiem.',
+        },
+        {
+          title: 'Statistika, nevis vārdi',
+          desc: 'Jūs redzat skaitus un tendences. Panelis nekad nerāda, kurš konkrēts darbinieks lieto vai nelieto Coride.',
+        },
+      ],
+      report: {
+        title: 'No kopbraucieniem līdz jūsu pārskatam',
+        badge: 'Piemēra dati',
+        aria: 'Piemērs: kopbraucieni pārvēršas Scope 3 pārskatā',
+        ride: 'Kopbrauciens, {n} kolēģi',
+        reportTitle: 'Scope 3, 7. kategorija',
+        reportSub: 'Darbinieku ceļš uz darbu, šis mēnesis',
+        rows: ['Kopbraucieni', 'Ietaupītais CO₂', 'Atbrīvotās stāvvietas'],
+        note: 'Tikai jūsu uzņēmuma kopsummas. Bez darbinieku vārdiem.',
+        download: 'Lejupielādēt pārskatu',
+        downloaded: 'Pārskats lejupielādēts',
+        replay: 'Atkārtot piemēru',
+      },
     },
     how: {
       title: 'Kā Coride darbojas darba devējiem.',
       lead: 'Četri soļi, no pievienošanās līdz redzamam rezultātam.',
       step: 'Solis',
       steps: [
+        { title: 'Jūsu darbavieta pievienojas Coride', desc: 'Mēs iestatām Coride jūsu komandai un pārbaudām braucējus.' },
+        { title: 'Darbinieki atrod kolēģus', desc: 'Viņi atrod kolēģus uz tā paša maršruta un tajā pašā maiņā.' },
+        { title: 'Brauc kopā', desc: 'Viens auto vairāku vietā. Izmaksas tiek dalītas lietotnē.' },
         {
-          line: 'line-blue',
-          step: '01',
-          title: 'Jūsu darbavieta pievienojas Coride',
-          desc: 'Mēs iestatām Coride jūsu komandai un pārbaudām braucēus.',
-        },
-        {
-          line: 'line-orange',
-          step: '02',
-          title: 'Darbinieki atrod kolēģus',
-          desc: 'Viņi atrod kolēģus uz tā paša maršruta un maiņā.',
-        },
-        {
-          line: 'line-green',
-          step: '03',
-          title: 'Brauc kopā',
-          desc: 'Viens auto vairāku vietā. Izmaksas tiek godīgi sadalītas lietotnē.',
-        },
-        {
-          line: 'line-magenta',
-          step: '04',
           title: 'Redzat rezultātu',
-          desc: 'Mazāk automašīnu, brīvākas stāvvietas un izmērāms ilgtspējības ieguvums.',
+          desc: 'Zemākas ceļa izmaksas, brīvākas stāvvietas un ceļa dati jūsu ilgtspējības pārskatam.',
         },
       ],
     },
-    pilot: {
-      title: 'Pirmie pilotprojekti sāksies 2027. gada sākumā.',
-      body:
-        'Mēs sadarbojamies ar ierobežotu skaitu darba devēju, lai Coride vispirms nonāktu pie viņu komandām. Ja jūsu darbavietā trūkst stāvvietu, ir grūti piekļūt vai ikdienu nokļūt līdz darbam ir sarežģīti, vēlamies parunāt.',
-      carAria: 'Pārvietot automašīnu pa maršrutu',
-    },
     closing: {
+      label: 'Pirmie pilotprojekti sāksies 2027. gada sākumā',
       title: 'Vēlaties ieviest Coride savā darbavietā?',
-      body:
-        'Parunāsim īsi par to, vai Coride der jūsu komandai. Bez saistībām, vienkārši iespēja izpētīt.',
-      cta: 'Pieteikt zvanu',
+      body: 'Mēs sadarbojamies ar nelielu skaitu darba devēju, lai Coride vispirms nonāktu pie viņu komandām. Ja jūsu darbavietā ir grūtības ar ceļa izmaksām, stāvvietām vai piekļuvi, ļaujiet mums parādīt, kā tas darbojas. Bez saistībām.',
+      cta: 'Pieteikt demo',
       emailNote: 'Vai rakstiet mums:',
     },
   },
@@ -712,109 +710,135 @@ const lv = {
   },
   hero: {
     title: 'Ar Coride tavs ceļš uz darbu izmaksā mazāk.',
-    sub:
-      'Pievienojies savas darba vietas kopienai Coride platformā. Brauc uz darbu kopā ar kolēģiem un godīgi dali degvielas izmaksas.',
+    sub: 'Pievienojies savas darbavietas kopienai Coride.',
     ctaPrimary: 'Piesakies agrīnai piekļuvei',
     ctaGhost: 'Kā tas darbojas',
     tractionBold: 'Pirmie pilotprojekti ar organizācijām sāksies 2027. gada sākumā.',
-    tractionRest: 'Piesaki arī savu darbavietu gaidīšanas sarakstā',
-    showcase: {
-      add: 'Pievienot',
-      addAria: 'Pievienot {name} savam braucienam',
+    tractionRest: 'Piesakies agrīnai piekļuvei jau šodien.',
+    demo: {
+      tabsAria: 'Kā notiek kopīgs brauciens uz darbu',
+      tabs: ['Atrodi', 'Brauc', 'Ietaupi'],
+      mapAria:
+        'Piemēra karte: ceļš no mājām uz biroju un divi kolēģi, kas dzīvo pie maršruta.',
       home: 'Mājas',
       office: 'Birojs',
-      cardTitle: 'Pievienot {name} savam braucienam?',
-      pickup: 'Uzņemšana · {address}',
-      detourLabel: 'Apkārtceļš',
-      earnedLabel: 'Nopelnīts',
-      confirm: 'Apstiprināt',
-      cancel: 'Atcelt',
-      toastTitle: '{name} ir tavā braucienā',
-      toastSub: 'Brauciens apstiprināts · {address}',
-      summaryTitle: '{names} ir tavā braucienā',
-      summarySub: '{count} pieturas tavā maršrutā',
-      min: '+{n} min',
-      etaBadge: 'pēc {n} min',
-      etaAria: 'pēc {n} minūtēm birojā',
-      sceneAria:
-        'Shematiska ceļa karte: maršruts ved no mājām (apakšā) uz biroju (augšā); kolēģus pie maršruta var pievienot kā pieturas.',
-      announceAdd: 'Pievienot {name}? Plus {min} minūtes, tu nopelni {eur}.',
-      announceConfirmNext: '{name} brauks ar tevi. Arī {next} ir pa ceļam.',
-      announceConfirm: '{name} brauks ar tevi.',
-      announceSummary: '{names} ir tavā braucienā. {min} minūtes, nopelnīts {eur}.',
+      add: '+ Pievienot',
+      added: '{name} brauc līdzi',
+      addAria: 'Pievienot braucienam: {name}',
+      removeAria: 'Noņemt no brauciena: {name}',
+      eta: 'Ierašanās 8:50',
+      etaDone: 'Galā 8:50',
+      start: 'Sākt braucienu →',
+      arrive: 'Uz biroju →',
+      replay: 'Atkārtot ↺',
+      matchNoneTitle: '2 kolēģi dzīvo tavā maršrutā',
+      matchNoneSub: 'Abi brauc uz biroju tajā pašā laikā.',
+      matchOneTitle: '{name} brauc tev līdzi',
+      matchOneSub: 'Arī {other} ir tavā maršrutā.',
+      matchTwoTitle: '{a} un {b} brauc tev līdzi',
+      matchTwoSub: 'Trīs kolēģi, viens auto uz darbu.',
+      joinsTitle: '{name} iekāpj',
+      joinsSub: 'Pa ceļam uz darbu.',
+      onWayTitle: 'Ceļā uz biroju',
+      aloneSub: 'Šodien brauc viens.',
+      nextSub: 'Nākamā pietura: {name}.',
+      boardTitle: 'Visi ir auto',
+      boardSub: 'Kopā ceļā uz biroju.',
+      sharedTitle: 'Šodien braucāt kopā',
+      sharedSub: 'Viens auto {n} vietā.',
+      soloTitle: 'Šodien brauci viens',
+      soloSub: 'Nākamreiz pievieno kolēģi un daliet degvielas izmaksas.',
+      chipFuel: 'Degviela dalīta uz {n}',
+      chipCar: '{n} cilvēki, 1 auto',
     },
   },
-  problem: {
-    title: 'Cilvēki jau gadiem brauc kopā. Coride padara to izdevīgu visiem.',
-    cards: [
-      {
-        tag: 'Laiks',
-        title: 'Satiksme katru dienu paņem stundu no tava laika.',
-        desc: 'Tas pats ceļš. Tas pats laiks. Piecas dažādas automašīnas no tavas darbavietas.',
-      },
-      {
+  home: {
+    problem: {
+      title: 'Kopbraukšana, kas pielāgojas tavam grafikam un maršrutam, nevis otrādi.',
+      cost: {
         tag: 'Izmaksas',
-        title: 'Braukt vienam kļūst dārgāk katru mēnesi.',
-        desc:
-          'Degviela, stāvvieta, auto nolietojums, uzturēšana un laiks ceļā summējas reālās izmaksās, lai gan vairums braucienu joprojām notiek vienatnē, ar piecām brīvām vietām.',
+        title: 'Braukt vienam katru mēnesi izmaksā vairāk.',
+        desc: 'Degviela, stāvvieta un auto nolietojums summējas. Vidēji ES automašīnā brauc 1,4 cilvēki. Tā ir būvēta pieciem.',
       },
-      {
+      coverage: {
         tag: 'Pārklājums',
-        title: 'Sabiedriskais transports neaizved līdz katrai darbavietai.',
-        desc:
-          'Industriālie parki, lidostas un loģistikas centri bieži atrodas pilsētas nomalēs, tālu no sabiedriskā transporta maršrutiem. Bez auto tur nokļūt ir sarežģīti.',
+        title: 'Sabiedriskais transports neder katram ceļam uz darbu.',
+        desc: 'Mēs risinām divas problēmas: neefektīvas un dārgas transporta alternatīvas attālām darbavietām un dārgas, pārpildītas stāvvietas blīvi apbūvētās vietās.',
+        places: ['Industriālais parks', 'Loģistikas centrs', 'Lidosta', 'Birojs pilsētā'],
       },
-      {
-        tag: 'Zeme',
-        title: 'Katra stāvvieta darba devējam rada izmaksas.',
-        desc:
-          'Zeme, izbūve, uzturēšana un sniega tīrīšana kopā veido tūkstošiem eiro gadā par katru stāvvietu, kuru parasti izmanto tikai viens darbinieks.',
+      trust: {
+        tag: 'Uzticēšanās',
+        title: 'Braukt kopā ar svešiniekiem nav viegli.',
+        desc: 'Citas kopbraukšanas lietotnes savieno tevi ar jebkuru. Coride savieno tevi tikai ar pārbaudītiem kolēģiem no tavas darbavietas.',
+        verified: 'Pārbaudīti kolēģi',
       },
-    ],
-  },
-  how: {
-    title: 'Kā darbojas Coride.',
-    subhead: 'Viegli sākt, vienkārši lietot.',
-    stationPrefix: 'Pietura',
-    stations: [
-      {
-        label: 'DARBAVIETA',
-        title: 'Tava darbavieta pievienojas Coride.',
-        descBeforeLink:
-          'Mēs sadarbojamies ar tavu darba devēju, lai Coride būtu pieejams tev un taviem kolēģiem. Coride vēl nav pieejams tavā darbavietā?',
-        link: 'Pastāsti mums',
-        descAfterLink: ', kur strādā, un mēs uzrunāsim tavu uzņēmumu.',
+    },
+    impact: {
+      title: 'Kāds ir ieguvums?',
+      lead: 'Samazini savu ietekmi uz vidi un reizē arī ikmēneša ceļa izdevumus.',
+      cost: {
+        tag: 'Ceļa izmaksas',
+        from: '250',
+        to: '63',
+        unit: 'EUR mēnesī',
+        desc: '40 km ceļš uz darbu: braucot vienam, salīdzinot ar braucienu kopā ar trim kolēģiem.',
       },
-      {
-        label: 'MARŠRUTS',
-        title: 'Atrodi kolēģus, kas dodas vienā virzienā ar tevi.',
-        desc:
-          'Norādi savu dzīvesvietu, darba laika maiņu un maršrutu, kurā brauksi. Coride savienos tevi ar kolēģiem, kuru ceļš uz darbu pārklājas ar tavējo.',
+      parking: {
+        tag: 'Stāvvietas',
+        from: '4',
+        to: '1',
+        unit: 'stāvvietas',
+        desc: 'Četri kolēģi vienā auto darbā aizņem vienu stāvvietu četru vietā.',
       },
-      {
-        label: 'BRAUCIENS',
-        title: 'Brauciet kopā.',
-        desc:
-          'Viens auto piecu vietā. Izvēlies būt pie stūres vai braukt kā pasažieris, un Coride godīgi sadalīs visas ceļa izmaksas.',
+    },
+    backers: {
+      title: 'Kas atbalsta Coride.',
+      eit: {
+        title: 'EIT Jumpstarter 2026',
+        desc: 'EIT Jumpstarter 2026 uzvarētājs Urban Mobility and Smart Cities grupā',
+        alt: 'EIT Community Jumpstarter, finansē Eiropas Savienība',
       },
-      {
-        label: 'IETAUPI',
-        title: 'Redzi, cik ietaupi.',
-        desc:
-          'Katrs kopbrauciens parāda ietaupīto naudu, laiku un CO2.',
-      },
-      {
-        label: 'KRĀJ',
-        title: 'Krāj nozīmītes par katru kopbraucienu.',
-        desc:
-          'Krāj nozīmītes un redzi savu vietu kolēģu vidū.',
-      },
-    ],
+      rtu: { title: 'RTU Innovations', desc: 'Atbalsta RTU Innovations.', alt: 'RTU Innovations' },
+      vefresh: { title: 'VEFRESH', desc: 'Atbalsta VEFRESH.', alt: 'VEFRESH' },
+    },
+    how: {
+      title: 'Kā tikt pie Coride?',
+      stations: [
+        {
+          label: 'Darbavieta',
+          title: 'Tava darbavieta pievienojas Coride.',
+          descBeforeLink:
+            'Mēs sadarbojamies ar tavu darba devēju, lai pārbaudītu braucējus un atvērtu Coride tavai komandai. Coride vēl nav pieejams tavā darbavietā?',
+          link: 'Pastāsti mums',
+          descAfterLink: ', kur strādā, un mēs uzrunāsim tavu uzņēmumu.',
+        },
+        {
+          label: 'Maršruts',
+          title: 'Atrodi cilvēkus, kas tiešām brauc turp, kurp tu.',
+          desc: 'Visi Coride lietotāji brauc uz tavu darbavietu. Pēc mūsu aprēķiniem tas katru kolēģi padara aptuveni 20 reizes iespējamāku braukšanas biedru nekā atvērtas kopbraukšanas lietotnes lietotāju.',
+        },
+        {
+          label: 'Brauciens',
+          title: 'Brauciet kopā.',
+          desc: 'Viens auto piecu vietā. Izvēlies būt pie stūres vai braukt kā pasažieris, un lietotne godīgi sadalīs degvielas izmaksas.',
+        },
+        {
+          label: 'Ietaupi',
+          title: 'Redzi, cik ietaupi.',
+          desc: 'Pēc katra kopbrauciena lietotne parāda, cik tev izmaksāja ceļš, blakus tam, cik tas izmaksātu, braucot vienam.',
+        },
+        {
+          label: 'Krāj',
+          title: 'Krāj nozīmītes par katru kopbraucienu.',
+          desc: 'Tavi kopbraucieni pārvēršas nozīmītēs, ko krāj kopā ar kolēģiem.',
+        },
+      ],
+    },
   },
   signup: {
     title: 'Piesakies lietotnes testam savā darba vietā.',
     subhead:
-      'Pirmie pilotprojekti ar organizācijām sāksies 2027. gada sākumā. Pastāsti mums, kur strādā, un mēs ziņosim, kad Coride būs pieejams arī tavā uzņēmumā.',
+      'Pirmie pilotprojekti ar organizācijām sāksies 2027. gada sākumā. Pastāsti mums, kur strādā, un mēs ziņosim, kad tavs uzņēmums pievienosies.',
     signingUpAs: 'Es pierakstos kā…',
     branches: {
       individual: { title: 'Privātpersona', desc: 'Vēlos izmantot Coride savā darbavietā.' },
@@ -836,7 +860,7 @@ const lv = {
       'Mēs labprātāk runājam, nekā liekam aizpildīt formu. Izvēlies 30 minūšu sarunu, un mēs pastāstīsim, kā Coride izmēģinājums izskatās tavai komandai.',
     partnerMsg:
       'Vēlies piedāvāt bonusus Coride braucējiem? Parunāsim. Izvēlies 30 minūšu sarunu, un kopā atradīsim sadarbības modeli tavam uzņēmumam.',
-    bookCall: 'Pieteikt zvanu ar Coride',
+    bookCall: 'Pieteikt demo',
     emailNote: 'Vai rakstiet mums:',
     success: 'Saņemts. Drīzumā sazināsimies.',
     backToTop: 'Atpakaļ uz augšu',
@@ -845,11 +869,6 @@ const lv = {
       required: 'Lūdzu, aizpildi visus obligātos laukus.',
       generic: 'Kaut kas nogāja greizi. Lūdzu, mēģini vēlreiz.',
     },
-  },
-  route: {
-    problem: '02 · Problēma',
-    how: '03 · Kā darbojas Coride',
-    signup: '04 · Piesakies',
   },
   footer: {
     homeAria: 'Coride sākums',

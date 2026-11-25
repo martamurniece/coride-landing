@@ -6,7 +6,7 @@ import { EmployersNav } from '@/components/EmployersNav';
 import { messages } from '@/i18n/messages';
 import { isLocale } from '@/i18n/types';
 import { buildPageMetadata } from '@/i18n/metadata';
-import '@/styles/employers.css';
+import '@/styles/emp.css';
 
 export async function generateMetadata({
   params,
@@ -33,7 +33,7 @@ export default async function EmployersPage({
   if (!isLocale(locale)) notFound();
 
   return (
-    <div className="page employersPage">
+    <div className="page empPage">
       <EmployersNav />
       <EmployersContent />
       <Footer />

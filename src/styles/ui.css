@@ -1,0 +1,65 @@
+/* ── Shared UI for the Nov 2026 redesign ───────────────── */
+:root {
+  --blue: #1B4FCF;
+  --orange: #F26B1F;
+  --green: #0CA64A;
+  --magenta: #B5279E;
+  --lime: #7EC242;
+  --brown: #8A5A2B;
+  --ink: #1F1F1F;
+  --muted: #5E5E5E;
+  --line: #DBDBDB;
+}
+
+.cCtaRow { display: flex; align-items: center; gap: 16px; margin-top: 34px; flex-wrap: wrap; }
+
+.cBtn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  box-sizing: border-box; min-height: 49px; padding: 15px 24px;
+  background: var(--ink); color: #F7F7F7; border: 0; border-radius: 10px;
+  font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: 0.1px;
+  text-decoration: none; cursor: pointer;
+  box-shadow: 0 6px 16px rgba(31,31,31,0.16);
+  transition: background 150ms var(--ease-default), transform 150ms var(--ease-default);
+}
+.cBtn:hover { background: #333333; color: #F7F7F7; }
+.cBtn:active { transform: translateY(1px); }
+.cBtnLight { background: #F7F7F7; color: var(--ink); box-shadow: none; }
+.cBtnLight:hover { background: #FFFFFF; color: var(--ink); }
+
+.cGhost {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 49px; padding: 0 4px;
+  color: var(--ink); font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: 0.1px;
+  text-decoration: none;
+}
+.cGhost:hover { color: var(--muted); }
+.cGhostIcon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; box-sizing: border-box;
+  border: 1.5px solid currentColor; border-radius: 50%; font-size: 14px;
+}
+
+.tag {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.tag > span:first-child { width: 9px; height: 9px; border-radius: 50%; background: currentColor; flex: none; }
+.tagOrange { color: #9F4111; } .tagOrange > span:first-child { background: var(--orange); }
+.tagGreen { color: #086D30; } .tagGreen > span:first-child { background: var(--green); }
+.tagMagenta { color: #771867; } .tagMagenta > span:first-child { background: var(--magenta); }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px;
+  background: #FFFFFF; border: 1px solid var(--line); border-radius: 9999px;
+  font-size: 12.5px; font-weight: 600; color: var(--ink); white-space: nowrap;
+}
+.pillRing {
+  display: block; box-sizing: border-box; width: 10px; height: 10px;
+  border: 2.5px solid var(--green); border-radius: 50%; background: #FFFFFF;
+}
+
+.c-blue { color: #103388; }
+.c-orange { color: #9F4111; }
+.c-green { color: #086D30; }
+.c-magenta { color: #771867; }
+.c-lime { color: #3F6B1C; }

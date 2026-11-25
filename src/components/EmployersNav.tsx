@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { CALENDLY_URL } from '@/lib/constants';
 import { Nav, type NavProps } from './Nav';

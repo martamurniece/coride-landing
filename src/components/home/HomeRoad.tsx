@@ -5,23 +5,24 @@ import Image from 'next/image';
 
 const CORNER = 30;
 
-const NODE_COLORS = [
-  { c: '#1B4FCF', s: 'rgba(27,79,207,0.14)' },
-  { c: '#F26B1F', s: 'rgba(242,107,31,0.16)' },
-  { c: '#B5279E', s: 'rgba(181,39,158,0.16)' },
-  { c: '#0CA64A', s: 'rgba(12,166,74,0.16)' },
-  { c: '#1B4FCF', s: 'rgba(27,79,207,0.14)' },
-  { c: '#F26B1F', s: 'rgba(242,107,31,0.16)' },
-  { c: '#0CA64A', s: 'rgba(12,166,74,0.16)' },
-  { c: '#B5279E', s: 'rgba(181,39,158,0.16)' },
-  { c: '#7EC242', s: 'rgba(126,194,66,0.18)' },
-  { c: '#1f1f1f', s: 'rgba(31,31,31,0.12)' },
-];
+const COLORS: Record<string, { c: string; s: string }> = {
+  blue: { c: '#1B4FCF', s: 'rgba(27,79,207,0.14)' },
+  orange: { c: '#F26B1F', s: 'rgba(242,107,31,0.16)' },
+  green: { c: '#0CA64A', s: 'rgba(12,166,74,0.16)' },
+  magenta: { c: '#B5279E', s: 'rgba(181,39,158,0.16)' },
+  lime: { c: '#7EC242', s: 'rgba(126,194,66,0.18)' },
+  brown: { c: '#8A5A2B', s: 'rgba(138,90,43,0.16)' },
+  ink: { c: '#1F1F1F', s: 'rgba(31,31,31,0.12)' },
+};
+
+// Below this width the page switches to the single-column layout with a
+// straight rail down the left edge.
+const DESKTOP_BP = 1024;
 
 interface Point {
   x: number;
   y: number;
-  node?: number;
+  color?: string;
 }
 
 function roundedPath(pts: Point[], R: number): string {
@@ -43,7 +44,7 @@ function roundedPath(pts: Point[], R: number): string {
   return d;
 }
 
-export function RouteOverlay() {
+export function HomeRoad() {
   const layerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const trackRef = useRef<SVGPathElement>(null);
@@ -62,7 +63,8 @@ export function RouteOverlay() {
     dir: 1,
   });
 
-  const ensureNodes = useCallback((n: number) => {
+  const ensureNodes = useCallback((colors: string[]) => {
+    const n = colors.length;
     const layer = layerRef.current;
     if (!layer) return;
     while (nodeEls.current.length < n) {
@@ -72,9 +74,11 @@ export function RouteOverlay() {
       nodeEls.current.push(el);
     }
     nodeEls.current.forEach((el, i) => {
-      if (NODE_COLORS[i]) {
-        el.style.setProperty('--nc', NODE_COLORS[i].c);
-        el.style.setProperty('--nc-soft', NODE_COLORS[i].s);
+      const col = COLORS[colors[i]];
+      el.style.display = i < n ? '' : 'none';
+      if (col) {
+        el.style.setProperty('--nc', col.c);
+        el.style.setProperty('--nc-soft', col.s);
       }
     });
   }, []);
@@ -98,99 +102,88 @@ export function RouteOverlay() {
       const p = page.getBoundingClientRect();
       return { l: b.left - p.left, t: b.top - p.top, r: b.right - p.left, btm: b.bottom - p.top };
     };
-    const cx = (r: ReturnType<typeof rel>) => (r.l + r.r) / 2;
     const cy = (r: ReturnType<typeof rel>) => (r.t + r.btm) / 2;
 
-    const c1El = page.querySelector('#card1');
-    const c2El = page.querySelector('#card2');
-    const c3El = page.querySelector('#card3');
-    const c4El = page.querySelector('#card4');
-    const gridEl = page.querySelector('.pgrid');
-    const problemEl = page.querySelector('.problem');
-    if (!c1El || !c2El || !c3El || !c4El || !gridEl || !problemEl) return;
+    const hero = page.querySelector('#hero');
+    const problem = page.querySelector('#problem');
+    const numbers = page.querySelector('#numbers');
+    const proof = page.querySelector('#proof');
+    const how = page.querySelector('#how');
+    const stations = [...page.querySelectorAll('.hStation')];
+    if (!hero || !problem || !numbers || !proof || !how || stations.length !== 5) return;
 
-    // Derive rail & station X positions from actual section padding so the
-    // route scales correctly on tablet (768-1023) without hard-coded 1440 values
-    const pStyle = getComputedStyle(problemEl);
-    const padL = parseFloat(pStyle.paddingLeft) || 56;
-    const padR = parseFloat(pStyle.paddingRight) || 56;
-    const rl = padL;
-    const rr = W - padR;
-    // Anchor the route start to the nav logo so the car + spine line up with
-    // the wordmark at every breakpoint (nav height/padding change on mobile).
     const logoEl = page.querySelector('.nav .word');
-    let heroX = rl;
-    let heroY = 38;
-    if (logoEl) {
-      const lr = rel(logoEl);
-      heroX = lr.l;
-      heroY = (lr.t + lr.btm) / 2;
-    }
-    const cw = rr - rl;
-    const sxL = Math.round(rl + cw * 0.214);
-    const sxR = Math.round(rl + cw * 0.786);
-    const sx = [sxL, sxR, sxL, sxR, sxL];
-
-    const c1 = rel(c1El), c2 = rel(c2El), c3 = rel(c3El), c4 = rel(c4El);
-    const grid = rel(gridEl);
-    const problem = rel(problemEl);
-    const topY = problem.t - 30;
-    const botY = grid.btm + 52;
-
-    let endDocY = -1;
     const pts: Point[] = [];
-    pts.push({ x: heroX, y: heroY });
-    pts.push({ x: rl, y: topY });
-    pts.push({ x: cx(c1), y: topY, node: 0 });
-    pts.push({ x: rr, y: topY });
-    pts.push({ x: rr, y: cy(c2), node: 1 });
-    pts.push({ x: rr, y: cy(c4), node: 2 });
-    pts.push({ x: rr, y: botY });
-    pts.push({ x: cx(c3), y: botY, node: 3 });
-    pts.push({ x: rl, y: botY });
+    let heroX: number;
+    let heroY: number;
+    let endDocY = -1;
+    const pageTop = page.getBoundingClientRect().top + window.scrollY;
 
-    const rows = [...page.querySelectorAll('.s3Row')];
-    if (rows.length === 5) {
-      const lab = rows.map((r) => {
-        const lr = rel(r.querySelector('.s3Label')!);
-        return (lr.t + lr.btm) / 2;
+    if (W >= DESKTOP_BP) {
+      const xl = 56;
+      const xr = W - 56;
+      heroX = xl;
+      heroY = logoEl ? cy(rel(logoEl)) : 38;
+      const he = rel(hero);
+      const pr = rel(problem);
+      const hw = rel(how);
+      const nodeX = xl + (xr - xl) * 0.291;
+      const y1 = he.btm - 30;
+      const y2 = pr.btm - 40;
+      const headC = (sec: Element) => cy(rel(sec.querySelector('h2') ?? sec));
+      const st = stations.map((el) => {
+        const r = rel(el);
+        const lab = el.querySelector('.hStationLabel');
+        return {
+          x: el.classList.contains('right') ? r.r + 128 : r.l - 128,
+          labY: lab ? cy(rel(lab)) : r.t,
+          t: r.t,
+        };
       });
-      const txt = rows.map((r) => rel(r.querySelector('.s3Text')!));
-      // Approach the first station with a straight vertical run (like the others)
-      // instead of letting the dot sit on the bend: turn in above the station,
-      // staying clear of the section subhead, then drop straight into the dot.
-      const subEl = page.querySelector('.howSubhead');
-      const subBtm = subEl ? rel(subEl).btm : topY;
-      const turnY0 = Math.max(lab[0] - 96, subBtm + 36);
-      pts.push({ x: rl, y: turnY0 });
-      pts.push({ x: sx[0], y: turnY0 });
-      pts.push({ x: sx[0], y: lab[0], node: 4 });
-      for (let i = 1; i < 5; i++) {
-        const gapY = (txt[i - 1].btm + txt[i].t) / 2;
-        pts.push({ x: sx[i - 1], y: gapY });
-        pts.push({ x: sx[i], y: gapY });
-        pts.push({ x: sx[i], y: lab[i], node: 4 + i });
-      }
+      const yh = st[0].t - 121;
+      const colors = ['blue', 'orange', 'green', 'magenta', 'lime'];
 
-      const signupEl = page.querySelector('.signup');
-      if (signupEl) {
-        const su = rel(signupEl);
-        const fx = (su.l + su.r) / 2;
-        // Turn toward the final stop well above the signup so the car settles on
-        // a longer straight run rather than right on the horizontal bend.
-        const gapY = su.t - 96;
-        pts.push({ x: sx[4], y: gapY });
-        pts.push({ x: fx, y: gapY });
-        pts.push({ x: fx, y: su.t, node: 9 });
-        endDocY = signupEl.getBoundingClientRect().top + window.scrollY;
-      }
+      pts.push({ x: xl, y: heroY });
+      pts.push({ x: xl, y: y1 });
+      pts.push({ x: nodeX, y: y1, color: 'orange' });
+      pts.push({ x: xr, y: y1 });
+      pts.push({ x: xr, y: pr.t + (pr.btm - pr.t) * 0.46, color: 'green' });
+      pts.push({ x: xr, y: y2 });
+      pts.push({ x: nodeX, y: y2, color: 'magenta' });
+      pts.push({ x: xl, y: y2 });
+      pts.push({ x: xl, y: headC(numbers), color: 'lime' });
+      pts.push({ x: xl, y: headC(proof), color: 'brown' });
+      pts.push({ x: xl, y: yh });
+      st.forEach((s, i) => {
+        if (i === 0) pts.push({ x: s.x, y: yh });
+        pts.push({ x: s.x, y: s.labY, color: colors[i] });
+        const rowY = i < 4 ? st[i + 1].t - 96 : hw.btm - 96;
+        pts.push({ x: s.x, y: rowY });
+        pts.push({ x: i < 4 ? st[i + 1].x : W / 2, y: rowY });
+      });
+      const endY = hw.btm - 6;
+      pts.push({ x: W / 2, y: endY, color: 'ink' });
+      endDocY = endY + pageTop;
+    } else {
+      // Single column: a straight rail down the left edge with a stop at each
+      // section heading and station.
+      const x = 19;
+      heroX = x;
+      heroY = 44;
+      pts.push({ x, y: heroY });
+      page.querySelectorAll('.hMNode').forEach((m) => {
+        const col = (m as HTMLElement).dataset.color ?? 'ink';
+        pts.push({ x, y: cy(rel(m)), color: col });
+      });
+      const endY = rel(how).btm;
+      pts.push({ x, y: endY, color: 'ink' });
+      endDocY = endY + pageTop;
     }
 
-    const nodePts: Point[] = [];
-    pts.forEach((p) => { if (p.node != null) nodePts[p.node] = p; });
-    ensureNodes(nodePts.length);
+    const nodePts = pts.filter((p) => p.color);
+    ensureNodes(nodePts.map((p) => p.color as string));
 
-    const d = roundedPath(pts, CORNER);
+    const d = roundedPath(pts, W >= DESKTOP_BP ? CORNER : 0);
     track.setAttribute('d', d);
     drawn.setAttribute('d', d);
 

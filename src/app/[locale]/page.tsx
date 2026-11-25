@@ -1,15 +1,18 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Nav } from '@/components/Nav';
-import { Hero } from '@/components/Hero';
-import { Problem } from '@/components/Problem';
-import { HowItWorks } from '@/components/HowItWorks';
+import { HomeHero } from '@/components/home/HomeHero';
+import { HomeProblem } from '@/components/home/HomeProblem';
+import { HomeImpact } from '@/components/home/HomeImpact';
+import { HomeBackers } from '@/components/home/HomeBackers';
+import { HomeHow } from '@/components/home/HomeHow';
+import { HomeRoad } from '@/components/home/HomeRoad';
 import { SignupForm } from '@/components/SignupForm';
 import { Footer } from '@/components/Footer';
-import { RouteSwitch } from '@/components/RouteSwitch';
 import { messages } from '@/i18n/messages';
 import { isLocale } from '@/i18n/types';
 import { buildPageMetadata } from '@/i18n/metadata';
+import '@/styles/home.css';
 
 export async function generateMetadata({
   params,
@@ -36,14 +39,16 @@ export default async function Home({
   if (!isLocale(locale)) notFound();
 
   return (
-    <div className="page">
+    <div className="page homePage">
       <Nav ctaHref="#signup" />
-      <RouteSwitch />
-      <Hero />
-      <Problem />
-      <HowItWorks />
+      <HomeRoad />
+      <HomeHero />
+      <HomeProblem />
+      <HomeImpact />
+      <HomeBackers />
+      <HomeHow />
       <SignupForm />
-      <Footer />
+      <Footer showSupport={false} />
     </div>
   );
 }

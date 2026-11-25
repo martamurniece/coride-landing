@@ -5,7 +5,7 @@ import { useLocale } from '@/i18n/LocaleProvider';
 import { localePath } from '@/i18n/metadata';
 import { CALENDLY_URL } from '@/lib/constants';
 
-type Branch = 'individual' | 'employer' | 'partner';
+type Branch = 'individual' | 'employer';
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 export function SignupForm() {
@@ -87,34 +87,17 @@ export function SignupForm() {
     // Honeypot field value
     const honeypot = (form.querySelector('input[name="website"]') as HTMLInputElement)?.value ?? '';
 
-    let payload: Record<string, unknown>;
+    const name = (form.querySelector('input[name="name"]') as HTMLInputElement)?.value ?? '';
+    const email = (form.querySelector('input[name="email"]') as HTMLInputElement)?.value ?? '';
+    const company = (form.querySelector('input[name="company"]') as HTMLInputElement)?.value ?? '';
 
-    if (branch === 'individual') {
-      const name = (form.querySelector('input[name="name"]') as HTMLInputElement)?.value ?? '';
-      const email = (form.querySelector('input[name="email"]') as HTMLInputElement)?.value ?? '';
-      const company = (form.querySelector('input[name="company"]') as HTMLInputElement)?.value ?? '';
-
-      if (!name || !email || !company) {
-        setErrorMsg(t.signup.errors.required);
-        setStatus('error');
-        return;
-      }
-
-      payload = { role: 'individual', name, email, company, consent: true, website: honeypot };
-    } else {
-      const businessName = (form.querySelector('input[name="businessName"]') as HTMLInputElement)?.value ?? '';
-      const contactName = (form.querySelector('input[name="contactName"]') as HTMLInputElement)?.value ?? '';
-      const email = (form.querySelector('input[name="partnerEmail"]') as HTMLInputElement)?.value ?? '';
-      const perkIdea = (form.querySelector('input[name="perkIdea"]') as HTMLInputElement)?.value ?? '';
-
-      if (!businessName || !contactName || !email) {
-        setErrorMsg(t.signup.errors.required);
-        setStatus('error');
-        return;
-      }
-
-      payload = { role: 'partner', businessName, contactName, email, perkIdea, consent: true, website: honeypot };
+    if (!name || !email || !company) {
+      setErrorMsg(t.signup.errors.required);
+      setStatus('error');
+      return;
     }
+
+    const payload = { role: 'individual', name, email, company, consent: true, website: honeypot };
 
     try {
       const res = await fetch('/api/signup', {
@@ -172,13 +155,6 @@ export function SignupForm() {
                 desc={t.signup.branches.employer.desc}
                 checked={branch === 'employer'}
                 onChange={() => handleBranchChange('employer')}
-              />
-              <RadioOption
-                value="partner"
-                title={t.signup.branches.partner.title}
-                desc={t.signup.branches.partner.desc}
-                checked={branch === 'partner'}
-                onChange={() => handleBranchChange('partner')}
               />
             </div>
           </>
@@ -243,17 +219,6 @@ export function SignupForm() {
           {/* Employer */}
           <div className={`branch ${branch === 'employer' ? 'active' : ''}`}>
             <p className="branchMsg">{t.signup.employerMsg}</p>
-            <button className="formCta" type="button" onClick={handleBookCall}>
-              {t.signup.bookCall} <span className="arr">→</span>
-            </button>
-            <div className="emailNote">
-              {t.signup.emailNote} <a href="mailto:info@coride.org">info@coride.org</a>
-            </div>
-          </div>
-
-          {/* Partner */}
-          <div className={`branch ${branch === 'partner' ? 'active' : ''}`}>
-            <p className="branchMsg">{t.signup.partnerMsg}</p>
             <button className="formCta" type="button" onClick={handleBookCall}>
               {t.signup.bookCall} <span className="arr">→</span>
             </button>

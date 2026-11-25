@@ -1,197 +1,157 @@
 'use client';
 
-import Image from 'next/image';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { CALENDLY_URL } from '@/lib/constants';
-import { RouteBand } from './RouteBand';
+import { AdminTimeline } from './employers/AdminTimeline';
+import { ReportDemo } from './employers/ReportDemo';
 
-const AFTER_LOT = [
-  'car',
-  'free',
-  'free',
-  'free',
-  'free',
-  'free',
-  'car',
-  'free',
-  'free',
-  'free',
-  'free',
-  'car',
-  'free',
-  'free',
-  'free',
-  'free',
-] as const;
+const STEP_COLORS = ['blue', 'orange', 'green', 'magenta'];
+const FEATURE_COLORS = ['blue', 'green', 'magenta'];
 
-function CarCell() {
+function SecMark({ color }: { color: string }) {
   return (
-    <div className="ba-cell car">
-      <Image src="/assets/coride-car.png" alt="" width={30} height={15} />
+    <div className="emMark" aria-hidden="true" style={{ ['--mc' as string]: `var(--${color})` }}>
+      <span />
+      <span />
     </div>
   );
 }
-
-function BeforeAfterVisual() {
-  const { t } = useLocale();
-
-  return (
-    <div
-      className="diagram hv hv2"
-      aria-label={t.employers.hero.baAria}
-    >
-      <div className="ba">
-        <div className="ba-col before">
-          <div className="ba-label">
-            <span className="swatch" />
-            {t.employers.hero.baBefore}
-          </div>
-          <div className="ba-grid">
-            {Array.from({ length: 16 }, (_, i) => (
-              <CarCell key={`before-${i}`} />
-            ))}
-          </div>
-        </div>
-        <div className="ba-arrow" aria-hidden="true">
-          →
-        </div>
-        <div className="ba-col after">
-          <div className="ba-label">
-            <span className="swatch" />
-            {t.employers.hero.baAfter}
-          </div>
-          <div className="ba-grid">
-            {AFTER_LOT.map((kind, i) =>
-              kind === 'car' ? (
-                <CarCell key={`after-${i}`} />
-              ) : (
-                <div className="ba-cell free" key={`after-${i}`}>
-                  <span className="d" />
-                </div>
-              ),
-            )}
-          </div>
-        </div>
-      </div>
-      <p className="ba-cap">{t.employers.hero.baCap}</p>
-    </div>
-  );
-}
-
 
 export function EmployersContent() {
   const { t } = useLocale();
+  const e = t.employers;
 
   return (
     <>
-      <header className="hero">
-        <div className="empHeroInner">
-          <div className="heroContent">
-            <h1>{t.employers.hero.title}</h1>
-            <p className="heroSub">{t.employers.hero.sub}</p>
-            <div className="ctaRow">
-              <a className="btnPrimary" href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                {t.employers.hero.ctaPrimary} <span className="arr">→</span>
-              </a>
-              <a className="btnGhost" href="#how">
-                <span className="ico">↓</span> {t.employers.hero.ctaGhost}
-              </a>
-            </div>
+      <header className="emHero">
+        <div className="emHeroCopy">
+          <h1>{e.hero.title}</h1>
+          <p className="emHeroSub">{e.hero.sub}</p>
+          <div className="cCtaRow">
+            <a className="cBtn" href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              <span>{e.hero.ctaPrimary}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <a className="cGhost" href="#how">
+              <span className="cGhostIcon" aria-hidden="true">↓</span>
+              <span>{e.hero.ctaGhost}</span>
+            </a>
           </div>
-          <div className="empHeroVisual">
-            <BeforeAfterVisual />
-          </div>
+        </div>
+        <div className="emHeroVisual">
+          <AdminTimeline />
         </div>
       </header>
 
-      <section className="section section-first" id="cost">
-        <div className="section-head">
-          <div className="station line-orange">
-            <span className="tick" />
-            <span className="node" />
-          </div>
-          <h2>{t.employers.cost.title}</h2>
-          <p className="lead">{t.employers.cost.lead}</p>
+      <section className="emSec" id="value">
+        <div className="emHead">
+          <SecMark color="green" />
+          <h2>{e.value.title}</h2>
+          <p>{e.value.lead}</p>
         </div>
-        <div className="grid cols-2">
-          {t.employers.cost.cards.map((card) => (
-            <article className={`cell ${card.line}`} key={card.title}>
-              <div className="cell-mark">
-                <span className="node" />
-              </div>
-              <h3>{card.title}</h3>
-              <p>{card.desc}</p>
+        <div className="emTiles">
+          <article className="emTile emTileBig">
+            <p className="emToday">{e.value.big.today}</p>
+            <h3>{e.value.big.title}</h3>
+            <p>{e.value.big.desc}</p>
+          </article>
+          {e.value.cards.map((c) => (
+            <article key={c.title} className={`emTile tint-${c.color}`}>
+              <span className="emTileDot" aria-hidden="true" />
+              {c.today && <p className="emToday">{c.today}</p>}
+              <h3>{c.title}</h3>
+              <p>{c.desc}</p>
             </article>
           ))}
+          <article className="emTile emTileWide tint-lime">
+            <span className="emTileDot" aria-hidden="true" />
+            <h3>{e.value.wide.title}</h3>
+            <p>{e.value.wide.desc}</p>
+          </article>
         </div>
       </section>
 
-      <section className="section" id="value">
-        <div className="section-head">
-          <div className="station line-green">
-            <span className="tick" />
-            <span className="node" />
-          </div>
-          <h2>{t.employers.value.title}</h2>
-          <p className="lead">{t.employers.value.lead}</p>
+      <section className="emSec" id="admin">
+        <div className="emHead">
+          <SecMark color="blue" />
+          <h2>{e.admin.title}</h2>
+          <p>{e.admin.lead}</p>
         </div>
-        <div className="grid cols-2">
-          {t.employers.value.cards.map((card) => (
-            <article
-              className={`cell ${card.line}${'span2' in card && card.span2 ? ' span-2' : ''}`}
-              key={card.title}
-            >
-              <div className="cell-mark">
-                <span className="node" />
-              </div>
-              <h3>{card.title}</h3>
-              <p>{card.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section" id="how">
-        <div className="section-head">
-          <div className="station line-magenta">
-            <span className="tick" />
-            <span className="node" />
-          </div>
-          <h2>{t.employers.how.title}</h2>
-          <p className="lead">{t.employers.how.lead}</p>
-        </div>
-        <div className="metro">
-          <div className="metro-line" />
-          <div className="metro-stops">
-            {t.employers.how.steps.map((step) => (
-              <div className={`stop ${step.line}`} key={step.step}>
-                <span className="dot" />
-                <div className="stepno">{t.employers.how.step} {step.step}</div>
-                <h3>{step.title}</h3>
-                <p>{step.desc}</p>
+        <div className="emAdmin">
+          <div className="emFeatures">
+            {e.admin.features.map((f, i) => (
+              <div key={f.title} className="emFeature">
+                <span aria-hidden="true" style={{ background: `var(--${FEATURE_COLORS[i]})` }} />
+                <div>
+                  <h3>{f.title}</h3>
+                  <p>{f.desc}</p>
+                </div>
               </div>
             ))}
           </div>
+          <div className="emAdminVisual">
+            <ReportDemo />
+          </div>
         </div>
       </section>
 
-      <RouteBand
-        title={t.employers.pilot.title}
-        body={t.employers.pilot.body}
-        carAria={t.employers.pilot.carAria}
-      />
-
-      <section className="closing">
-        <h2>{t.employers.closing.title}</h2>
-        <p>{t.employers.closing.body}</p>
-        <div className="ctaRow">
-          <a className="btnPrimary" href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-            {t.employers.closing.cta} <span className="arr">→</span>
-          </a>
+      <section className="emSec" id="how">
+        <div className="emHead">
+          <SecMark color="magenta" />
+          <h2>{e.how.title}</h2>
+          <p>{e.how.lead}</p>
         </div>
-        <div className="email-note">
-          {t.employers.closing.emailNote}{' '}
-          <a href="mailto:info@coride.org">info@coride.org</a>
+        <div className="emSteps">
+          <div className="emStepsLine" aria-hidden="true" />
+          <ol>
+            {e.how.steps.map((s, i) => (
+              <li key={s.title}>
+                <span className="emStepDot" aria-hidden="true" style={{ borderColor: `var(--${STEP_COLORS[i]})` }} />
+                <div className={`emStepNum c-${STEP_COLORS[i]}`}>
+                  {e.how.step} {String(i + 1).padStart(2, '0')}
+                </div>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="emSec emClosingSec" id="signup">
+        <div className="emClosing">
+          <div className="emClosingRow">
+            <div className="emClosingLeft">
+              <div className="emClosingLabel">
+                <span aria-hidden="true" />
+                <span>{e.closing.label}</span>
+              </div>
+              <h2>{e.closing.title}</h2>
+            </div>
+            <div className="emClosingRight">
+              <p>{e.closing.body}</p>
+              <a className="cBtn cBtnLight" href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+                <span>{e.closing.cta}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <p className="emClosingEmail">
+                {e.closing.emailNote} <a href="mailto:info@coride.org">info@coride.org</a>
+              </p>
+            </div>
+          </div>
+          <div className="emClosingRoad" aria-hidden="true">
+            <div className="emClosingRoadLine" />
+            <span className="emClosingCar">
+              <svg width="44" height="21" viewBox="0 0 44 21">
+                <rect x="1" y="1.5" width="42" height="18" rx="7" fill="#F7F7F7" />
+                <rect x="27" y="4" width="7" height="13" rx="2.5" fill="#8C8C8C" />
+                <rect x="9" y="4" width="5" height="13" rx="2" fill="#C4C4C4" />
+              </svg>
+            </span>
+            <span className="emClosingStop" style={{ left: '37%', borderColor: 'var(--orange)' }} />
+            <span className="emClosingStop" style={{ left: '67%', borderColor: 'var(--green)' }} />
+            <span className="emClosingStop emClosingEnd" />
+          </div>
         </div>
       </section>
     </>
