@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocale } from '@/i18n/LocaleProvider';
 
 type PersonId = 'ak' | 'tv';
@@ -17,6 +17,13 @@ const STREETS = [
   'M20,56 H540', 'M20,150 H540', 'M20,210 H540', 'M20,262 H540', 'M20,340 H540',
   'M110,20 V390', 'M200,20 V390', 'M350,20 V390', 'M450,20 V390', 'M280,20 V390',
 ];
+// Example fuel shares in cents. The app splits by distance driven, so Anna
+// (picked up first, rides further) pays a little more than Toms.
+const SHARE_CENTS: Record<PersonId, number> = { ak: 160, tv: 120 };
+const COIN_START = 500; // ms into the Save step before the first coin leaves
+const COIN_GAP = 900; // ms between coins
+const COIN_FLY = 750; // ms a coin takes to reach the wallet
+const COUNT_UP = 450; // ms the wallet total takes to count up per share
 const SPEED = 0.13; // map units per ms
 const DWELL = 1100; // pause at each pick-up, ms
 
@@ -106,7 +113,7 @@ const PHASES: { step: number; added?: Added; d?: number }[] = [
   { step: 0, added: {}, d: 2600 },
   { step: 0, added: { ak: true, tv: true }, d: 2600 },
   { step: 1 },
-  { step: 2, d: 4600 },
+  { step: 2, d: 6200 },
 ];
 
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
@@ -118,6 +125,7 @@ export function HeroDemo() {
   const [added, setAdded] = useState<Added>({});
   const [interacted, setInteracted] = useState(false);
   const [rideT, setRideT] = useState(0);
+  const [saveT, setSaveT] = useState(0);
   const [cycle, setCycle] = useState(0);
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -149,15 +157,33 @@ export function HeroDemo() {
     raf.current = requestAnimationFrame(tick);
   }, []);
 
+  const startSave = useCallback(() => {
+    stopRide();
+    const total = COIN_START + COIN_GAP * 2 + COIN_FLY + COUNT_UP + 100;
+    if (reducedRef.current) {
+      setSaveT(total);
+      return;
+    }
+    const t0 = performance.now();
+    setSaveT(0);
+    const tick = (now: number) => {
+      const el = now - t0;
+      setSaveT(el);
+      if (el < total) raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+  }, []);
+
   const goTo = useCallback(
     (s: number, a: Added) => {
       addedRef.current = a;
       setAdded(a);
       setStep(s);
       if (s === 1) startRide(a);
+      else if (s === 2) startSave();
       else stopRide();
     },
-    [startRide],
+    [startRide, startSave],
   );
 
   const scheduleRef = useRef<() => void>(() => {});
@@ -201,6 +227,26 @@ export function HeroDemo() {
     };
   }, [goTo, schedule]);
 
+  // Coin flight paths: from each pin on the map to the wallet total. Layout
+  // effect so a new coin never paints at its default spot first.
+  useLayoutEffect(() => {
+    if (step !== 2) return;
+    const root = rootRef.current;
+    const target = root?.querySelector('.hdWalletSum');
+    if (!root || !target) return;
+    const rr = root.getBoundingClientRect();
+    const tr = target.getBoundingClientRect();
+    root.querySelectorAll<HTMLElement>('.hdCoin').forEach((coin) => {
+      const pin = root.querySelector(`.hdPin[data-id="${coin.dataset.id}"] .hdPinDot`);
+      if (!pin) return;
+      const pr = pin.getBoundingClientRect();
+      coin.style.left = `${pr.left + pr.width / 2 - rr.left}px`;
+      coin.style.top = `${pr.top + pr.height / 2 - rr.top}px`;
+      coin.style.setProperty('--dx', `${tr.left + tr.width / 2 - (pr.left + pr.width / 2)}px`);
+      coin.style.setProperty('--dy', `${tr.top + tr.height / 2 - (pr.top + pr.height / 2)}px`);
+    });
+  });
+
   const takeOver = () => {
     window.clearTimeout(timer.current);
     interactedRef.current = true;
@@ -238,7 +284,7 @@ export function HeroDemo() {
   const pts = routePts(added);
   const route = 'M' + pts.map((p) => `${p[0]},${p[1]}`).join(' L');
   const ride = step === 1 ? rideState(rideT, added) : null;
-  const durs = [5200, plan(added).duration + 900, 4600];
+  const durs = [5200, plan(added).duration + 900, 6200];
   const names = [ak ? 'Anna' : null, tv ? 'Toms' : null].filter(Boolean) as string[];
 
   let cardTitle: string;
@@ -281,6 +327,19 @@ export function HeroDemo() {
   }
 
   const pos = ride ? ride.pos : { x: 110, y: 340, ang: -90 };
+
+  // Save step: each colleague's fuel share flies into the wallet, in pick-up order.
+  const payers = PEOPLE.filter((p) => added[p.id]);
+  const coins = payers.map((p, i) => {
+    const leave = COIN_START + i * COIN_GAP;
+    const land = leave + COIN_FLY;
+    return { p, i, leave, land, flying: saveT >= leave && saveT < land, landed: saveT >= land };
+  });
+  const walletCents = coins.reduce(
+    (sum, c) => sum + SHARE_CENTS[c.p.id] * Math.min(1, Math.max(0, (saveT - c.land) / COUNT_UP)),
+    0,
+  );
+  const money = (cents: number) => fmt(d.money, { v: (cents / 100).toFixed(2).replace('.', d.decimal) });
 
   return (
     <div className="hd" ref={rootRef}>
@@ -336,7 +395,7 @@ export function HeroDemo() {
           const picked = on && (step === 2 || (!!ride && !!ride.picked[p.id]));
           const match = step === 0;
           return (
-            <div key={p.id} className="hdPin" style={{ left: pct(p.x, MAP_W), top: pct(p.y, MAP_H) }}>
+            <div key={p.id} className="hdPin" data-id={p.id} style={{ left: pct(p.x, MAP_W), top: pct(p.y, MAP_H) }}>
               <div className="hdPinDot">
                 {match && !on && <span aria-hidden="true" className="hdPing" />}
                 <button
@@ -392,12 +451,42 @@ export function HeroDemo() {
           </button>
         </div>
         {step === 2 && n > 0 && (
-          <div className="hdChips">
-            <span className="hdChip hdChipOrange">{fmt(d.chipFuel, { n: n + 1 })}</span>
-            <span className="hdChip hdChipGreen">{fmt(d.chipCar, { n: n + 1 })}</span>
+          <div className="hdWallet">
+            <div className="hdWalletRow">
+              <span className="hdWalletIcon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+                  <rect x="2" y="4.5" width="14" height="10" rx="2.5" />
+                  <path d="M12 9.5h4" strokeLinecap="round" />
+                  <path d="M4 4.5l7-2.5 1 2.5" />
+                </svg>
+              </span>
+              <span className="hdWalletLabel">{d.wallet}</span>
+              <span className={`hdWalletSum${walletCents > 0 ? ' on' : ''}`}>
+                +{money(walletCents)}
+              </span>
+            </div>
+            <div className="hdChips">
+              <span className="hdChip hdChipOrange">{fmt(d.chipFuel, { n: n + 1 })}</span>
+              {coins
+                .filter((c) => c.landed)
+                .map((c) => (
+                  <span key={c.p.id} className="hdChip hdChipGreen hdChipIn">
+                    {fmt(d.shareFrom, { name: c.p.first, amount: money(SHARE_CENTS[c.p.id]) })}
+                  </span>
+                ))}
+            </div>
           </div>
         )}
       </div>
+
+      {step === 2 &&
+        coins
+          .filter((c) => c.flying)
+          .map((c) => (
+            <span key={`${c.p.id}-${cycle}`} data-id={c.p.id} className="hdCoin" aria-hidden="true">
+              €
+            </span>
+          ))}
     </div>
   );
 }

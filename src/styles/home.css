@@ -13,7 +13,7 @@
 .hHeroDemo { position: relative; z-index: 3; width: 560px; flex: none; margin-top: -72px; }
 
 /* ── Interactive demo card ── */
-.hd { width: 100%; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E8E8E8; border-radius: 28px; box-shadow: 0 30px 60px rgba(31,31,31,0.12); overflow: hidden; display: flex; flex-direction: column; }
+.hd { position: relative; width: 100%; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E8E8E8; border-radius: 28px; box-shadow: 0 30px 60px rgba(31,31,31,0.12); overflow: hidden; display: flex; flex-direction: column; }
 .hdTabs { display: flex; gap: 8px; padding: 16px 16px 0; }
 .hdTab { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0; border-radius: 9999px; border: 1px solid var(--line); background: #FFFFFF; color: var(--ink); font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; overflow: hidden; transition: background 200ms ease, color 200ms ease; }
 .hdTab:hover { filter: brightness(0.96); }
@@ -46,7 +46,7 @@
 .hdCar { position: absolute; width: 34px; height: 17px; pointer-events: none; }
 .hdCar svg { display: block; }
 
-.hdPanel { flex: 1; min-height: 132px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 18px 24px 20px; border-top: 1px solid #EEEEEE; }
+.hdPanel { flex: 1; min-height: 196px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 18px 24px 20px; border-top: 1px solid #EEEEEE; }
 .hdPanelRow { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .hdPanelText { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .hdPanelTitle { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; color: var(--ink); }
@@ -59,6 +59,22 @@
 .hdChip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 9999px; font-size: 13px; font-weight: 600; }
 .hdChipOrange { background: #FDE9DC; color: #9F4111; }
 .hdChipGreen { background: #E2F4E9; color: #086D30; }
+.hdChipIn { animation: hdPop .35s ease-out both; }
+
+/* wallet in the Save step */
+.hdWallet { display: flex; flex-direction: column; gap: 10px; animation: hdPop .35s ease-out both; }
+.hdWalletRow { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: #F7F7F7; }
+.hdWalletIcon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: #FFFFFF; color: var(--ink); flex: none; }
+.hdWalletLabel { flex: 1; font-size: 14px; font-weight: 600; color: var(--ink); }
+.hdWalletSum { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; color: #A8A8A8; font-variant-numeric: tabular-nums; transition: color .3s ease; }
+.hdWalletSum.on { color: #086D30; animation: hdBump .45s ease-out; }
+@keyframes hdBump { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.hdCoin { position: absolute; z-index: 5; display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--green); color: #FFFFFF; font-size: 13px; font-weight: 800; box-shadow: 0 4px 10px rgba(12,166,74,0.35); pointer-events: none; transform: translate(-50%, -50%); animation: hdCoinFly 750ms cubic-bezier(.45,0,.2,1) forwards; }
+@keyframes hdCoinFly {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+  15% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))) scale(0.7); opacity: 0.9; }
+}
 
 /* ── Sections ── */
 .hSec { position: relative; padding: 92px 124px 0; }
@@ -142,7 +158,7 @@
   .hd { border-radius: 22px; }
   .hdTabs { padding: 12px 12px 0; gap: 6px; }
   .hdTab { height: 40px; font-size: 13px; gap: 6px; }
-  .hdPanel { padding: 16px 18px 18px; min-height: 140px; }
+  .hdPanel { padding: 16px 18px 18px; min-height: 236px; }
   .hdPanelRow { flex-direction: column; align-items: flex-start; gap: 12px; }
   .hdPanelTitle { font-size: 17px; }
 
@@ -175,6 +191,7 @@
 }
 
 @media (max-width: 520px) {
+  .hdChipOrange { display: none; }
   .hdEta { top: auto; bottom: 10px; right: 10px; }
   .hdAdd { display: none; }
   .hdAdded { display: none; }

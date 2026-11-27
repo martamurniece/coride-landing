@@ -286,7 +286,10 @@ const en = {
       soloTitle: 'You drove alone today',
       soloSub: 'Add a colleague next time to split the fuel.',
       chipFuel: 'Fuel split {n} ways',
-      chipCar: '{n} people, 1 car',
+      wallet: 'Your wallet',
+      money: '€{v}',
+      decimal: '.',
+      shareFrom: '{name} +{amount}',
     },
   },
   home: {
@@ -749,7 +752,10 @@ const lv = {
       soloTitle: 'Šodien brauci viens',
       soloSub: 'Nākamreiz pievieno kolēģi un daliet degvielas izmaksas.',
       chipFuel: 'Degviela dalīta uz {n}',
-      chipCar: '{n} cilvēki, 1 auto',
+      wallet: 'Atguvums',
+      money: '{v} €',
+      decimal: ',',
+      shareFrom: '{name} +{amount}',
     },
   },
   home: {
