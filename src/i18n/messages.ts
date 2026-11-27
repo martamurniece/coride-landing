@@ -11,9 +11,7 @@ const en = {
     home: 'Home',
     joinWaitlist: 'Join the waitlist',
     forEmployers: 'For employers',
-    forPartners: 'For partners',
     bookCall: 'Book a demo',
-    becomePartner: 'Become a partner',
     menuAria: 'Toggle menu',
   },
   employers: {
@@ -129,119 +127,6 @@ const en = {
       title: 'Want to bring Coride to your workplace?',
       body: "We're working with a small number of employers to bring Coride to their teams first. If your workplace struggles with commute costs, parking, or access, let us show you how it works. No commitment.",
       cta: 'Book a demo',
-      emailNote: 'Or email us:',
-    },
-  },
-  partners: {
-    meta: {
-      title: 'Coride: For partners',
-      description:
-        'Reach loyal local customers on their way to work. Coride riders earn rewards from nearby businesses as part of their daily commute.',
-    },
-    hero: {
-      title: 'Become a stop on the daily route.',
-      sub:
-        'Coride riders earn rewards from nearby businesses as part of their daily commute. Become a partner and put your business in front of a steady stream of local customers — the people who pass you every day.',
-      ctaPrimary: 'Become a partner',
-      ctaGhost: 'How it works',
-      map: {
-        aria: 'A commute route from home to work with local businesses as stops along the way',
-        home: 'Home',
-        work: 'Work',
-        cafe: 'Café',
-        gym: 'Gym',
-        shop: 'Shop',
-        fuel: 'Fuel station',
-      },
-    },
-    why: {
-      title: 'Why partner with Coride.',
-      lead:
-        "Coride isn't another discount platform. It's a way to reach the people who already pass your door, every working day.",
-      cards: [
-        {
-          line: 'line-blue',
-          title: 'Reach customers where they already are',
-          desc:
-            'Coride puts your business in front of the commuters who pass your door every working day. The platform brings them to you.',
-        },
-        {
-          line: 'line-orange',
-          title: 'Customers who arrive ready to spend',
-          desc:
-            'Coride riders come to you as part of their routine — motivated and local, not one-off discount hunters passing through.',
-        },
-        {
-          line: 'line-green',
-          title: 'Become the local choice on their commute',
-          desc:
-            'Be the café, the gym, the shop, the stop that commuters choose on their way to and from work. A whole network of nearby workers, choosing you.',
-        },
-        {
-          line: 'line-magenta',
-          title: 'Repeat, routine visits',
-          desc:
-            "Commuting is daily. These aren't one-time customers — they pass you every working day, again and again.",
-        },
-      ],
-    },
-    how: {
-      title: 'How partnership works.',
-      lead: "We're shaping the partner programme together with our first partners.",
-      step: 'Step',
-      steps: [
-        {
-          line: 'line-blue',
-          step: '01',
-          title: 'Riders earn rewards through Coride',
-          desc: 'Every time colleagues co-ride, they earn rewards to spend with local partners.',
-        },
-        {
-          line: 'line-orange',
-          step: '02',
-          title: 'You offer something that fits',
-          desc:
-            "Cafés, gyms, shops, services — we'll work with you to find the right fit. No rigid formula.",
-        },
-        {
-          line: 'line-green',
-          step: '03',
-          title: 'Commuters discover and visit you',
-          desc: 'Riders find you through the app and come to you as part of their daily route.',
-        },
-        {
-          line: 'line-magenta',
-          step: '04',
-          title: 'We figure out the details together',
-          desc:
-            'As an early partner, you help shape how the programme works — and get in before anyone else.',
-        },
-      ],
-    },
-    local: {
-      title: 'Built for local businesses near where people work.',
-      body:
-        'Cafés, restaurants, gyms, shops, fuel stations, services — if commuters pass you on their way to and from work, Coride can bring them in.',
-      tags: [
-        { label: 'Cafés', color: 'line-orange' },
-        { label: 'Restaurants', color: 'line-blue' },
-        { label: 'Gyms', color: 'line-green' },
-        { label: 'Shops', color: 'line-magenta' },
-        { label: 'Fuel stations', color: 'line-brown' },
-        { label: 'Services', color: 'line-lime' },
-      ],
-    },
-    network: {
-      title: "We're building our first partner network now.",
-      body:
-        "We're talking to local businesses who want to be part of Coride from the start. Early partners help shape the programme and are the first commuters see when we launch.",
-      carAria: 'Move the car along the route',
-    },
-    closing: {
-      title: 'Interested in becoming a Coride partner?',
-      body:
-        "Let's talk about whether Coride fits your business. We're still shaping the programme, and your input helps build it.",
-      cta: 'Become a partner',
       emailNote: 'Or email us:',
     },
   },
@@ -383,7 +268,6 @@ const en = {
     branches: {
       individual: { title: 'An individual', desc: "I'd like to use Coride at my workplace." },
       employer: { title: 'An employer', desc: 'I want to bring Coride to my team.' },
-      partner: { title: 'A partner', desc: 'My business wants to offer perks to Coride riders.' },
     },
     fields: {
       name: 'Your name',
@@ -398,8 +282,6 @@ const en = {
     submitting: 'Submitting…',
     employerMsg:
       "We'd rather talk than have you fill a form. Pick a 30-minute slot and we'll walk you through what a Coride pilot looks like for your team.",
-    partnerMsg:
-      "Want to offer perks to Coride riders? Let's talk. Pick a 30-minute slot and we'll figure out a partnership that works for your business.",
     bookCall: 'Book a demo',
     emailNote: 'Or email us:',
     success: "We got it. We'll be in touch shortly.",
@@ -477,9 +359,7 @@ const lv = {
     home: 'Sākums',
     joinWaitlist: 'Piesakies agrīnai piekļuvei',
     forEmployers: 'Darba devējiem',
-    forPartners: 'Partneriem',
     bookCall: 'Pieteikt demo',
-    becomePartner: 'Kļūt par partneri',
     menuAria: 'Atvērt izvēlni',
   },
   employers: {
@@ -596,119 +476,6 @@ const lv = {
       body: 'Mēs sadarbojamies ar nelielu skaitu darba devēju, lai Coride vispirms nonāktu pie viņu komandām. Ja jūsu darbavietā ir grūtības ar ceļa izmaksām, stāvvietām vai piekļuvi, ļaujiet mums parādīt, kā tas darbojas. Bez saistībām.',
       cta: 'Pieteikt demo',
       emailNote: 'Vai rakstiet mums:',
-    },
-  },
-  partners: {
-    meta: {
-      title: 'Coride: Partneriem',
-      description:
-        'Sasniedz lojālus vietējos klientus viņu ikdienas ceļā uz darbu. Coride braucēji pelna bonusus pie tuvējiem uzņēmumiem.',
-    },
-    hero: {
-      title: 'Kļūsti par pieturu ikdienas maršrutā.',
-      sub:
-        'Coride braucēji ikdienas ceļā uz darbu pelna bonusus pie tuvējiem uzņēmumiem. Kļūsti par partneri un parādi savu uzņēmumu pastāvīgai vietējo klientu plūsmai — cilvēkiem, kas brauc tev garām katru dienu.',
-      ctaPrimary: 'Kļūt par partneri',
-      ctaGhost: 'Kā tas darbojas',
-      map: {
-        aria: 'Ceļš no mājām uz darbu ar vietējiem uzņēmumiem kā pieturām pa ceļam',
-        home: 'Mājas',
-        work: 'Darbs',
-        cafe: 'Kafejnīca',
-        gym: 'Sporta zāle',
-        shop: 'Veikals',
-        fuel: 'DUS',
-      },
-    },
-    why: {
-      title: 'Kāpēc sadarboties ar Coride.',
-      lead:
-        'Coride nav kārtējā atlaižu platforma. Tas ir veids, kā sasniegt cilvēkus, kas jau tagad katru darba dienu brauc garām tavām durvīm.',
-      cards: [
-        {
-          line: 'line-blue',
-          title: 'Sasniedz klientus tur, kur viņi jau ir',
-          desc:
-            'Coride parāda tavu uzņēmumu braucējiem, kas ik darba dienu brauc garām tavām durvīm. Platforma atved klientus pie tevis.',
-        },
-        {
-          line: 'line-orange',
-          title: 'Klienti, kas ierodas gatavi pirkt',
-          desc:
-            'Coride braucēji pie tevis iegriežas savas ikdienas gaitās — motivēti un vietēji, nevis vienreizēji atlaižu mednieki.',
-        },
-        {
-          line: 'line-green',
-          title: 'Kļūsti par viņu ikdienas izvēli',
-          desc:
-            'Esi tā kafejnīca, sporta zāle vai veikals, ko braucēji izvēlas ceļā uz darbu un mājām. Vesels apkārtnē strādājošo tīkls, kas izvēlas tevi.',
-        },
-        {
-          line: 'line-magenta',
-          title: 'Atkārtoti, regulāri apmeklējumi',
-          desc:
-            'Ceļš uz darbu ir katru dienu. Šie nav vienreizēji pircēji — viņi brauc tev garām katru darba dienu, atkal un atkal.',
-        },
-      ],
-    },
-    how: {
-      title: 'Kā darbojas partnerība.',
-      lead: 'Partneru programmu veidojam kopā ar pirmajiem partneriem.',
-      step: 'Solis',
-      steps: [
-        {
-          line: 'line-blue',
-          step: '01',
-          title: 'Braucēji pelna bonusus ar Coride',
-          desc: 'Katru reizi, kad kolēģi brauc kopā, viņi nopelna bonusus, ko tērēt pie vietējiem partneriem.',
-        },
-        {
-          line: 'line-orange',
-          step: '02',
-          title: 'Tu piedāvā ko piemērotu',
-          desc:
-            'Kafejnīcas, sporta zāles, veikali, pakalpojumi — kopā atradīsim īsto piedāvājumu. Bez stingras formulas.',
-        },
-        {
-          line: 'line-green',
-          step: '03',
-          title: 'Braucēji tevi atklāj un apciemo',
-          desc: 'Braucēji atrod tevi lietotnē un iegriežas pie tevis sava ikdienas maršruta laikā.',
-        },
-        {
-          line: 'line-magenta',
-          step: '04',
-          title: 'Detaļas izstrādājam kopā',
-          desc:
-            'Kā agrīnais partneris tu palīdzi veidot programmas darbību — un esi klāt pirms citiem.',
-        },
-      ],
-    },
-    local: {
-      title: 'Veidots vietējiem uzņēmumiem tur, kur cilvēki strādā.',
-      body:
-        'Kafejnīcas, restorāni, sporta zāles, veikali, degvielas uzpildes stacijas, pakalpojumi — ja braucēji tev brauc garām ceļā uz darbu un mājām, Coride var viņus atvest pie tevis.',
-      tags: [
-        { label: 'Kafejnīcas', color: 'line-orange' },
-        { label: 'Restorāni', color: 'line-blue' },
-        { label: 'Sporta zāles', color: 'line-green' },
-        { label: 'Veikali', color: 'line-magenta' },
-        { label: 'Degvielas stacijas', color: 'line-brown' },
-        { label: 'Pakalpojumi', color: 'line-lime' },
-      ],
-    },
-    network: {
-      title: 'Mēs jau tagad veidojam savu pirmo partneru tīklu.',
-      body:
-        'Mēs runājam ar vietējiem uzņēmumiem, kas vēlas būt daļa no Coride jau no paša sākuma. Agrīnie partneri palīdz veidot programmu, un tieši viņus braucēji ieraudzīs pirmos, kad sāksim.',
-      carAria: 'Pārvietot automašīnu pa maršrutu',
-    },
-    closing: {
-      title: 'Interesē kļūt par Coride partneri?',
-      body:
-        'Aprunāsimies, vai Coride der tavam uzņēmumam. Mēs vēl veidojam programmu, un tava pieredze palīdz to izveidot.',
-      cta: 'Kļūt par partneri',
-      emailNote: 'Vai raksti mums:',
     },
   },
   hero: {
@@ -849,7 +616,6 @@ const lv = {
     branches: {
       individual: { title: 'Privātpersona', desc: 'Vēlos izmantot Coride savā darbavietā.' },
       employer: { title: 'Darba devējs', desc: 'Vēlos ieviest Coride savā komandā.' },
-      partner: { title: 'Partneris', desc: 'Mans uzņēmums vēlas piedāvāt bonusus Coride braucējiem.' },
     },
     fields: {
       name: 'Tavs vārds',
@@ -864,8 +630,6 @@ const lv = {
     submitting: 'Nosūta…',
     employerMsg:
       'Mēs labprātāk runājam, nekā liekam aizpildīt formu. Izvēlies 30 minūšu sarunu, un mēs pastāstīsim, kā Coride izmēģinājums izskatās tavai komandai.',
-    partnerMsg:
-      'Vēlies piedāvāt bonusus Coride braucējiem? Parunāsim. Izvēlies 30 minūšu sarunu, un kopā atradīsim sadarbības modeli tavam uzņēmumam.',
     bookCall: 'Pieteikt demo',
     emailNote: 'Vai rakstiet mums:',
     success: 'Saņemts. Drīzumā sazināsimies.',

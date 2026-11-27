@@ -8,7 +8,7 @@ import { localePath } from '@/i18n/metadata';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export type NavProps = {
-  activeLink?: 'employers' | 'partners';
+  activeLink?: 'employers';
   ctaHref?: string;
   ctaLabel?: string;
   ctaExternal?: boolean;
@@ -23,7 +23,6 @@ export function Nav({ activeLink, ctaHref, ctaLabel, ctaExternal }: NavProps = {
 
   const home = localePath(locale, '/');
   const employers = localePath(locale, '/employers');
-  const partners = localePath(locale, '/partners');
 
   return (
     <nav className="nav">
@@ -45,13 +44,6 @@ export function Nav({ activeLink, ctaHref, ctaLabel, ctaExternal }: NavProps = {
             onClick={() => setOpen(false)}
           >
             {t.nav.forEmployers}
-          </Link>
-          <Link
-            href={partners}
-            className={pathname === partners || activeLink === 'partners' ? 'current' : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {t.nav.forPartners}
           </Link>
         </div>
         {ctaHref ? (

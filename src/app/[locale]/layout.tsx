@@ -7,7 +7,6 @@ import { LOCALES, isLocale } from '@/i18n/types';
 import OrganizationSchema from '../organization-schema';
 import '../../styles/globals.css';
 import '../../styles/ui.css';
-import '../../styles/hero.css';
 import '../../styles/nav.css';
 import '../../styles/signup.css';
 import '../../styles/footer.css';
